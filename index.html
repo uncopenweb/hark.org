@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hark the Sound</title>
+    <style type="text/css">
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dojo/resources/dojo.css";
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dijit/themes/tundra/tundra.css";
+      @import "css/application.css";
+    </style>
+    <script type="text/javascript">
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            baseUrl: './',
+            modulePaths: {'org.hark' : 'widgets'}
+        };
+    </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dojo/dojo.xd.js"></script>
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dijit/dijit.xd.js"></script>-->
+    <script type="text/javascript" src="/libs/uow/trace.js"></script>
+    <script type="text/javascript" src="/libs/uow.js"></script>
+    <script type="text/javascript" src="application.js"></script>
+  </head>
+  <body class="tundra">
+    <div dojoType="dijit.layout.BorderContainer" id="layout" gutters="false">
+      <div dojoType="dijit.layout.ContentPane" region="top" id="header">Header top</div>
+      <div dojoType="dijit.layout.BorderContainer" region="center" splitter="false" gutters="false" id="viewer">
+        <div dojoType="dijit.layout.ContentPane" region="top" id="search">
+          <input type="search" placeholder="Enter search terms" />
+          <button>Search</button> <button>Reset</button>
+        </div>
+        <div dojoType="dijit.layout.ContentPane" region="center" id="apps">Apps</div>
+      </div>
+    </div>
+  </body>
+</html>
