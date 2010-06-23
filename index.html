@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Hark the Sound</title>
+    <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:bold' rel='stylesheet' type='text/css'>
     <style type="text/css">
       @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dojo/resources/dojo.css";
       @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dijit/themes/tundra/tundra.css";
@@ -24,11 +25,12 @@
   </head>
   <body class="tundra">
     <div dojoType="dijit.layout.BorderContainer" id="layout" gutters="false">
-      <div dojoType="dijit.layout.ContentPane" region="top" id="header">Header top</div>
+      <div dojoType="dijit.layout.ContentPane" region="top" id="header">
+        <h1>Hark the Sound</h1>
+      </div>
       <div dojoType="dijit.layout.BorderContainer" region="center" splitter="false" gutters="false" id="viewer">
         <div dojoType="dijit.layout.ContentPane" region="top" id="search">
-          <input type="search" placeholder="Enter search terms" />
-          <button>Search</button> <button>Reset</button>
+          <div dojoType="org.hark.SearchView"></div>
         </div>
         <div dojoType="dijit.layout.ContentPane" region="center" id="apps">Apps</div>
       </div>

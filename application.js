@@ -5,9 +5,9 @@
  */
 dojo.provide('org.hark.Main');
 dojo.require('dojo.parser');
-dojo.require('dijit.form.Button');
 dojo.require('dijit.layout.BorderContainer');
 dojo.require('dijit.layout.ContentPane');
+dojo.require('org.hark.SearchView');
 
 dojo.declare('org.hark.Main', null, {
     constructor: function() {

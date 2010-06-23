@@ -6,56 +6,74 @@
 html, body {
     width: 100%;
     height: 100%;
-    background-color: white;
     margin: 0px;
     padding: 0px;
+    font-family: Helvetica, sans-serif;
+}
+
+body {
+    /*background-image: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(0.3, #d1e2eb), to(#d1e2eb));*/
+    background-color: #5c90c2;
 }
 
 #layout {
-    margin: 0px auto 0px auto;
-    width: 900px;
-    min-height: 500px;
-    height: 95%;
-    border: 1px solid gray;
+    margin: 0px auto;
+    width: 800px;
+    min-height: 700px;
+    border: 1px solid black;
     border-top: 0px solid white;
     background-color: white;
-    -webkit-box-shadow: 2px 5px 5px #888;
-    background-color: #d1e2eb;
+    -webkit-box-shadow: 2px 2px 20px #000;
+    background-color: white;
 }
 
 #header {
+    padding: 10px;
     height: 150px;
-    background-color: #89b9ee;
+    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#5c90c2), color-stop(0.5, #7ca2c7), color-stop(0.5, #5c90c2), to(#5c90c2));*/
+    background-image: url("../images/ist2_9201602-alpha-beet.jpg");
+    background-position: -50px;
+}
+
+#header h1 {
+    margin-top: 0em;
+    font-weight: bold;
+    font-family: 'Yanone Kaffeesatz';
+    font-size: 75px;
+    line-height: 150px;
+    -webkit-text-fill-color: black;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 3px;
+    padding-left: 10px;
 }
 
 #viewer {
     padding: 20px;
-    margin: 20px 20px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 5px inset;
+    margin: 15px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
     -webkit-border-radius: 50px 50px;
     z-index: 2;
-    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #eee;
+    background-color: #fafafa;
 }
 
 #search {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    height: 35px;
 }
 
-#search input {
+#search input[type="search"] {
     width: 300px;
+    vertical-align: middle;
 }
 
-#search span {
-    margin-right: 10px;
-}
-
-#search button {
-    
-}
-
-#footer {
+#apps {
+    border: 1px solid #eee;
     background-color: white;
+    -webkit-border-radius: 10px;
+    padding: 2px;
+    height: 402px;
 }
 
 .dijitBorderContainer {
