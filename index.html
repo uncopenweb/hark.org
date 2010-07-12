@@ -5,8 +5,8 @@
     <title>Hark the Sound</title>
     <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:bold' rel='stylesheet' type='text/css'>
     <style type="text/css">
-      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dojo/resources/dojo.css";
-      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dijit/themes/tundra/tundra.css";
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dojo/resources/dojo.css";
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dijit/themes/tundra/tundra.css";
       @import "css/application.css";
     </style>
     <script type="text/javascript">
@@ -17,13 +17,14 @@
             modulePaths: {'org.hark' : 'widgets'}
         };
     </script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dojo/dojo.xd.js"></script>
-    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.1/dijit/dijit.xd.js"></script>-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dojo/dojo.xd.js"></script>
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dijit/dijit.xd.js"></script>-->
     <script type="text/javascript" src="/libs/uow/trace.js"></script>
     <script type="text/javascript" src="/libs/uow.js"></script>
     <script type="text/javascript" src="application.js"></script>
   </head>
   <body class="tundra">
+    <div dojoType="dojo.data.ItemFileReadStore" jsId="appsModel" url="apps.json"></div>
     <div dojoType="dijit.layout.BorderContainer" id="layout" gutters="false">
       <div dojoType="dijit.layout.ContentPane" region="top" id="header">
         <h1>Hark the Sound</h1>
@@ -32,7 +33,9 @@
         <div dojoType="dijit.layout.ContentPane" region="top" id="search">
           <div dojoType="org.hark.SearchView"></div>
         </div>
-        <div dojoType="dijit.layout.ContentPane" region="center" id="apps">Apps</div>
+        <div dojoType="dijit.layout.ContentPane" region="center" id="apps">
+          <div dojoType="org.hark.ThumbnailView" model="appsModel"></div>
+        </div>
       </div>
     </div>
   </body>

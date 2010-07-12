@@ -1,0 +1,36 @@
+{
+    "identifier" : "hash",
+    "items" : [
+        {
+            "hash" : "tictactoe",
+            "path" : "/tictactoe",
+            "labels" : {
+                "en-us" : "Tic-tac-toe"
+            },
+            "tags" : "2-player, speech, sound, keyboard, mouse",
+            "descriptions" : {
+                "en-us" : "The classic game of tic-tac-toe. Play with mouse or keyboard and your ears or your eyes. Requires two players."
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ['/tictactoe/info/ttt1.jpg', '/tictactoe/info/ttt2.jpg']
+            }
+        },
+        
+        {
+            "hash" : "spaceship",
+            "path" : "/spaceship",
+            "labels" : {
+                "en-us" : "Spaceship!"
+            },
+            "tags" : "1-player, shooting, guessing, learning, minigames, music, speech, sound, keyboard, mouse",
+            "descriptions" : {
+                "en-us" : "You are the captain of the new spaceship <em>Sonic</em>, the pride of the Earth starfleet. Your mission is to rid the Solar System of Earth's enemies, the mischievous Glornox. Your ship is equipped with ammo to destroy Glornox vessels and shields to fend off enemy attacks. But beware: your resources are limited. You must find or earn more during the hunt."
+            },
+            "media" : {
+                "icon" : "/spaceship/info/icon.png",
+                "screenshots" : ['/spaceship/info/ss1.jpg', '/spaceship/info/ss2.jpg']
+            }
+        }
+    ]
+}

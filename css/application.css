@@ -63,11 +63,6 @@ body {
     height: 35px;
 }
 
-#search input[type="search"] {
-    width: 300px;
-    vertical-align: middle;
-}
-
 #apps {
     border: 1px solid #eee;
     background-color: white;
@@ -86,4 +81,27 @@ body {
 
 .dijitBorderContainer-child {
     border-width: 0px !important;
+}
+
+.harkSearchView input[type="search"] {
+    width: 300px;
+    vertical-align: middle;
+}
+
+.harkThumbnailViewButton {
+    overflow: hidden;
+    padding-top: 161px !important;
+    padding-bottom: 161px !important;
+}
+
+.harkThumbnailViewLeftIcon {
+    background-image: url('../images/left.png');
+    height: 32px;
+    width: 32px;
+}
+
+.harkThumbnailViewRighttIcon {
+    background-image: url('../images/right.png');
+    height: 32px;
+    width: 32px;
 }
