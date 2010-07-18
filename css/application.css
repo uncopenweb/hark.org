@@ -105,3 +105,12 @@ body {
     height: 32px;
     width: 32px;
 }
+
+.harkThumbnailViewTable {
+    width: 100%;
+}
+
+.harkThumbnailViewTable td {
+    text-align: center;
+    width: 33%;
+}

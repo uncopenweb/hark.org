@@ -24,14 +24,14 @@
     <script type="text/javascript" src="application.js"></script>
   </head>
   <body class="tundra">
-    <div dojoType="dojo.data.ItemFileReadStore" jsId="appsModel" url="apps.json"></div>
+    <div dojoType="dojox.data.AndOrReadStore" jsId="appsModel" url="apps.json" hierarchical="false"></div>
     <div dojoType="dijit.layout.BorderContainer" id="layout" gutters="false">
       <div dojoType="dijit.layout.ContentPane" region="top" id="header">
         <h1>Hark the Sound</h1>
       </div>
       <div dojoType="dijit.layout.BorderContainer" region="center" splitter="false" gutters="false" id="viewer">
         <div dojoType="dijit.layout.ContentPane" region="top" id="search">
-          <div dojoType="org.hark.SearchView"></div>
+          <div dojoType="org.hark.SearchView" jsId="searchCtrl"></div>
         </div>
         <div dojoType="dijit.layout.ContentPane" region="center" id="apps">
           <div dojoType="org.hark.ThumbnailView" model="appsModel"></div>

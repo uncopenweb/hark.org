@@ -7,7 +7,7 @@ dojo.provide('org.hark.Main');
 dojo.require('dojo.parser');
 dojo.require('dijit.layout.BorderContainer');
 dojo.require('dijit.layout.ContentPane');
-dojo.require('dojo.data.ItemFileReadStore');
+dojo.require('dojox.data.AndOrReadStore');
 dojo.require('org.hark.SearchView');
 dojo.require('org.hark.ThumbnailView');
 

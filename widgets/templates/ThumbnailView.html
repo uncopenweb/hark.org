@@ -3,7 +3,14 @@
     <div class="harkThumbnailViewButton" dojoType="dijit.layout.ContentPane" region="left">
       <button dojoType="dijit.form.Button" iconClass="harkThumbnailViewLeftIcon" showLabel="false">${labels.previous_button_label}</button>
     </div>
-    <div dojoType="dijit.layout.ContentPane" region="center" dojoAttachPoint="panel"></div>
+    <div dojoType="dijit.layout.ContentPane" region="center" dojoAttachPoint="panel">
+      <table class="harkThumbnailViewTable">
+        <tbody>
+          <tr dojoAttachPoint="row0"></tr>
+          <tr dojoAttachPoint="row1"></tr>
+        </tbody>
+      </table>
+    </div>
     <div class="harkThumbnailViewButton" dojoType="dijit.layout.ContentPane" region="right">
       <button dojoType="dijit.form.Button" iconClass="harkThumbnailViewRighttIcon" showLabel="false">${labels.next_button_label}</button>
     </div>

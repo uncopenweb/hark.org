@@ -16,5 +16,31 @@ dojo.declare('org.hark.SearchView', [dijit._Widget, dijit._Templated], {
     
     postMixInProperties: function() {
         this.labels = dojo.i18n.getLocalization('org.hark', 'SearchView');
+    },
+    
+    postCreate: function() {
+        // trigger a search on page load
+        dojo.ready(this, '_onClickSearch');
+    },
+    
+    _onKeyUp: function(event) {
+        if(event.keyCode == dojo.keys.ENTER) {
+            this._onClickSearch();
+        }
+    },
+    
+    _onClickSearch: function() {
+        console.log('_onClickSearch');
+        this.onSearch(this.textBox.value);
+    },
+    
+    _onClickReset: function() {
+        this.textBox.value = '';
+        this._onClickSearch();
+    },
+    
+    onSearch: function(text) {
+        // extension point
+        dojo.publish('/search', [text]);
     }
 });
