@@ -66,7 +66,14 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
     _onItem: function(item) {
         console.log(item);
         var td = dojo.create('td', null, this.row0);
-        td.innerHTML = this.model.getValue(item, 'label');
+        var img = dojo.create('img', {
+            src : this.model.getValue(item, 'media').icon
+        }, td);
+        dojo.create('br', null, td);
+        var span = dojo.create('a', {
+            href : '#'+this.model.getValue(item, 'hash'),
+            innerHTML : this.model.getValue(item, 'label')
+        }, td);
     },
     
     _onComplete: function() {

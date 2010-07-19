@@ -13,7 +13,7 @@ html, body {
 
 body {
     /*background-image: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(0.3, #d1e2eb), to(#d1e2eb));*/
-    background-color: #5c90c2;
+    background-color: #6599cb;
 }
 
 #layout {
@@ -23,8 +23,10 @@ body {
     border: 1px solid black;
     border-top: 0px solid white;
     background-color: white;
+    -moz-box-shadow: 2px 2px 20px #000;
     -webkit-box-shadow: 2px 2px 20px #000;
     background-color: white;
+    z-index: 10;
 }
 
 #header {
@@ -47,10 +49,26 @@ body {
     padding-left: 10px;
 }
 
+#footer {
+    text-align: right;
+    margin: 10px auto;
+    color: white;
+    width: 800px;
+    height: 60px;
+    color: #edf8fe;
+}
+
+#footer .fixedPane {
+    overflow: hidden;
+    line-height: 60px;
+}
+
 #viewer {
     padding: 20px;
     margin: 15px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
+    -moz-border-radius: 50px 50px;
     -webkit-border-radius: 50px 50px;
     z-index: 2;
     border: 1px solid #eee;
@@ -67,6 +85,7 @@ body {
     border: 1px solid #eee;
     background-color: white;
     -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
     padding: 2px;
     height: 402px;
 }
