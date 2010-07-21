@@ -5,8 +5,8 @@
     <title>Hark the Sound</title>
     <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:bold' rel='stylesheet' type='text/css'>
     <style type="text/css">
-      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dojo/resources/dojo.css";
-      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dijit/themes/tundra/tundra.css";
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5.0/dojo/resources/dojo.css";
+      @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5.0/dijit/themes/claro/claro.css";
       @import "css/application.css";
     </style>
     <script type="text/javascript">
@@ -17,16 +17,17 @@
             modulePaths: {'org.hark' : 'widgets'}
         };
     </script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dojo/dojo.xd.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.5.0/dojo/dojo.xd.js"></script>
     <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dijit/dijit.xd.js"></script>-->
     <script type="text/javascript" src="/libs/uow/trace.js"></script>
     <script type="text/javascript" src="/libs/uow.js"></script>
     <script type="text/javascript" src="application.js"></script>
   </head>
-  <body class="tundra">
+  <body class="claro">
     <div dojoType="dojox.data.AndOrReadStore" jsId="appsModel" url="apps.json" hierarchical="false"></div>
     <div dojoType="dijit.layout.BorderContainer" id="layout" gutters="false">
       <div dojoType="dijit.layout.ContentPane" region="top" id="header">
+        <div dojoType="org.hark.LoginButton"></div>
         <h1>Hark the Sound</h1>
       </div>
       <div dojoType="dijit.layout.BorderContainer" region="center" splitter="false" gutters="false" id="viewer">
@@ -38,9 +39,11 @@
         </div>
       </div>
     </div>
-    <div dojoType="dijit.layout.BorderContainer" id="footer" gutters="false">
+    <div dojoType="dijit.layout.BorderContainer" id="footer" gutters="false" style="visibility: hidden;">
       <div dojoType="dijit.layout.ContentPane" class="fixedPane" region="left">
-        A UNC Computer Science Department project
+        UNC Computer Science<br />
+        Enabling Technology<br />
+        Copyright &copy; 2010
       </div>
       <div dojoType="dijit.layout.ContentPane" class="fixedPane" region="right">
         <img src="images/unc-logo.png" />

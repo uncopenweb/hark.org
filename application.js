@@ -10,9 +10,11 @@ dojo.require('dijit.layout.ContentPane');
 dojo.require('dojox.data.AndOrReadStore');
 dojo.require('org.hark.SearchView');
 dojo.require('org.hark.ThumbnailView');
+dojo.require('org.hark.LoginButton');
 
 dojo.declare('org.hark.Main', null, {
     constructor: function() {
+        dojo.style(dojo.byId('footer'), 'visibility', '');
     }
 });
 
