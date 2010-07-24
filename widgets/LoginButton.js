@@ -18,22 +18,30 @@ dojo.declare('org.hark.LoginButton', [dijit._Widget, dijit._Templated], {
     },
 
     postCreate: function() {
-
+        var user = uow.getUser();
+        if(user.email) {
+            this._onAuth({flag : 'ok', user: user});
+        } else {
+            dojo.style(this.loginNode, 'display', '');
+        }
     },
-
-    startup: function() {
-
-    },
-
-    uninitialize: function() {
-
+    
+    _onAuth: function(response) {
+        if(response.flag == 'ok') {
+            dojo.style(this.loginNode, 'display', 'none');
+            var welcome = dojo.replace(this.labels.welcome_label, response.user);
+            this.welcomeNode.innerHTML = welcome;
+            dojo.style(this.authedNode, 'display', '');
+        }
     },
     
     _onClickLogin: function() {
-        
+        var def = uow.triggerLogin();
+        def.addCallback(this, '_onAuth');
     },
     
     _onClickLogout: function() {
-        
+        dojo.cookie('user', null, {path : '/', expires: -1});
+        window.location.reload();
     }
 });
