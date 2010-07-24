@@ -30,7 +30,6 @@ dojo.declare('org.hark.SearchView', [dijit._Widget, dijit._Templated], {
     },
     
     _onClickSearch: function() {
-        console.log('_onClickSearch');
         this.onSearch(this.textBox.value);
     },
     

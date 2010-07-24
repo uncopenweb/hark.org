@@ -23,7 +23,7 @@ a {
 #layout {
     margin: 0px auto;
     width: 800px;
-    min-height: 700px;
+    min-height: 600px;
     border: 1px solid black;
     border-top: 0px solid white;
     background-color: white;
@@ -35,10 +35,10 @@ a {
 
 #header {
     padding: 10px;
-    height: 150px;
+    height: 100px;
     /*background-image: -webkit-gradient(linear, left top, left bottom, from(#5c90c2), color-stop(0.5, #7ca2c7), color-stop(0.5, #5c90c2), to(#5c90c2));*/
     background-image: url("../images/ist2_9201602-alpha-beet.jpg");
-    background-position: -50px;
+    background-position: -25px;
     overflow: hidden;
 }
 
@@ -47,7 +47,7 @@ a {
     font-weight: bold;
     font-family: 'Yanone Kaffeesatz';
     font-size: 75px;
-    line-height: 150px;
+    line-height: 100px;
     -webkit-text-fill-color: black;
     -webkit-text-stroke-color: white;
     -webkit-text-stroke-width: 3px;
@@ -82,8 +82,7 @@ a {
 
 #search {
     text-align: center;
-    margin-bottom: 5px;
-    height: 35px;
+    margin-bottom: 0px;
 }
 
 #apps {
@@ -92,7 +91,7 @@ a {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     padding: 2px;
-    height: 400px;
+    height: 350px;
 }
 
 .dijitBorderContainer {
@@ -119,6 +118,10 @@ a {
     padding-bottom: 161px !important;
 }
 
+.harkThumbnailViewPane {
+    overflow: hidden;
+}
+
 .harkThumbnailViewLeftIcon {
     background-image: url('../images/left.png');
     height: 32px;
@@ -138,6 +141,7 @@ a {
 .harkThumbnailViewTable td {
     text-align: center;
     width: 33%;
+    height: 150px;
 }
 
 .harkLoginButton {

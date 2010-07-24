@@ -22,6 +22,8 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
         this._currentPage = 0;
         // query template
         this._queryTemplate = 'label: *{text}* OR description: *{text}*';
+        // current results on page
+        this._results = 0;
         this.labels = dojo.i18n.getLocalization('org.hark', 'ThumbnailView');
         this.subscribe('/search', 'showPage');
     },
@@ -57,28 +59,35 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
     },
     
     _onBegin: function(size, request) {
-        console.log('begin', size);
         // clear the table cells
         dojo.query('td', this.tableNode).forEach('dojo.destroy(item);');
         // @todo: show message if no results
     },
     
     _onItem: function(item) {
-        console.log(item);
-        var td = dojo.create('td', null, this.row0);
-        var img = dojo.create('img', {
-            src : this.model.getValue(item, 'media').icon
-        }, td);
-        dojo.create('br', null, td);
-        var span = dojo.create('a', {
-            href : '#'+this.model.getValue(item, 'hash'),
-            innerHTML : this.model.getValue(item, 'label')
-        }, td);
+        var row = this.row0;
+        if(this._results >= 3) {
+            row = this.row1;
+        }
+        var td = dojo.create('td', null, row);
+        if(item) {
+            var img = dojo.create('img', {
+                src : this.model.getValue(item, 'media').icon
+            }, td);
+            dojo.create('br', null, td);
+            var span = dojo.create('a', {
+                href : '#'+this.model.getValue(item, 'hash'),
+                innerHTML : this.model.getValue(item, 'label')
+            }, td);
+        }
+        this._results += 1;
     },
     
     _onComplete: function() {
-        console.log('complete');
-        
+        while(this._results < 6) {
+            // fill blank cells
+            this._onItem(null);
+        }
     },
     
     _onError: function(err) {
