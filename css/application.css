@@ -24,7 +24,7 @@ a {
 #layout {
     margin: 0px auto;
     width: 800px;
-    min-height: 600px;
+    min-height: 625px;
     border: 1px solid black;
     border-top: 0px solid white;
     background-color: white;
@@ -35,12 +35,23 @@ a {
 }
 
 #header {
-    padding: 10px;
-    height: 100px;
-    /*background-image: -webkit-gradient(linear, left top, left bottom, from(#5c90c2), color-stop(0.5, #7ca2c7), color-stop(0.5, #5c90c2), to(#5c90c2));*/
+    height: 150px;
+}
+
+#title {
     background-image: url("../images/ist2_9201602-alpha-beet.jpg");
     background-position: -25px;
     overflow: hidden;
+}
+
+#nav {
+    padding: 3px 15px;
+    /*color: black;
+    background-color: #E4F2FF !important;
+    background-image: url("http://ajax.googleapis.com/ajax/libs/dojo/1.5.0/dijit/themes/claro/form/images/button.png") !important;*/
+}
+
+#nav a {
 }
 
 #header h1 {
@@ -48,11 +59,11 @@ a {
     font-weight: bold;
     font-family: 'Yanone Kaffeesatz';
     font-size: 75px;
-    line-height: 100px;
     -webkit-text-fill-color: black;
     -webkit-text-stroke-color: white;
     -webkit-text-stroke-width: 3px;
     padding-left: 10px;
+    line-height: 110px;
 }
 
 #footer {
@@ -78,7 +89,7 @@ a {
     -webkit-border-radius: 50px 50px;
     z-index: 2;
     border: 1px solid #eee;
-    background-color: #fafafa;
+    background-color: #f7f7f7;
 }
 
 #search {
@@ -143,26 +154,4 @@ a {
     text-align: center;
     width: 33%;
     height: 150px;
-}
-
-.harkLoginButton {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 300px;
-    height: 18px;
-    background-color: rgba(0,0,0,0.9);
-    z-index: 100;
-    padding: 3px;
-    border-top: 1px solid #555;
-    border-bottom: 1px solid #555;
-    border-left: 1px solid #555;
-    -moz-border-radius: 0px 0px 0px 10px;
-    -webkit-border-radius: 0px 0px 0px 50px;
-    text-align: center;
-    color: white;
-}
-
-.harkLoginButton a {
-    color: white;
 }

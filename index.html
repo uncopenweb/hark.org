@@ -25,9 +25,13 @@
   <body class="claro">
     <div dojoType="dojox.data.AndOrReadStore" jsId="appsModel" url="apps.json" hierarchical="false"></div>
     <div dojoType="dijit.layout.BorderContainer" id="layout" gutters="false">
-      <div dojoType="dijit.layout.ContentPane" region="top" id="header">
-        <div dojoType="org.hark.LoginButton"></div>
-        <h1>Hark the Sound</h1>
+      <div dojoType="dijit.layout.BorderContainer" region="top" id="header" gutters="false">
+        <div dojoType="dijit.layout.ContentPane" region="center" id="title">
+          <h1>Hark the Sound</h1>
+        </div>
+        <div dojoType="dijit.MenuBar" region="bottom" id="nav">
+          <div dojoType="org.hark.LoginButton"></div>
+        </div>
       </div>
       <div dojoType="dijit.layout.BorderContainer" region="center" splitter="false" gutters="false" id="viewer">
         <div dojoType="dijit.layout.ContentPane" region="top" id="search">

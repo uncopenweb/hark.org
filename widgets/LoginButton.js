@@ -29,7 +29,7 @@ dojo.declare('org.hark.LoginButton', [dijit._Widget, dijit._Templated], {
     _onAuth: function(response) {
         if(response.flag == 'ok') {
             dojo.style(this.loginNode, 'display', 'none');
-            var welcome = dojo.replace(this.labels.welcome_label, response.user);
+            var welcome = dojo.replace(this.labels.welcome_user_label, response.user);
             this.welcomeNode.innerHTML = welcome;
             dojo.style(this.authedNode, 'display', '');
         }
