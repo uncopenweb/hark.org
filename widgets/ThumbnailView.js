@@ -95,7 +95,9 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
             var td = dojo.create('td', null, row);
             if(item) {
                 var img = dojo.create('img', {
-                    src : this.model.getValue(item, 'media').icon
+                    src : this.model.getValue(item, 'media').icon,
+                    width: 96,
+                    height: 96
                 }, td);
                 dojo.create('br', null, td);
                 var span = dojo.create('a', {
