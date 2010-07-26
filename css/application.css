@@ -106,17 +106,21 @@ a {
     height: 350px;
 }
 
-.dijitBorderContainer {
+#layout .dijitBorderContainer {
     background-color: transparent !important;
     border: 0px solid white !important;
 }
 
-.dijitGutter {
+#layout .dijitGutter {
     background: transparent !important;
 }
 
-.dijitBorderContainer-child {
+#layout .dijitBorderContainer-child {
     border-width: 0px !important;
+}
+
+.dijitDialogUnderlay {
+    background-color: black !important;
 }
 
 .harkSearchView input[type="search"] {
@@ -154,4 +158,23 @@ a {
     text-align: center;
     width: 33%;
     height: 150px;
+}
+
+.harkDetailsView {
+    width: 700px;
+    height: 270px;
+}
+
+.harkDetailsViewLeft {
+    overflow: hidden;
+}
+
+.harkDetailsViewScreenshot {
+    width: 320px;
+    height: 240px;
+}
+
+.harkDetailsViewTags {
+    color: gray;
+    font-size: 0.9em;
 }

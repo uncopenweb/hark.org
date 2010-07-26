@@ -1,0 +1,3 @@
+{
+    tags_label : 'Tags:'
+}
