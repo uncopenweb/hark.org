@@ -94,15 +94,25 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
         if(this._shownCount < this.rowSize) {
             var td = dojo.create('td', null, row);
             if(item) {
+                // label
+                var span = dojo.create('a', {
+                    href : ROOT_PATH + this.model.getValue(item, 'path'),
+                    innerHTML : this.model.getValue(item, 'label'),
+                    className: 'harkThumbnailViewLabel'
+                }, td);
+                dojo.create('br', null, td);
+                // icon
                 var img = dojo.create('img', {
-                    src : this.model.getValue(item, 'media').icon,
+                    src : ROOT_PATH + this.model.getValue(item, 'media').icon,
                     width: 96,
                     height: 96
                 }, td);
                 dojo.create('br', null, td);
+                // more info
                 var span = dojo.create('a', {
                     href : '#'+this.model.getValue(item, 'hash'),
-                    innerHTML : this.model.getValue(item, 'label')
+                    innerHTML : this.labels.more_info_label,
+                    className: 'harkThumbnailViewMore'
                 }, td);
             }
         }

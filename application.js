@@ -17,6 +17,9 @@ dojo.require('org.hark.SearchView');
 dojo.require('org.hark.ThumbnailView');
 dojo.require('org.hark.DetailsView');
 
+// root path for all urls
+var ROOT_PATH = '../';
+
 dojo.declare('org.hark.Main', null, {
     constructor: function() {
         // current details view
@@ -58,8 +61,9 @@ dojo.declare('org.hark.Main', null, {
         var game = {
             label : appsModel.getValue(item, 'label'),
             description : appsModel.getValue(item, 'description'),
+            path: ROOT_PATH + appsModel.getValue(item, 'path'),
             tags : appsModel.getValue(item, 'tags'),
-            screenshot : appsModel.getValue(item, 'media').screenshots[0],
+            screenshot : ROOT_PATH + appsModel.getValue(item, 'media').screenshots[0],
         };
         this._details = new org.hark.DetailsView({game : game});
         var dlg = dijit.byId('dialog');

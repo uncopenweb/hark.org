@@ -13,7 +13,6 @@ html, body {
 }
 
 body {
-    /*background-image: -webkit-gradient(linear, left top, left bottom, from(white), color-stop(0.3, #d1e2eb), to(#d1e2eb));*/
     background-color: #6599cb;
 }
 
@@ -30,6 +29,7 @@ a {
     background-color: white;
     -moz-box-shadow: 2px 2px 20px #000;
     -webkit-box-shadow: 2px 2px 20px #000;
+    -o-box-shadow: 2px 2px 20px #000;
     background-color: white;
     z-index: 10;
 }
@@ -46,9 +46,6 @@ a {
 
 #nav {
     padding: 3px 15px;
-    /*color: black;
-    background-color: #E4F2FF !important;
-    background-image: url("http://ajax.googleapis.com/ajax/libs/dojo/1.5.0/dijit/themes/claro/form/images/button.png") !important;*/
 }
 
 #nav a {
@@ -62,6 +59,12 @@ a {
     -webkit-text-fill-color: black;
     -webkit-text-stroke-color: white;
     -webkit-text-stroke-width: 3px;
+    -moz-text-fill-color: black;
+    -moz-text-stroke-color: white;
+    -moz-text-stroke-width: 3px;
+    -o-text-fill-color: black;
+    -o-text-stroke-color: white;
+    -o-text-stroke-width: 3px;
     padding-left: 10px;
     line-height: 110px;
 }
@@ -85,8 +88,10 @@ a {
     margin: 15px;
     -moz-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
     -webkit-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
+    -o-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
     -moz-border-radius: 50px 50px;
     -webkit-border-radius: 50px 50px;
+    -o-border-radius: 50px 50px;
     z-index: 2;
     border: 1px solid #eee;
     background-color: #f7f7f7;
@@ -95,6 +100,7 @@ a {
 #search {
     text-align: center;
     margin-bottom: 0px;
+    overflow: hidden;
 }
 
 #apps {
@@ -102,6 +108,7 @@ a {
     background-color: white;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
+    -o-border-radius: 10px;
     padding: 2px;
     height: 350px;
 }
@@ -157,7 +164,34 @@ a {
 .harkThumbnailViewTable td {
     text-align: center;
     width: 33%;
-    height: 150px;
+    height: 160px;
+    -webkit-transition: -webkit-transform 0.25s;
+    -moz-transition: -moz-transform 0.25s;
+    -o-transition: -o-transform 0.25s;
+}
+
+.harkThumbnailViewTable td:hover {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+}
+
+.harkThumbnailViewTable img {
+    margin-top: 0.25em;
+    -moz-box-shadow: rgba(33, 33, 33, 0.2) 1px 1px 5px;
+    -webkit-box-shadow: rgba(33, 33, 33, 0.2) 1px 1px 5px;
+    -o-box-shadow: rgba(33, 33, 33, 0.2) 1px 1px 5px;
+    border: 1px solid #ddd;
+}
+
+.harkThumbnailViewLabel {
+    font-size: 1.1em;
+}
+
+.harkThumbnailViewMore {
+    font-size: 0.8em;
+    color: gray;
+    padding-bottom: 1em;
 }
 
 .harkDetailsView {
