@@ -4,6 +4,7 @@
  * Copyright UNC Open Web Team 2010. All Rights Reserved.
  */
 dojo.provide('org.hark.ThumbnailView');
+dojo.require('dojo.cache');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.form.Button');
@@ -92,28 +93,19 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
             row = this.row1;
         }
         if(this._shownCount < this.rowSize) {
-            var td = dojo.create('td', null, row);
+            td = dojo.create('td', null, row);
             if(item) {
-                // label
-                var span = dojo.create('a', {
-                    href : ROOT_PATH + this.model.getValue(item, 'path'),
-                    innerHTML : this.model.getValue(item, 'label'),
-                    className: 'harkThumbnailViewLabel'
-                }, td);
-                dojo.create('br', null, td);
-                // icon
-                var img = dojo.create('img', {
-                    src : ROOT_PATH + this.model.getValue(item, 'media').icon,
-                    width: 96,
-                    height: 96
-                }, td);
-                dojo.create('br', null, td);
-                // more info
-                var span = dojo.create('a', {
-                    href : '#'+this.model.getValue(item, 'hash'),
-                    innerHTML : this.labels.more_info_label,
-                    className: 'harkThumbnailViewMore'
-                }, td);
+                var tmpl = dojo.cache('org.hark.templates', 'ThumbnailViewItem.html');
+                var html = dojo.replace(tmpl, {
+                    game_href :  ROOT_PATH + this.model.getValue(item, 'path'),
+                    game_label : this.model.getValue(item, 'label'),
+                    icon_src : ROOT_PATH + this.model.getValue(item, 'media').icon,
+                    icon_alt : this.model.getValue(item, 'label'),
+                    more_href : '#'+this.model.getValue(item, 'hash'),
+                    more_label : this.labels.more_info_label
+                });
+                td.innerHTML = html;
+                dojo.addClass(td, 'harkThumbnailViewActiveCell');
             }
         }
         this._shownCount += 1;
