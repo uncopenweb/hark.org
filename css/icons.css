@@ -1,0 +1,28 @@
+.harkIcon {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.harkLoginIcon {
+    width: 16px;
+    height: 16px;
+    background-image: url('../images/key.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.harkUserIcon {
+    width: 16px;
+    height: 16px;
+    background-image: url('../images/user.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;    
+}
+
+.harkInfoIcon {
+    width: 16px;
+    height: 16px;
+    background-image: url('../images/information-white.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;    
+}

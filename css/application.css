@@ -9,7 +9,7 @@ html, body {
     margin: 0px;
     padding: 0px;
     font-family: Helvetica, sans-serif;
-    font-size: 0.9em !important;
+    font-size: 0.95em !important;
 }
 
 body {
@@ -18,6 +18,11 @@ body {
 
 a {
     color: #6599cb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 #layout {
@@ -76,6 +81,7 @@ a {
     width: 800px;
     height: 60px;
     color: #edf8fe;
+    font-size: 0.8em;
 }
 
 #footer .fixedPane {
@@ -133,12 +139,16 @@ a {
 .harkSearchView input[type="search"] {
     width: 300px;
     vertical-align: middle;
+    font-size: 1.5em !important;
 }
 
 .harkThumbnailViewButton {
     overflow: hidden;
-    padding-top: 161px !important;
-    padding-bottom: 161px !important;
+    padding-top: 155px !important;
+}
+
+.harkThumbnailViewButton .dijitButtonDisabled {
+    opacity: 0.3;
 }
 
 .harkThumbnailViewPane {
@@ -151,10 +161,18 @@ a {
     width: 32px;
 }
 
+.dijitDisabled .harkThumbnailViewLeftIcon {
+    background-image: url('../images/left-disabled.png');
+}
+
 .harkThumbnailViewRighttIcon {
     background-image: url('../images/right.png');
     height: 32px;
     width: 32px;
+}
+
+.dijitDisabled .harkThumbnailViewRighttIcon {
+    background-image: url('../images/right-disabled.png');
 }
 
 .harkThumbnailViewTable {
@@ -163,17 +181,24 @@ a {
 
 .harkThumbnailViewTable td {
     text-align: center;
+    border: 1px solid #ddd;
+    background-color: transparent;
     width: 33%;
     height: 160px;
-    -webkit-transition: -webkit-transform 0.25s;
-    -moz-transition: -moz-transform 0.25s;
-    -o-transition: -o-transform 0.25s;
 }
 
-.harkThumbnailViewTable td:hover {
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -o-transform: scale(1.2);
+.harkThumbnailViewTable .harkThumbnailViewActiveCell {
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+}
+
+.harkThumbnailViewTable .harkThumbnailViewActiveCell:hover {
+    background-color: #fffffa;
+    border-color: black;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
+    -o-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
 }
 
 .harkThumbnailViewTable img {
@@ -182,16 +207,16 @@ a {
     -webkit-box-shadow: rgba(33, 33, 33, 0.2) 1px 1px 5px;
     -o-box-shadow: rgba(33, 33, 33, 0.2) 1px 1px 5px;
     border: 1px solid #ddd;
+    cursor: pointer;
 }
 
-.harkThumbnailViewLabel {
-    font-size: 1.1em;
+.harkThumbnailView h2 {
+    margin: 0em;
 }
 
 .harkThumbnailViewMore {
     font-size: 0.8em;
     color: gray;
-    padding-bottom: 1em;
 }
 
 .harkDetailsView {
