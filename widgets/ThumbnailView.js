@@ -14,22 +14,19 @@ dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark', 'ThumbnailView');
 
 dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
-    // data mode
-    model: null,
-    // results per row
+    // results per page
     rowSize: 6,
     widgetsInTemplate: true,
     templatePath: dojo.moduleUrl('org.hark.templates', 'ThumbnailView.html'),
 
     postMixInProperties: function() {
-        // query template
-        this._queryTemplate = 'label: *{text}* OR description: *{text}*';
         // current results on page
         this._shownCount = 0;
         // current page
         this._page = 0;
         this.labels = dojo.i18n.getLocalization('org.hark', 'ThumbnailView');
         this.subscribe('/search', 'setQuery');
+        this.subscribe('/model', 'setModel');
     },
     
     postCreate: function() {
@@ -41,15 +38,21 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
     
     setQuery: function(text) {
         this._query = text;
+        if(this._model) {
+            this._search();
+        }
+    },
+    
+    setModel: function(model) {
+        this._model = model;
         this._search();
     },
     
     _onNextPage: function() {
-        console.log('_onNextPage');
         this._page += 1;
         this._search();
     },
-    
+
     _onPrevPage: function() {
         this._page -= 1;
         this._search();        
@@ -57,9 +60,11 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
     
     _search: function() {
         // build the query
-        var q = dojo.replace(this._queryTemplate, {text : this._query});
-        var req = this.model.fetch({
-            query: {complexQuery : q},
+        // @todo: use $or when gb updates mongo
+        // @todo: file a bug about ignore case support
+        // @todo: file a bug about sort not working
+        var req = this._model.fetch({
+            query: {label : '*'+this._query+'*'},
             onBegin: this._onBegin,
             onItem: this._onItem,
             onComplete: this._onComplete,
@@ -67,10 +72,10 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
             start: this._page * this.rowSize,
             // fetch one extra to check if there's a next
             count: this.rowSize + 1,
-            queryOptions: {
+            /*queryOptions: {
                 deep: false,
                 ignoreCase: true
-            },
+            },*/
             sort : {
                 attribute : 'label',
                 descending : true
@@ -97,11 +102,11 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
             if(item) {
                 var tmpl = dojo.cache('org.hark.templates', 'ThumbnailViewItem.html');
                 var html = dojo.replace(tmpl, {
-                    game_href :  ROOT_PATH + this.model.getValue(item, 'path'),
-                    game_label : this.model.getValue(item, 'label'),
-                    icon_src : ROOT_PATH + this.model.getValue(item, 'media').icon,
-                    icon_alt : this.model.getValue(item, 'label'),
-                    more_href : '#'+this.model.getValue(item, 'hash'),
+                    game_href :  ROOT_PATH + this._model.getValue(item, 'path'),
+                    game_label : this._model.getValue(item, 'label'),
+                    icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
+                    icon_alt : this._model.getValue(item, 'label'),
+                    more_href : '#'+this._model.getValue(item, 'hash'),
                     more_label : this.labels.more_info_label
                 });
                 td.innerHTML = html;

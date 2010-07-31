@@ -27,12 +27,32 @@ dojo.declare('org.hark.Main', null, {
         // connect token for fade in
         this._dlgFadeTok = null;
         
+        // get the games database
+        var dbDef = uow.getDatabase({
+            database : 'harkhome', 
+            collection : 'games', 
+            mode : 'r'}
+        );
+        dbDef.addCallback(dojo.hitch(this, '_onDatabaseReady'));
+        
+        // @todo: show a spinner while loading to avoid funky layout
+    },
+    
+    _onDatabaseReady: function(database) {
+        // get database reference
+        this._db = database;
+        // announce db availability
+        dojo.publish('/model', [this._db]);
+
+        // @todo: hide the loading spinner
+
         // show the footer once loaded
         dojo.style(dojo.byId('footer'), 'visibility', '');
-        // list for hash
+        // listen for hash changes
         dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
         var hash = dojo.hash();
         if(hash) {
+            // handle initial hash
             this._onHashChange(hash);
         }
         // reset hash to blank after dialog close
@@ -47,8 +67,8 @@ dojo.declare('org.hark.Main', null, {
             dojo.disconnect(this._dlgFadeTok);
         }
         // get game data
-        appsModel.fetchItemByIdentity({
-            identity: value,
+        this._db.fetch({
+            query: {hash : value},
             onItem: this._onItem,
             onError: this._onError,
             scope: this
@@ -59,11 +79,11 @@ dojo.declare('org.hark.Main', null, {
         // get item fields
         // @todo: cycle screenshots
         var game = {
-            label : appsModel.getValue(item, 'label'),
-            description : appsModel.getValue(item, 'description'),
-            path: ROOT_PATH + appsModel.getValue(item, 'path'),
-            tags : appsModel.getValue(item, 'tags'),
-            screenshot : ROOT_PATH + appsModel.getValue(item, 'media').screenshots[0],
+            label : this._db.getValue(item, 'label'),
+            description : this._db.getValue(item, 'description'),
+            path: ROOT_PATH + this._db.getValue(item, 'path'),
+            tags : this._db.getValue(item, 'tags'),
+            screenshot : ROOT_PATH + this._db.getValue(item, 'media').screenshots[0],
         };
         this._details = new org.hark.DetailsView({game : game});
         var dlg = dijit.byId('dialog');
