@@ -4,6 +4,7 @@
  * Copyright UNC Open Web Team 2010. All Rights Reserved.
  */
 dojo.provide('org.hark.ThumbnailView');
+dojo.require('org.hark.BusyOverlay');
 dojo.require('dojo.cache');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
@@ -24,6 +25,8 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
         this._shownCount = 0;
         // current page
         this._page = 0;
+        // busy dialog
+        this._busy = null;
         this.labels = dojo.i18n.getLocalization('org.hark', 'ThumbnailView');
         this.subscribe('/search', 'setQuery');
         this.subscribe('/model', 'setModel');
@@ -59,10 +62,14 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
     },
     
     _search: function() {
+        // show busy until done
+        this._busy = org.hark.BusyOverlay.show({
+            busyNode: this.containerNode.domNode,
+            parentNode: this.domNode
+        });
+
         // build the query
         // @todo: use $or when gb updates mongo
-        // @todo: file a bug about ignore case support
-        // @todo: file a bug about sort not working
         var req = this._model.fetch({
             query: {label : '*'+this._query+'*'},
             onBegin: this._onBegin,
@@ -72,14 +79,10 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
             start: this._page * this.rowSize,
             // fetch one extra to check if there's a next
             count: this.rowSize + 1,
-            /*queryOptions: {
-                deep: false,
-                ignoreCase: true
-            },*/
-            sort : {
+            sort : [{
                 attribute : 'label',
-                descending : true
-            },
+                descending : false
+            }],
             scope: this
         });
     },
@@ -101,16 +104,21 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
             td = dojo.create('td', null, row);
             if(item) {
                 var tmpl = dojo.cache('org.hark.templates', 'ThumbnailViewItem.html');
+                var url = this._model.getValue(item, 'url');
                 var html = dojo.replace(tmpl, {
-                    game_href :  ROOT_PATH + this._model.getValue(item, 'path'),
+                    game_href :  ROOT_PATH + url,
                     game_label : this._model.getValue(item, 'label'),
                     icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
                     icon_alt : this._model.getValue(item, 'label'),
-                    more_href : '#'+this._model.getValue(item, 'hash'),
+                    more_href : '#',
                     more_label : this.labels.more_info_label
                 });
                 td.innerHTML = html;
                 dojo.addClass(td, 'harkThumbnailViewActiveCell');
+                var a = dojo.query('a', td)[1];
+                console.log(a);
+                // listen for more info click
+                this.connect(a, 'onclick', dojo.partial(this._onMoreInfo, url));
             }
         }
         this._shownCount += 1;
@@ -123,9 +131,17 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
         }
         this.nextButton.attr('disabled', this._shownCount <= this.rowSize);
         this.prevButton.attr('disabled', this._page == 0);
+        
+        // hide busy spinner
+        org.hark.BusyOverlay.hide(this._busy);
     },
     
     _onError: function(err) {
         console.error('error', err);
+    },
+    
+    _onMoreInfo: function(url) {
+        console.log('MORE INFO', url);
+        dojo.publish('/info', [url]);
     }
 });

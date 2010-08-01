@@ -12,6 +12,7 @@ dojo.require('dijit.layout.TabContainer');
 dojo.require('dijit.MenuBar');
 dojo.require('dijit.Dialog');
 dojo.require('dojox.data.AndOrReadStore');
+dojo.require('org.hark.BusyOverlay');
 dojo.require('org.hark.LoginButton');
 dojo.require('org.hark.SearchView');
 dojo.require('org.hark.ThumbnailView');
@@ -22,10 +23,15 @@ var ROOT_PATH = '../';
 
 dojo.declare('org.hark.Main', null, {
     constructor: function() {
+        // busy dialog overlay
+        this._busy = null;
         // current details view
         this._details = null;
         // connect token for fade in
         this._dlgFadeTok = null;
+        
+        // listen for more info requests
+        dojo.subscribe('/info', this, '_onShowDetails');
         
         // get the games database
         var dbDef = uow.getDatabase({
@@ -49,26 +55,40 @@ dojo.declare('org.hark.Main', null, {
         // show the footer once loaded
         dojo.style(dojo.byId('footer'), 'visibility', '');
         // listen for hash changes
-        dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
-        var hash = dojo.hash();
-        if(hash) {
+        //dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
+        //var hash = dojo.hash();
+        //if(hash) {
             // handle initial hash
-            this._onHashChange(hash);
-        }
+        //    this._onHashChange(hash);
+        //}
         // reset hash to blank after dialog close
-        var dlg = dijit.byId('dialog');
-        dojo.connect(dlg, 'hide', dojo.hitch(dojo, 'hash', ''));
+        //var dlg = dijit.byId('dialog');
+        //dojo.connect(dlg, 'hide', dojo.hitch(dojo, 'hash', ''));
     },
     
-    _onHashChange: function(value) {
-        if(!value) { return; }
+    _onShowDetails: function(url) {
+        if(!url) { return; }
         if(this._details) {
             this._details.destroyRecursive();
-            dojo.disconnect(this._dlgFadeTok);
         }
+
+        // show the dialog immediately with a busy placeholder
+        var dlg = dijit.byId('dialog');
+        // @todo: translate
+        dlg.attr('title', 'Loading');
+        dlg.attr('content', '<div class="harkDetailsView"></div>');
+        dlg.show();
+        
+        // show busy until done
+        this._busy = org.hark.BusyOverlay.show({
+            busyNode: dlg.containerNode.firstChild,
+            parentNode: dlg.containerNode,
+            takeFocus: false
+        });
+
         // get game data
         this._db.fetch({
-            query: {hash : value},
+            query: {url : url},
             onItem: this._onItem,
             onError: this._onError,
             scope: this
@@ -85,15 +105,13 @@ dojo.declare('org.hark.Main', null, {
             tags : this._db.getValue(item, 'tags'),
             screenshot : ROOT_PATH + this._db.getValue(item, 'media').screenshots[0],
         };
+        // show game details
         this._details = new org.hark.DetailsView({game : game});
         var dlg = dijit.byId('dialog');
         dlg.attr('title', game.label);
         dlg.attr('content', this._details);
-        dlg.show();
-        // force a resize after fade in
-        // @todo: store to disconnect to avoid memory waste
-        this._dlgFadeTok = dojo.connect(dlg._fadeIn, 'onEnd', this._details, 
-            'resize');
+        // hide busy overlay
+        org.hark.BusyOverlay.hide(this._busy);
     },
     
     _onError: function(err) { 
