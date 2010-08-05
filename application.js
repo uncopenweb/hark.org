@@ -17,9 +17,10 @@ dojo.require('org.hark.LoginButton');
 dojo.require('org.hark.SearchView');
 dojo.require('org.hark.ThumbnailView');
 dojo.require('org.hark.DetailsView');
+dojo.require('org.hark.GameFrame');
 
 // root path for all urls
-var ROOT_PATH = '../';
+var ROOT_PATH = '..';
 
 dojo.declare('org.hark.Main', null, {
     constructor: function() {
@@ -54,16 +55,24 @@ dojo.declare('org.hark.Main', null, {
 
         // show the footer once loaded
         dojo.style(dojo.byId('footer'), 'visibility', '');
+
         // listen for hash changes
-        //dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
-        //var hash = dojo.hash();
-        //if(hash) {
+        dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
+        var hash = dojo.hash();
+        if(hash) {
             // handle initial hash
-        //    this._onHashChange(hash);
-        //}
-        // reset hash to blank after dialog close
-        //var dlg = dijit.byId('dialog');
-        //dojo.connect(dlg, 'hide', dojo.hitch(dojo, 'hash', ''));
+            this._onHashChange(hash);
+        }
+    },
+    
+    _onHashChange: function(hash) {
+        var display = (hash) ? 'none' : '';
+        // show/hide main layout and footer
+        dojo.style(dojo.byId('layout'), 'display', display);
+        dojo.style(dojo.byId('footer'), 'display', display);
+        // start/stop game
+        var frame = dijit.byId('frame');
+        frame.attr('url', hash);
     },
     
     _onShowDetails: function(url) {

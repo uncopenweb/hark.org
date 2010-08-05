@@ -1,8 +1,8 @@
-//
-//  BusyOverlay.js
-//
-//  Copyright UNC Open Web Team 2010. All Rights Reserved.
-// 
+/*
+ *  BusyOverlay.js
+ *
+ *  Copyright UNC Open Web Team 2010. All Rights Reserved.
+ */ 
 dojo.provide('org.hark.BusyOverlay');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');

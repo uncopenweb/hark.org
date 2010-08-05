@@ -106,7 +106,7 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
                 var tmpl = dojo.cache('org.hark.templates', 'ThumbnailViewItem.html');
                 var url = this._model.getValue(item, 'url');
                 var html = dojo.replace(tmpl, {
-                    game_href :  ROOT_PATH + url,
+                    game_href :  '#' + ROOT_PATH + url,
                     game_label : this._model.getValue(item, 'label'),
                     icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
                     icon_alt : this._model.getValue(item, 'label'),
