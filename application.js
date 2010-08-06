@@ -20,7 +20,15 @@ dojo.require('org.hark.DetailsView');
 dojo.require('org.hark.GameFrame');
 
 // root path for all urls
-var ROOT_PATH = '..';
+var ROOT_PATH = '../';
+
+org.hark.urlToSlug = function(url) {
+    return url.replace(/\//g, '-').replace(/#/g, '>');
+};
+
+org.hark.slugToUrl = function(slug) {
+    return slug.replace(/\>/g, '#').replace(/-/g, '/');
+}
 
 dojo.declare('org.hark.Main', null, {
     constructor: function() {
@@ -59,20 +67,30 @@ dojo.declare('org.hark.Main', null, {
         // listen for hash changes
         dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
         var hash = dojo.hash();
-        if(hash) {
-            // handle initial hash
-            this._onHashChange(hash);
-        }
+        // handle initial hash
+        this._onHashChange(hash);
     },
     
-    _onHashChange: function(hash) {
-        var display = (hash) ? 'none' : '';
+    _onHashChange: function(slug) {
+        // clean up any visible details dialog
+        var dlg = dijit.byId('dialog');
+        dlg.hide();
+
+        var display = (slug) ? 'none' : '';
         // show/hide main layout and footer
-        dojo.style(dojo.byId('layout'), 'display', display);
-        dojo.style(dojo.byId('footer'), 'display', display);
+        var layout = dijit.byId('layout');
+        var footer = dijit.byId('footer');
+        dojo.style(layout.domNode, 'display', display);
+        dojo.style(footer.domNode, 'display', display);
+        if(!display) {
+            // force a resize
+            layout.resize();
+            footer.resize();
+        }
         // start/stop game
+        var url = (slug) ? (ROOT_PATH + org.hark.slugToUrl(slug)) : '';
         var frame = dijit.byId('frame');
-        frame.attr('url', hash);
+        frame.attr('url', url);
     },
     
     _onShowDetails: function(url) {
@@ -107,10 +125,11 @@ dojo.declare('org.hark.Main', null, {
     _onItem: function(item) {
         // get item fields
         // @todo: cycle screenshots
+        var url = this._db.getValue(item, 'url');
         var game = {
             label : this._db.getValue(item, 'label'),
             description : this._db.getValue(item, 'description'),
-            path: ROOT_PATH + this._db.getValue(item, 'path'),
+            slug: org.hark.urlToSlug(url),
             tags : this._db.getValue(item, 'tags'),
             screenshot : ROOT_PATH + this._db.getValue(item, 'media').screenshots[0],
         };

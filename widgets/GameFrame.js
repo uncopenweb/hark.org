@@ -6,6 +6,7 @@
 dojo.provide('org.hark.GameFrame');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
+dojo.require('dijit.Toolbar');
 dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark', 'GameFrame');
 
@@ -53,5 +54,10 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
     
     _onKeyPress: function(event) {
         console.log(event);
+    },
+    
+    _onClickHome: function(event) {
+        // switch hash to leave the game
+        dojo.hash('#');
     }
 });

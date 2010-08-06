@@ -1,7 +1,12 @@
 <div class="harkGameFrame" style="display: none;">
   <div dojoType="dijit.layout.BorderContainer" gutters="false" dojoAttachPoint="borderContainer">
-    <div dojoType="dijit.MenuBar" region="top">
-      Quit game
+    <div dojoType="dijit.Toolbar" region="top">
+      <div dojoType="dijit.form.Button" dojoAttachEvent="onClick:_onClickHome" iconClass="harkHomeIcon">${labels.home_button_label}</div>
+      <div dojoType="dijit.form.DropDownButton" iconClass="harkPreferencesIcon" showLabel="true">
+        <span>${labels.prefs_button_label}</span>
+        <div dojoType="dijit.TooltipDialog" title="Hark Preferences">@todo</div>
+      </div>
+      <div dojoType="dijit.form.Button" iconClass="harkHelpIcon">${labels.help_button_label}</div>
     </div>
     <div dojoType="dijit.layout.ContentPane" region="center">
       <iframe dojoAttachPoint="frameNode" dojoAttachEvent="onload:_onFrameLoad"></iframe>
