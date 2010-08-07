@@ -72,11 +72,7 @@ dojo.declare('org.hark.Main', null, {
     },
     
     _onHashChange: function(slug) {
-        // clean up any visible details dialog
-        var dlg = dijit.byId('dialog');
-        dlg.hide();
-
-        var display = (slug) ? 'none' : '';
+        var display = (slug) ? 'none' : '';        
         // show/hide main layout and footer
         var layout = dijit.byId('layout');
         var footer = dijit.byId('footer');
@@ -86,6 +82,10 @@ dojo.declare('org.hark.Main', null, {
             // force a resize
             layout.resize();
             footer.resize();
+        } else {
+            // clean up any visible details dialog
+            var dlg = dijit.byId('dialog');
+            dlg.hide();
         }
         // start/stop game
         var url = (slug) ? (ROOT_PATH + org.hark.slugToUrl(slug)) : '';

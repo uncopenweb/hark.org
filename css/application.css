@@ -295,6 +295,7 @@ a:hover {
     -o-transition: opacity 1s;
 }
 
-.harkGameFrame .dijitToolbar:hover {
+.harkGameFrame .dijitToolbar:hover,  
+.harkGameFrame .dijitToolbarFocused {
     opacity: 1.0;
 }
