@@ -126,11 +126,18 @@ dojo.declare('org.hark.Main', null, {
         // get item fields
         // @todo: cycle screenshots
         var url = this._db.getValue(item, 'url');
+        var label = this._db.getValue(item, 'label');
+        label = label[dojo.locale] || label['en-us'];
+        var description = this._db.getValue(item, 'description');
+        description = description[dojo.locale] || description['en-us'];
+        var tags = this._db.getValue(item, 'tags');
+        tags = tags[dojo.locale] || tags['en-us'];
+        
         var game = {
-            label : this._db.getValue(item, 'label'),
-            description : this._db.getValue(item, 'description'),
+            label : label,
+            description : description,
             slug: org.hark.urlToSlug(url),
-            tags : this._db.getValue(item, 'tags'),
+            tags : tags,
             screenshot : ROOT_PATH + this._db.getValue(item, 'media').screenshots[0],
         };
         // show game details

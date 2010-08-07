@@ -69,9 +69,12 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
         });
 
         // build the query
+        var qname = 'label.'+dojo.locale;
+        var query = {};
+        query[qname] = '*'+this._query+'*';
         // @todo: use $or when gb updates mongo
         var req = this._model.fetch({
-            query: {label : '*'+this._query+'*'},
+            query: query,
             onBegin: this._onBegin,
             onItem: this._onItem,
             onComplete: this._onComplete,
@@ -80,7 +83,7 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
             // fetch one extra to check if there's a next
             count: this.rowSize + 1,
             sort : [{
-                attribute : 'label',
+                attribute : 'label.'+dojo.locale,
                 descending : false
             }],
             scope: this
@@ -105,18 +108,19 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
             if(item) {
                 var tmpl = dojo.cache('org.hark.templates', 'ThumbnailViewItem.html');
                 var url = this._model.getValue(item, 'url');
+                var label = this._model.getValue(item, 'label');
+                label = label[dojo.locale] || label['en-us'];
                 var html = dojo.replace(tmpl, {
                     game_href :  '#' + org.hark.urlToSlug(url),
-                    game_label : this._model.getValue(item, 'label'),
+                    game_label : label,
                     icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
-                    icon_alt : this._model.getValue(item, 'label'),
+                    icon_alt : label,
                     more_href : '#',
                     more_label : this.labels.more_info_label
                 });
                 td.innerHTML = html;
                 dojo.addClass(td, 'harkThumbnailViewActiveCell');
                 var a = dojo.query('a', td)[1];
-                console.log(a);
                 // listen for more info click
                 this.connect(a, 'onclick', dojo.partial(this._onMoreInfo, url));
             }
@@ -141,7 +145,6 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
     },
     
     _onMoreInfo: function(url) {
-        console.log('MORE INFO', url);
         dojo.publish('/info', [url]);
     }
 });
