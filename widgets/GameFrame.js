@@ -21,15 +21,19 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this._tokens = [];
         // busy overlay
         this._busy = null;
+        // toolbar blur timeout
+        this._blurTok = null;
         this.labels = dojo.i18n.getLocalization('org.hark','GameFrame');
     },
 
     postCreate: function() {
         // listen to focus / blur on all toolbar children
-        dojo.forEach(this.toolbar.getChildren(), function(child) {
+        var children = this.toolbar.getChildren();
+        dojo.forEach(children, function(child) {
             this.connect(child.focusNode, 'onfocus', '_onChildFocus');
             this.connect(child.focusNode, 'onblur', '_onChildBlur');
         }, this);
+        this.connect(this.prefDialog.containerNode, 'onfocus', '_onChildFocus');
     },
     
     _setUrlAttr: function(url) {
@@ -56,30 +60,41 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
     },
     
     _onChildFocus: function(event) {
+        if(!this._busy) {
+            this._onToolbarFocus();
+        }
+        clearTimeout(this._blurTok);
         dojo.addClass(this.toolbar.domNode, 'dijitToolbarFocused');
     },
     
     _onChildBlur: function(event) {
-        dojo.removeClass(this.toolbar.domNode, 'dijitToolbarFocused');
+        // set timer to return focus to game
+        this._blurTok = setTimeout(dojo.hitch(this, '_onToolbarBlur'), 0); 
     },
     
     _onToolbarFocus: function(event) {
         if(this._busy) {
             org.hark.BusyOverlay.hide(this._busy);
         }
-        // @todo: show paused message with icon
         // @todo: need to signal game to stop too
         this._busy = org.hark.BusyOverlay.show({
             busyNode: this.frameNode,
             parentNode: this.framePane.domNode,
-            takeFocus: false
+            takeFocus: false,
+            animate: false,
+            message : this.labels.paused_overlay_label
         });
+        // @todo: should probably disconnect sooner?
+        this.connect(this._busy.domNode, 'onfocus', '_onToolbarBlur');
     },
     
-    _onFrameFocus: function(event) {
-        // @todo: doesn't get called, need another way to hide busy
-        org.hark.BusyOverlay.hide(this._busy);
-        this._busy = null;
+    _onToolbarBlur: function() {
+        dojo.removeClass(this.toolbar.domNode, 'dijitToolbarFocused');
+        this.frameNode.focus();
+        if(this._busy) {
+            org.hark.BusyOverlay.hide(this._busy);
+            this._busy = null;
+        }
     },
 
     _onFrameLoad: function(event) {
