@@ -305,9 +305,24 @@ a:hover {
 }
 
 .harkPreferencesDialog label {
-    text-align: right;
+    font-weight: bold;
+    text-align: left;
     width: 10em;
     display: inline-block;
     vertical-align: middle;
     padding: 5px 0px;
+}
+
+.harkPreferencesDialog .dijitSliderH {
+    width: 250px;
+    height: 20px;
+}
+
+.harkPreferencesDialog .dijitRuleContainerH {
+    height: 5px;
+}
+
+.harkPreferencesDialog .dijitRuleLabelsContainerH {
+    height: 1.2em;
+    font-size: 0.75em;
 }

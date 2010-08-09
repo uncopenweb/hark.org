@@ -41,8 +41,8 @@ dojo.declare('org.hark.Main', null, {
         this._dlgFadeTok = null;
         
         // listen for more info requests
-        dojo.subscribe('/info', this, '_onShowDetails');
-        
+        dojo.subscribe('/hark/info', this, '_onShowDetails');
+
         // get the games database
         var dbDef = uow.getDatabase({
             database : 'harkhome', 
@@ -58,7 +58,7 @@ dojo.declare('org.hark.Main', null, {
         // get database reference
         this._db = database;
         // announce db availability
-        dojo.publish('/model', [this._db]);
+        dojo.publish('/hark/model', [this._db]);
 
         // @todo: hide the loading spinner
 

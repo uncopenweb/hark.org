@@ -40,6 +40,6 @@ dojo.declare('org.hark.SearchView', [dijit._Widget, dijit._Templated], {
     
     onSearch: function(text) {
         // extension point
-        dojo.publish('/search', [text]);
+        dojo.publish('/hark/search', [text]);
     }
 });
