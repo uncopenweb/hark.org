@@ -7,6 +7,8 @@ dojo.provide('org.hark.GameFrame');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.Toolbar');
+dojo.require("dijit.form.CheckBox");
+dojo.require("dijit.form.Slider");
 dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark', 'GameFrame');
 
@@ -33,7 +35,15 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
             this.connect(child.focusNode, 'onfocus', '_onChildFocus');
             this.connect(child.focusNode, 'onblur', '_onChildBlur');
         }, this);
+        // and the pref dialog
         this.connect(this.prefDialog.containerNode, 'onfocus', '_onChildFocus');
+        // and its children too
+        children = this.prefDialog.getChildren();
+        dojo.forEach(children, function(child) {
+            console.log(child.focusNode);
+            this.connect(child.focusNode, 'onfocus', '_onChildFocus');
+            this.connect(child.focusNode, 'onblur', '_onChildBlur');
+        }, this);
     },
     
     _setUrlAttr: function(url) {
@@ -69,7 +79,7 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
     
     _onChildBlur: function(event) {
         // set timer to return focus to game
-        this._blurTok = setTimeout(dojo.hitch(this, '_onToolbarBlur'), 0); 
+        this._blurTok = setTimeout(dojo.hitch(this, '_onToolbarBlur'), 250); 
     },
     
     _onToolbarFocus: function(event) {

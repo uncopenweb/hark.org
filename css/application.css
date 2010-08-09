@@ -299,3 +299,15 @@ a:hover {
 .harkGameFrame .dijitToolbarFocused {
     opacity: 1.0;
 }
+
+.harkPreferencesDialog {
+    font-size: 0.75em;
+}
+
+.harkPreferencesDialog label {
+    text-align: right;
+    width: 10em;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 0px;
+}

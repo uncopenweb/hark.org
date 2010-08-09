@@ -1,10 +1,13 @@
 <div class="harkGameFrame" style="display: none;">
-  <div dojoType="dijit.layout.BorderContainer" gutters="false" dojoAttachPoint="borderContainer">
+  <div dojoType="dijit.layout.BorderContainer" gutters="false" dojoAttachPoint="borderContainer" class="foobar">
     <div dojoType="dijit.Toolbar" region="top" dojoAttachPoint="toolbar" dojoAttachEvent="focus:_onToolbarFocus">
       <div dojoType="dijit.form.Button" dojoAttachEvent="onClick:_onClickHome" iconClass="harkHomeIcon">${labels.home_button_label}</div>
       <div dojoType="dijit.form.DropDownButton" iconClass="harkPreferencesIcon" showLabel="true">
         <span>${labels.prefs_button_label}</span>
-        <div dojoType="dijit.TooltipDialog" title="Hark Preferences" dojoAttachPoint="prefDialog">@todo</div>
+        <div dojoType="dijit.TooltipDialog" class="harkPreferencesDialog" title="${labels.prefs_dialog_title}" dojoAttachPoint="prefDialog">
+          <label for="${id}_mouse">${labels.mouse_check_label}</label> <input type="checkbox" dojoType="dijit.form.CheckBox" id="${id}_mouse"/><br />
+          <label for="${id}_speech">${labels.speech_check_label}</label> <input type="checkbox" dojoType="dijit.form.CheckBox" id="${id}_speech"/>
+        </div>
       </div>
       <div dojoType="dijit.form.Button" iconClass="harkHelpIcon">${labels.help_button_label}</div>
     </div>
