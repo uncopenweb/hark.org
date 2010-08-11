@@ -4,7 +4,6 @@
  * Copyright UNC Open Web Team 2010. All Rights Reserved.
  */
 dojo.provide('org.hark.Main');
-dojo.require('dijit.dijit');
 dojo.require('dojo.hash');
 dojo.require('dojo.parser');
 dojo.require('dijit.layout.BorderContainer');
