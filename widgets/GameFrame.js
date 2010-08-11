@@ -7,8 +7,9 @@ dojo.provide('org.hark.GameFrame');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.Toolbar');
-dojo.require("dijit.form.CheckBox");
-dojo.require("dijit.form.Slider");
+dojo.require('dijit.form.CheckBox');
+dojo.require('dijit.form.Slider');
+dojo.require('dijit.TitlePane')
 dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark', 'GameFrame');
 
@@ -37,13 +38,16 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         }, this);
         // and the pref dialog
         this.connect(this.prefDialog.containerNode, 'onfocus', '_onChildFocus');
-        // and its children too
-        children = this.prefDialog.getChildren();
-        dojo.forEach(children, function(child) {
-            console.log(child.focusNode);
+        // and its descendant widgets too
+        dojo.query('[widgetId]', this.prefDialog.containerNode).forEach(function(node) {
+            console.log(node);
+            var child = dijit.byNode(node);
             this.connect(child.focusNode, 'onfocus', '_onChildFocus');
             this.connect(child.focusNode, 'onblur', '_onChildBlur');
         }, this);
+        // and the title pane container
+        this.connect(this.titlePane.containerNode, 'onfocus', '_onChildFocus');
+        this.connect(this.titlePane.containerNode, 'onblur', '_onChildBlur');
     },
     
     _setUrlAttr: function(url) {

@@ -6,7 +6,9 @@
     paused_overlay_label : 'Paused',
     speech_check_label : 'Enable speech?',
     mouse_check_label : 'Enable mouse?',
+    master_slider_label : 'Master volume',
     speech_slider_label : 'Speech volume',
     sound_slider_label : 'Sound volume',
-    music_slider_label : 'Music volume'
+    music_slider_label : 'Music volume',
+    advanced_pane_title : 'Advanced'
 }
