@@ -29,6 +29,7 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this.labels = dojo.i18n.getLocalization('org.hark','GameFrame');
     },
 
+    /* Configure focus and key tracking on critical nodes */ 
     postCreate: function() {
         // listen to focus / blur on all toolbar children
         var children = this.toolbar.getChildren();
@@ -40,16 +41,23 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this.connect(this.prefDialog.containerNode, 'onfocus', '_onChildFocus');
         // and its descendant widgets too
         dojo.query('[widgetId]', this.prefDialog.containerNode).forEach(function(node) {
-            console.log(node);
             var child = dijit.byNode(node);
-            this.connect(child.focusNode, 'onfocus', '_onChildFocus');
-            this.connect(child.focusNode, 'onblur', '_onChildBlur');
+            if(child.focusNode) {
+                this.connect(child.focusNode, 'onfocus', '_onChildFocus');
+                this.connect(child.focusNode, 'onblur', '_onChildBlur');
+            }
         }, this);
         // and the title pane container
         this.connect(this.titlePane.containerNode, 'onfocus', '_onChildFocus');
         this.connect(this.titlePane.containerNode, 'onblur', '_onChildBlur');
+        
+        // listen for tab nav in the toolbar
+        this.connect(this.toolbar.domNode, 'onkeydown', '_onKeyDown');
+        // listen for magic keys in toolbar
+        this.connect(this.toolbar.domNode, 'onkeyup', '_onKeyUp');
     },
     
+    /* Load a new game in the iframe. */
     _setUrlAttr: function(url) {
         this.url = url;
         var display, src;
@@ -73,6 +81,7 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         }
     },
     
+    /* Clear blur timer and set focus style on toolbar. */
     _onChildFocus: function(event) {
         if(!this._busy) {
             this._onToolbarFocus();
@@ -81,11 +90,13 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         dojo.addClass(this.toolbar.domNode, 'dijitToolbarFocused');
     },
     
+    /* Set a timer to return focus to the game if toolbar doesn't grab it. */
     _onChildBlur: function(event) {
         // set timer to return focus to game
-        this._blurTok = setTimeout(dojo.hitch(this, '_onToolbarBlur'), 250); 
+        this._blurTok = setTimeout(dojo.hitch(this, '_onToolbarBlur', event), 250); 
     },
     
+    /* Pause the game and give the toolbar focus. */
     _onToolbarFocus: function(event) {
         if(this._busy) {
             org.hark.BusyOverlay.hide(this._busy);
@@ -100,17 +111,28 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         });
         // @todo: should probably disconnect sooner?
         this.connect(this._busy.domNode, 'onfocus', '_onToolbarBlur');
+        // update hint
+        this.hintNode.innerHTML = this.labels.resume_hint;
     },
     
-    _onToolbarBlur: function() {
+    /* Unpause the game. */
+    _onToolbarBlur: function(event) {
         dojo.removeClass(this.toolbar.domNode, 'dijitToolbarFocused');
-        this.frameNode.focus();
+        if(this._blurTok) {
+            clearTimeout(this._blurTok);
+            this._blurTok = null;
+        }
         if(this._busy) {
             org.hark.BusyOverlay.hide(this._busy);
             this._busy = null;
         }
+        // delay to grab focus from the busy
+        setTimeout(dojo.hitch(this.frameNode, 'focus'), 100);
+        // update hint
+        this.hintNode.innerHTML = this.labels.pause_hint;
     },
 
+    /* Connect for key events and publishes from the game in the frame. */
     _onFrameLoad: function(event) {
         if(this._tokens.length) {
             dojo.forEach(this._tokens, dojo.disconnect);
@@ -123,8 +145,11 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         t = dojo.connect(event.target.contentWindow, 'onkeydown', this, 
             '_onKeyDown');
         this._tokens.push(t);
+        
+        this.frameNode.focus();
     },
     
+    /* Eat tab events for navigation out of the toolbar or iframe. */
     _onKeyDown: function(event) {
         if(event.keyCode == dojo.keys.TAB) {
             // stop tab from getting us out of the game
@@ -132,14 +157,21 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         }
     },
     
+    /* Watch for magic hotkey to activate / deactivate the toolbar. */
     _onKeyUp: function(event) {
         if(event.keyCode == dojo.keys.ESCAPE && event.shiftKey) {
-            // move focus to toolbar
-            this.toolbar.focus();
-            dojo.stopEvent(event);
+            if(this._busy) {
+                // move focus back to the game frame
+                this._onToolbarBlur();
+            } else {
+                // move focus to toolbar
+                this.toolbar.focus();
+                dojo.stopEvent(event);
+            }
         }
     },
     
+    /* Quit the game and return home. */
     _onClickHome: function(event) {
         // switch hash to leave the game
         dojo.hash('#');
