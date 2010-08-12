@@ -120,6 +120,11 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
                 });
                 td.innerHTML = html;
                 dojo.addClass(td, 'harkThumbnailViewActiveCell');
+                // listen for image click
+                var img = dojo.query('img', td)[0];
+                this.connect(img, 'onclick', function() {
+                    dojo.hash('#' + org.hark.urlToSlug(url));
+                });
                 var a = dojo.query('a', td)[1];
                 // listen for more info click
                 this.connect(a, 'onclick', dojo.partial(this._onMoreInfo, url));
