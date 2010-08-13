@@ -4,6 +4,7 @@
  *  Copyright UNC Open Web Team 2010. All Rights Reserved.
  */ 
 dojo.provide('org.hark.GameFrame');
+dojo.require('org.hark.Preferences');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.Toolbar');
@@ -20,8 +21,10 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
     templatePath: dojo.moduleUrl('org.hark', 'templates/GameFrame.html'),
 
     postMixInProperties: function() {
-        // tokens for event handlers
-        this._tokens = [];
+        // connect tokens for event handlers
+        this._connectTokens = [];
+        // subscribe tokens for pub/sub
+        this._subTokens = [];
         // busy overlay
         this._busy = null;
         // toolbar blur timeout
@@ -134,18 +137,24 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
 
     /* Connect for key events and publishes from the game in the frame. */
     _onFrameLoad: function(event) {
-        if(this._tokens.length) {
-            dojo.forEach(this._tokens, dojo.disconnect);
-            this._tokens = [];
+        if(this._connectTokens.length) {
+            dojo.forEach(this._connectTokens, dojo.disconnect);
+            this._connectTokens = [];
+            dojo.forEach(this._subTokens, dojo.unsubscribe);
+            this._subTokens = [];
         }
         var t;
         t = dojo.connect(event.target.contentWindow, 'onkeyup', this, 
             '_onKeyUp');
-        this._tokens.push(t);
+        this._connectTokens.push(t);
         t = dojo.connect(event.target.contentWindow, 'onkeydown', this, 
             '_onKeyDown');
-        this._tokens.push(t);
-        
+        this._connectTokens.push(t);
+        // 
+        var win = this.frameNode.contentWindow;
+        t = win.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
+        this._subTokens.push(t);
+        // set focus on the iframe
         this.frameNode.focus();
     },
     
@@ -175,5 +184,12 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
     _onClickHome: function(event) {
         // switch hash to leave the game
         dojo.hash('#');
+    },
+    
+    /* Publish preferences for the game. */
+    _onPrefRequest: function() {
+        var win = this.frameNode.contentWindow;
+        win.dojo.publish('/org/hark/prefs/response', [org.hark.Preferences, 
+            null]);
     }
 });
