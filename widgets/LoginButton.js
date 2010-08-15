@@ -17,7 +17,7 @@ dojo.declare('org.hark.LoginButton', [dijit._Widget, dijit._Templated], {
         this.labels = dojo.i18n.getLocalization('org.hark','LoginButton');
     },
 
-    postCreate: function() {
+    triggerLogin: function() {
         var def = uow.getUser();
         def.addCallback(this, function(user) {
             if(user.email) {

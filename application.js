@@ -44,10 +44,12 @@ dojo.declare('org.hark.Main', null, {
         
         // listen for more info requests
         dojo.subscribe('/hark/info', this, '_onShowDetails');
-        // list for auth changes
+        // listen for auth changes
         dojo.subscribe('/hark/auth', this, '_onInitDatabase');
         // listen for hash changes
         dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
+        // trigger first login
+        dijit.byId('login').triggerLogin();
         var hash = dojo.hash();
         // handle initial hash
         this._onHashChange(hash);
