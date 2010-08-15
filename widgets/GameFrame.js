@@ -5,6 +5,7 @@
  */ 
 dojo.provide('org.hark.GameFrame');
 dojo.require('org.hark.Preferences');
+dojo.require('org.hark.PreferencesView');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.Toolbar');
@@ -51,8 +52,8 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
             }
         }, this);
         // and the title pane container
-        this.connect(this.titlePane.containerNode, 'onfocus', '_onChildFocus');
-        this.connect(this.titlePane.containerNode, 'onblur', '_onChildBlur');
+        //this.connect(this.titlePane.containerNode, 'onfocus', '_onChildFocus');
+        //this.connect(this.titlePane.containerNode, 'onblur', '_onChildBlur');
         
         // listen for tab nav in the toolbar
         this.connect(this.toolbar.domNode, 'onkeydown', '_onKeyDown');
@@ -152,8 +153,10 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this._connectTokens.push(t);
         // 
         var win = this.frameNode.contentWindow;
-        t = win.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
-        this._subTokens.push(t);
+        if(win.dojo) {
+            t = win.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
+            this._subTokens.push(t);
+        }
         // set focus on the iframe
         this.frameNode.focus();
     },

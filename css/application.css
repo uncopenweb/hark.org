@@ -308,11 +308,11 @@ a:hover {
     padding-left: 3em;
 }
 
-.harkPreferencesDialog {
+.harkPreferencesView {
     font-size: 0.75em;
 }
 
-.harkPreferencesDialog label {
+.harkPreferencesView label {
     font-weight: bold;
     text-align: left;
     width: 10em;
@@ -321,32 +321,32 @@ a:hover {
     padding: 5px 0px;
 }
 
-.harkPreferencesDialog .dijitSliderH {
+.harkPreferencesView .dijitSliderH {
     width: 250px;
     height: 25px;
 }
 
-.harkPreferencesDialog .dijitRuleContainerH {
+.harkPreferencesView .dijitRuleContainerH {
     height: 5px;
 }
 
-.harkPreferencesDialog .dijitRuleLabelsContainerH {
+.harkPreferencesView .dijitRuleLabelsContainerH {
     height: 1.5em;
     font-size: 0.85em;
 }
 
-.harkPreferencesDialog .dijitTitlePane {
+.harkPreferencesView .dijitTitlePane {
     margin-top: 10px;
     width: 275px;
 }
 
-.harkPreferencesDialog .dijitTitlePane .dijitTitlePaneTitle {
+.harkPreferencesView .dijitTitlePane .dijitTitlePaneTitle {
     background-image: none !important;
     background-color: transparent !important;
     border-width: 0px !important;
     padding: 0px;
 }
 
-.harkPreferencesDialog .dijitTitlePane .dijitTitlePaneContentOuter {
+.harkPreferencesView .dijitTitlePane .dijitTitlePaneContentOuter {
     border-width: 0px !important;
 }

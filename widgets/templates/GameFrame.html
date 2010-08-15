@@ -4,37 +4,8 @@
       <div dojoType="dijit.form.Button" dojoAttachEvent="onClick:_onClickHome" iconClass="harkHomeIcon">${labels.home_button_label}</div>
       <div dojoType="dijit.form.DropDownButton" iconClass="harkPreferencesIcon" showLabel="true">
         <span>${labels.prefs_button_label}</span>
-        <div dojoType="dijit.TooltipDialog" class="harkPreferencesDialog" title="${labels.prefs_dialog_title}" dojoAttachPoint="prefDialog">
-
-          <label for="${id}_mouse">${labels.mouse_check_label}</label> <input type="checkbox" dojoType="dijit.form.CheckBox" id="${id}_mouse" checked/><br />
-          
-          <label for="${id}_speech">${labels.speech_check_label}</label> <input type="checkbox" dojoType="dijit.form.CheckBox" id="${id}_speech" checked/><br />
-          
-          <label for="${id}_master_volume">${labels.master_slider_label}</label>
-          <div dojoType="dijit.form.HorizontalSlider" value="100" maximum="100" minimum="0" pageIncrement="20" showButtons="false" intermediateChanges="true" slideDuration="500" id="${id}_master_volume"> 
-				    <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="6"></div> 
-            <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" count="6" numericMargin="0"></ol>
-		      </div>
-          
-          <div dojoType="dijit.TitlePane" title="${labels.advanced_pane_title}" open="false" dojoAttachPoint="titlePane">
-            <label for="${id}_speech_volume">${labels.speech_slider_label}</label>
-            <div dojoType="dijit.form.HorizontalSlider" value="100" maximum="100" minimum="0" pageIncrement="20" showButtons="false" intermediateChanges="true" slideDuration="500" id="${id}_speech_volume"> 
-  				    <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="6"></div> 
-              <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" count="6" numericMargin="0"></ol>
-  		      </div>
-		      
-  		      <label for="${id}_sound_volume">${labels.sound_slider_label}</label>
-            <div dojoType="dijit.form.HorizontalSlider" value="90" maximum="100" minimum="0" pageIncrement="20" showButtons="false" intermediateChanges="true" slideDuration="500" id="${id}_sound_volume"> 
-  				    <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="6"></div> 
-              <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" count="6" numericMargin="0"></ol>
-  		      </div>
-		      
-  		      <label for="${id}_music_volume">${labels.music_slider_label}</label>
-            <div dojoType="dijit.form.HorizontalSlider" value="30" maximum="100" minimum="0" pageIncrement="20" showButtons="false" intermediateChanges="true" slideDuration="500" id="${id}_music_volume"> 
-  				    <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="6"></div> 
-              <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" count="6" numericMargin="0"></ol>
-  		      </div>
-  		    </div>
+        <div dojoType="dijit.TooltipDialog" title="${labels.prefs_dialog_title}" dojoAttachPoint="prefDialog">
+          <div dojoType="org.hark.PreferencesView"></div>
         </div>
       </div>
       <div dojoType="dijit.form.Button" iconClass="harkHelpIcon">${labels.help_button_label}</div>
