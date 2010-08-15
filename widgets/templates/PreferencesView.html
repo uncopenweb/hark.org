@@ -1,31 +1,95 @@
 <div class="harkPreferencesView">
-  <label for="${id}_mouse">${labels.mouse_check_label}</label> <input type="checkbox" dojoType="dijit.form.CheckBox" id="${id}_mouse" checked/><br />
-          
-  <label for="${id}_speech">${labels.speech_check_label}</label> <input type="checkbox" dojoType="dijit.form.CheckBox" id="${id}_speech" checked/><br />
-  
+  <label for="${id}_mouse">${labels.mouse_check_label}</label>
+  <input type="checkbox" 
+         dojoType="dijit.form.CheckBox" 
+         dojoAttachEvent="onChange:_onChange" 
+         id="${id}_mouse" 
+         checked /><br />
+
+  <label for="${id}_speech">${labels.speech_check_label}</label>
+  <input type="checkbox" 
+         dojoType="dijit.form.CheckBox" 
+         id="${id}_speech" 
+         checked /><br />
+
   <label for="${id}_master_volume">${labels.master_slider_label}</label>
-  <div dojoType="dijit.form.HorizontalSlider" value="100" maximum="100" minimum="0" pageIncrement="20" showButtons="false" intermediateChanges="true" slideDuration="500" id="${id}_master_volume"> 
-    <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="6"></div> 
-    <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" count="6" numericMargin="0"></ol>
+  <div dojoType="dijit.form.HorizontalSlider" 
+       dojoAttachEvent="onChange:_onChange" 
+       value="100" 
+       maximum="100" 
+       minimum="0" 
+       pageIncrement="20" 
+       showButtons="false" 
+       intermediateChanges="true" 
+       slideDuration="500" 
+       id="${id}_master_volume"> 
+    <div dojoType="dijit.form.HorizontalRule" 
+         container="bottomDecoration" 
+         count="6"></div> 
+    <ol dojoType="dijit.form.HorizontalRuleLabels" 
+        container="bottomDecoration" 
+        count="6" 
+        numericMargin="0"></ol>
   </div>
           
-  <div dojoType="dijit.TitlePane" title="${labels.advanced_pane_title}" open="false" dojoAttachPoint="titlePane">
+  <div dojoType="dijit.TitlePane" 
+       title="${labels.advanced_pane_title}" 
+       open="false">
     <label for="${id}_speech_volume">${labels.speech_slider_label}</label>
-    <div dojoType="dijit.form.HorizontalSlider" value="100" maximum="100" minimum="0" pageIncrement="20" showButtons="false" intermediateChanges="true" slideDuration="500" id="${id}_speech_volume"> 
-	    <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="6"></div> 
-      <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" count="6" numericMargin="0"></ol>
+    <div dojoType="dijit.form.HorizontalSlider" 
+         value="100" 
+         maximum="100" 
+         minimum="0" 
+         pageIncrement="20" 
+         showButtons="false" 
+         intermediateChanges="true" 
+         slideDuration="500" 
+         id="${id}_speech_volume"> 
+	    <div dojoType="dijit.form.HorizontalRule" 
+	         container="bottomDecoration" 
+	         count="6"></div> 
+      <ol dojoType="dijit.form.HorizontalRuleLabels" 
+          container="bottomDecoration" 
+          count="6" 
+          numericMargin="0"></ol>
     </div>
   
     <label for="${id}_sound_volume">${labels.sound_slider_label}</label>
-    <div dojoType="dijit.form.HorizontalSlider" value="90" maximum="100" minimum="0" pageIncrement="20" showButtons="false" intermediateChanges="true" slideDuration="500" id="${id}_sound_volume"> 
-	    <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="6"></div> 
-      <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" count="6" numericMargin="0"></ol>
+    <div dojoType="dijit.form.HorizontalSlider" 
+         value="90" 
+         maximum="100" 
+         minimum="0"
+         pageIncrement="20" 
+         showButtons="false" 
+         intermediateChanges="true" 
+         slideDuration="500" 
+         id="${id}_sound_volume"> 
+	    <div dojoType="dijit.form.HorizontalRule" 
+	         container="bottomDecoration" 
+	         count="6"></div> 
+      <ol dojoType="dijit.form.HorizontalRuleLabels" 
+          container="bottomDecoration" 
+          count="6" 
+          numericMargin="0"></ol>
     </div>
   
     <label for="${id}_music_volume">${labels.music_slider_label}</label>
-    <div dojoType="dijit.form.HorizontalSlider" value="30" maximum="100" minimum="0" pageIncrement="20" showButtons="false" intermediateChanges="true" slideDuration="500" id="${id}_music_volume"> 
-	    <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count="6"></div> 
-      <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" count="6" numericMargin="0"></ol>
+    <div dojoType="dijit.form.HorizontalSlider" 
+         value="30" 
+         maximum="100" 
+         minimum="0" 
+         pageIncrement="20" 
+         showButtons="false" 
+         intermediateChanges="true" 
+         slideDuration="500" 
+         id="${id}_music_volume"> 
+	    <div dojoType="dijit.form.HorizontalRule" 
+	         container="bottomDecoration" 
+	         count="6"></div> 
+      <ol dojoType="dijit.form.HorizontalRuleLabels" 
+          container="bottomDecoration" 
+          count="6" 
+          numericMargin="0"></ol>
     </div>
   </div>
 </div>

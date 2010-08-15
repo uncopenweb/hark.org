@@ -28,5 +28,9 @@ dojo.declare('org.hark.PreferencesView', [dijit._Widget, dijit._Templated], {
 
     uninitialize: function() {
 
+    },
+    
+    _onChange: function(value) {
+        console.log(value);
     }
 });
