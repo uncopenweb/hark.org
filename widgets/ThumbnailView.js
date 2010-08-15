@@ -62,11 +62,13 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
     },
     
     _search: function() {
-        // show busy until done
-        this._busy = org.hark.BusyOverlay.show({
-            busyNode: this.containerNode.domNode,
-            parentNode: this.domNode
-        });
+        if(!this._busy) {
+            // show busy until done
+            this._busy = org.hark.BusyOverlay.show({
+                busyNode: this.containerNode.domNode,
+                parentNode: this.domNode
+            });
+        }
 
         // build the query
         var qname = 'label.'+dojo.locale;

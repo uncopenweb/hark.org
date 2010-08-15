@@ -19,8 +19,8 @@ dojo.declare('org.hark.SearchView', [dijit._Widget, dijit._Templated], {
     },
     
     postCreate: function() {
-        // trigger a search on page load
-        dojo.ready(this, '_onClickSearch');
+        // trigger a search whenever a new model is set
+        this.subscribe('/hark/model', '_onClickSearch');
     },
     
     _onKeyUp: function(event) {

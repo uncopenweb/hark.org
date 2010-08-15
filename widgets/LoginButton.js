@@ -18,26 +18,38 @@ dojo.declare('org.hark.LoginButton', [dijit._Widget, dijit._Templated], {
     },
 
     postCreate: function() {
-        var user = uow.getUser();
-        if(user.email) {
-            this._onAuth({flag : 'ok', user: user});
-        } else {
-            dojo.style(this.loginNode, 'display', '');
-        }
+        var def = uow.getUser();
+        def.addCallback(this, function(user) {
+            if(user.email) {
+                this._onAuth(user);
+            } else {
+                throw new Error('not authed')
+            }            
+        }).addErrback(this, '_onNoAuth');
     },
     
-    _onAuth: function(response) {
-        if(response.flag == 'ok') {
-            dojo.style(this.loginNode, 'display', 'none');
-            var welcome = dojo.replace(this.labels.welcome_user_label, response.user);
-            this.welcomeNode.innerHTML = welcome;
-            dojo.style(this.authedNode, 'display', '');
-        }
+    _onAuth: function(user) {
+        dojo.style(this.loginNode, 'display', 'none');
+        var welcome = dojo.replace(this.labels.welcome_user_label, user);
+        this.welcomeNode.innerHTML = welcome;
+        dojo.style(this.authedNode, 'display', '');
+        dojo.publish('/hark/auth', [user]);
+    },
+    
+    _onNoAuth: function() {
+        dojo.style(this.loginNode, 'display', '');
+        dojo.publish('/hark/auth', [null]);
     },
     
     _onClickLogin: function() {
         var def = uow.triggerLogin();
-        def.addCallback(this, '_onAuth');
+        def.addCallback(this, function(response) {
+            if(response.flag == 'ok') {
+                this._onAuth(response.user);
+            } else {
+                throw new Error('not authed')
+            }
+        }).addErrback(this, '_onNoAuth');
     },
     
     _onClickLogout: function() {

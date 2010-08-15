@@ -38,9 +38,23 @@ dojo.declare('org.hark.Main', null, {
         this._details = null;
         // connect token for fade in
         this._dlgFadeTok = null;
+
+        // show the footer once loaded
+        dojo.style(dojo.byId('footer'), 'visibility', '');
         
         // listen for more info requests
         dojo.subscribe('/hark/info', this, '_onShowDetails');
+        // list for auth changes
+        dojo.subscribe('/hark/auth', this, '_onInitDatabase');
+        // listen for hash changes
+        dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
+        var hash = dojo.hash();
+        // handle initial hash
+        this._onHashChange(hash);
+    },
+    
+    _onInitDatabase: function() {
+        this._db = null;
 
         // get the games database
         var dbDef = uow.getDatabase({
@@ -48,9 +62,7 @@ dojo.declare('org.hark.Main', null, {
             collection : 'games', 
             mode : 'r'}
         );
-        dbDef.addCallback(dojo.hitch(this, '_onDatabaseReady'));
-        
-        // @todo: show a spinner while loading to avoid funky layout
+        dbDef.addCallback(dojo.hitch(this, '_onDatabaseReady'));        
     },
     
     _onDatabaseReady: function(database) {
@@ -58,17 +70,6 @@ dojo.declare('org.hark.Main', null, {
         this._db = database;
         // announce db availability
         dojo.publish('/hark/model', [this._db]);
-
-        // @todo: hide the loading spinner
-
-        // show the footer once loaded
-        dojo.style(dojo.byId('footer'), 'visibility', '');
-
-        // listen for hash changes
-        dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
-        var hash = dojo.hash();
-        // handle initial hash
-        this._onHashChange(hash);
     },
     
     _onHashChange: function(slug) {
