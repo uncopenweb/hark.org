@@ -105,7 +105,6 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         if(this._busy) {
             org.hark.BusyOverlay.hide(this._busy);
         }
-        // @todo: need to signal game to stop too
         this._busy = org.hark.BusyOverlay.show({
             busyNode: this.frameNode,
             parentNode: this.framePane.domNode,
@@ -117,6 +116,8 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this.connect(this._busy.domNode, 'onfocus', '_onToolbarBlur');
         // update hint
         this.hintNode.innerHTML = this.labels.resume_hint;
+        // signal the game to stop
+        dojo.publish('/org/hark/pause', [true]);
     },
     
     /* Unpause the game. */
@@ -134,6 +135,8 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         setTimeout(dojo.hitch(this.frameNode, 'focus'), 100);
         // update hint
         this.hintNode.innerHTML = this.labels.pause_hint;
+        // signal the game to resume
+        dojo.publish('/org/hark/pause', [false]);
     },
 
     /* Connect for key events and publishes from the game in the frame. */
@@ -151,9 +154,12 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         t = dojo.connect(event.target.contentWindow, 'onkeydown', this, 
             '_onKeyDown');
         this._connectTokens.push(t);
-        // 
+        // listen for pref requests from within the game frame and externally
+        // from the preference controls
         var win = this.frameNode.contentWindow;
         if(win.dojo) {
+            t = dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
+            this._subTokens.push(t);
             t = win.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
             this._subTokens.push(t);
         }
@@ -190,9 +196,9 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
     },
     
     /* Publish preferences for the game. */
-    _onPrefRequest: function() {
+    _onPrefRequest: function(name) {
         var win = this.frameNode.contentWindow;
         win.dojo.publish('/org/hark/prefs/response', [org.hark.Preferences, 
-            null]);
+            name]);
     }
 });

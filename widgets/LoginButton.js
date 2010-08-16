@@ -33,12 +33,12 @@ dojo.declare('org.hark.LoginButton', [dijit._Widget, dijit._Templated], {
         var welcome = dojo.replace(this.labels.welcome_user_label, user);
         this.welcomeNode.innerHTML = welcome;
         dojo.style(this.authedNode, 'display', '');
-        dojo.publish('/hark/auth', [user]);
+        dojo.publish('/org/hark/auth', [user]);
     },
     
     _onNoAuth: function() {
         dojo.style(this.loginNode, 'display', '');
-        dojo.publish('/hark/auth', [null]);
+        dojo.publish('/org/hark/auth', [null]);
     },
     
     _onClickLogin: function() {

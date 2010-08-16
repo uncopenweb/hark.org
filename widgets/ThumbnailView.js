@@ -28,8 +28,8 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
         // busy dialog
         this._busy = null;
         this.labels = dojo.i18n.getLocalization('org.hark', 'ThumbnailView');
-        this.subscribe('/hark/search', 'setQuery');
-        this.subscribe('/hark/model', 'setModel');
+        this.subscribe('/org/hark/search', 'setQuery');
+        this.subscribe('/org/hark/model', 'setModel');
     },
     
     postCreate: function() {
@@ -152,6 +152,6 @@ dojo.declare('org.hark.ThumbnailView', [dijit._Widget, dijit._Templated], {
     },
     
     _onMoreInfo: function(url) {
-        dojo.publish('/hark/info', [url]);
+        dojo.publish('/org/hark/info', [url]);
     }
 });

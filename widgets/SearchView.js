@@ -20,7 +20,7 @@ dojo.declare('org.hark.SearchView', [dijit._Widget, dijit._Templated], {
     
     postCreate: function() {
         // trigger a search whenever a new model is set
-        this.subscribe('/hark/model', '_onClickSearch');
+        this.subscribe('/org/hark/model', '_onClickSearch');
     },
     
     _onKeyUp: function(event) {
@@ -40,6 +40,6 @@ dojo.declare('org.hark.SearchView', [dijit._Widget, dijit._Templated], {
     
     onSearch: function(text) {
         // extension point
-        dojo.publish('/hark/search', [text]);
+        dojo.publish('/org/hark/search', [text]);
     }
 });

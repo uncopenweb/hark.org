@@ -43,9 +43,9 @@ dojo.declare('org.hark.Main', null, {
         dojo.style(dojo.byId('footer'), 'visibility', '');
         
         // listen for more info requests
-        dojo.subscribe('/hark/info', this, '_onShowDetails');
+        dojo.subscribe('/org/hark/info', this, '_onShowDetails');
         // listen for auth changes
-        dojo.subscribe('/hark/auth', this, '_onInitDatabase');
+        dojo.subscribe('/org/hark/auth', this, '_onInitDatabase');
         // listen for hash changes
         dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
         // trigger first login
@@ -71,7 +71,7 @@ dojo.declare('org.hark.Main', null, {
         // get database reference
         this._db = database;
         // announce db availability
-        dojo.publish('/hark/model', [this._db]);
+        dojo.publish('/org/hark/model', [this._db]);
     },
     
     _onHashChange: function(slug) {
