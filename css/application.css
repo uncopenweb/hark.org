@@ -3,17 +3,11 @@
  *
  * Copyright UNC Open Web Team 2010. All Rights Reserved.
  */
-html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0px;
+body.claro {
     padding: 0px;
+    background-color: #6D9CC5;
+    font-size: 12pt;
     font-family: Helvetica, sans-serif;
-    font-size: 0.95em !important;
-}
-
-body {
-    background-color: #6599cb;
 }
 
 a {
@@ -23,6 +17,57 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+#header {
+    height: 150px;
+    background-color: #ddd;
+}
+
+#nav {
+/*    padding: 3px 15px;*/
+    height: 24px;
+}
+
+#search {
+    margin: 25px;
+    text-align: center;
+}
+
+#layout {
+	margin-bottom: 20px;
+	padding: 10px 0px;
+	background-color: white;
+	-moz-box-shadow: 2px 2px 20px #000;
+    -webkit-box-shadow: 2px 2px 20px #000;
+    -o-box-shadow: 2px 2px 20px #000;
+    border: 1px solid black;
+    border-top: 0px solid white;
+}
+
+#footer {
+    color: #edf8fe;
+    font-size: 0.8em;
+}
+
+#footer_right {
+    text-align: right;
+}
+
+.harkSearchView input[type="search"] {
+    width: 320px;
+    vertical-align: middle;
+    font-size: 1.5em !important;
+}
+
+/*
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: Helvetica, sans-serif;
+    font-size: 0.95em !important;
 }
 
 #layout {
@@ -74,21 +119,6 @@ a:hover {
     line-height: 110px;
 }
 
-#footer {
-    text-align: right;
-    margin: 5px auto;
-    color: white;
-    width: 800px;
-    height: 60px;
-    color: #edf8fe;
-    font-size: 0.8em;
-}
-
-#footer .fixedPane {
-    text-align: left;
-    overflow: hidden;
-}
-
 #viewer {
     padding: 20px;
     margin: 15px;
@@ -100,12 +130,6 @@ a:hover {
     -o-border-radius: 50px 50px;
     border: 1px solid #eee;
     background-color: #f7f7f7;
-}
-
-#search {
-    text-align: center;
-    margin-bottom: 0px;
-    overflow: hidden;
 }
 
 #apps {
@@ -349,4 +373,4 @@ a:hover {
 
 .harkPreferencesView .dijitTitlePane .dijitTitlePaneContentOuter {
     border-width: 0px !important;
-}
+}*/

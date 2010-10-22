@@ -7,6 +7,7 @@
     <style type="text/css">
       @import "http://o.aolcdn.com/dojo/1.5/dojo/resources/dojo.css";
       @import "http://o.aolcdn.com/dojo/1.5/dijit/themes/claro/claro.css";
+      @import "css/960.css";
       @import "css/application.css";
       @import "css/icons.css";
     </style>
@@ -25,7 +26,36 @@
     <script type="text/javascript" src="application.js"></script>
   </head>
   <body class="claro">
-    <div dojoType="org.hark.GameFrame" id="frame"></div>
+    <div class="container_12" id="layout">
+    	<div class="grid_12" id="header">
+    		<h1>Hark the Sound</h1>
+    	</div>
+    	<div class="clear"></div>
+    	
+    	<div class="grid_12">
+      	<div dojoType="dijit.MenuBar" region="bottom" id="nav">
+          <div dojoType="org.hark.LoginButton" id="login"></div>
+        </div>
+      </div>
+      <div class="clear"></div>
+
+      <div class="grid_12" id="search">
+        <div dojoType="org.hark.SearchView"></div>
+      </div>
+      <div class="clear"></div>
+
+    </div>
+    <div class="container_12" id="footer">
+      <div class="grid_6" id="footer_left">
+        UNC Computer Science<br />
+        Enabling Technology<br />
+        Copyright &copy; 2010. All rights reserved.
+      </div>
+      <div class="grid_6" id="footer_right">
+        <img src="images/unc-logo.png" />
+      </div>
+    </div>
+<!--    <div dojoType="org.hark.GameFrame" id="frame"></div>
     <div dojoType="dijit.Dialog" id="dialog" draggable="false" parseOnLoad="false"></div>
     <div dojoType="dijit.layout.BorderContainer" id="layout" gutters="false" style="display: none;">
       <div dojoType="dijit.layout.BorderContainer" region="top" id="header" gutters="false">
@@ -54,6 +84,6 @@
       <div dojoType="dijit.layout.ContentPane" class="fixedPane" region="right">
         <img src="images/unc-logo.png" />
       </div>
-    </div>
+    </div>-->
   </body>
 </html>

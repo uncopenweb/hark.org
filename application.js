@@ -158,5 +158,5 @@ dojo.declare('org.hark.Main', null, {
 });
 
 dojo.ready(function() {
-    var app = new org.hark.Main();        
+    //var app = new org.hark.Main();        
 });
