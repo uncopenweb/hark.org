@@ -34,13 +34,44 @@
     	
     	<div class="grid_12">
       	<div dojoType="dijit.MenuBar" region="bottom" id="nav">
-          <div dojoType="org.hark.LoginButton" id="login"></div>
-        </div>
+      	  <div dojoType="uow.ui.LoginButton" id="login" displayField="first_name"></div>
+      	</div>
       </div>
       <div class="clear"></div>
 
-      <div class="grid_12" id="search">
-        <div dojoType="org.hark.SearchView"></div>
+      <div id="search">
+        <div class="grid_4 prefix_2">
+          <input type="search" results="5" placeholder="Enter search terms" id="textNode"/>
+        </div>
+        <div class="grid_2">
+          <button id="searchNode">Search</button>
+        </div>
+        <div class="grid_2 suffix_2">
+          <button id="resetNode">Reset</button>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="results">
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="clear"></div>
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="clear"></div>
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="grid_3"></div>
+        <div class="clear"></div>
+      </div>
+
+      <div class="grid_12" id="results">
+        <!-- <div dojoType="org.hark.ThumbnailView" id="appView"></div> -->
       </div>
       <div class="clear"></div>
 

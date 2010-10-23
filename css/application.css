@@ -19,21 +19,6 @@ a:hover {
     text-decoration: underline;
 }
 
-#header {
-    height: 150px;
-    background-color: #ddd;
-}
-
-#nav {
-/*    padding: 3px 15px;*/
-    height: 24px;
-}
-
-#search {
-    margin: 25px;
-    text-align: center;
-}
-
 #layout {
 	margin-bottom: 20px;
 	padding: 10px 0px;
@@ -45,6 +30,49 @@ a:hover {
     border-top: 0px solid white;
 }
 
+#header {
+    height: 150px;
+    background-color: #ddd;
+}
+
+#menu {
+    height: 24px;
+}
+
+#login {
+    padding: 5px;
+    display: inline-block;
+    font-size: 0.8em;
+}
+
+#search {
+    margin: 25px 0px;
+    text-align: center;
+}
+
+#search input[type="search"] {
+    font-size: inherit;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.dj_webkit #search input[type="search"] {
+    margin-top: 3px;
+}
+
+#search button {
+    font-size: inherit;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+}
+
+#results .grid_3 {
+    height: 240px;
+    background-color: #ddd;
+    margin-bottom: 20px;
+}
+
 #footer {
     color: #edf8fe;
     font-size: 0.8em;
@@ -52,12 +80,6 @@ a:hover {
 
 #footer_right {
     text-align: right;
-}
-
-.harkSearchView input[type="search"] {
-    width: 320px;
-    vertical-align: middle;
-    font-size: 1.5em !important;
 }
 
 /*
