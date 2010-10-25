@@ -11,10 +11,12 @@ dojo.require('dijit.layout.ContentPane');
 dojo.require('dijit.layout.TabContainer');
 dojo.require('dijit.MenuBar');
 dojo.require('dijit.Dialog');
+dojo.require('dojo.i18n');
 dojo.require('uow.ui.LoginButton');
 dojo.require('org.hark.BusyOverlay');
 dojo.require('org.hark.DetailsView');
 dojo.require('org.hark.GameFrame');
+dojo.requireLocalization('org.hark', 'application');
 
 // root path for all urls
 var ROOT_PATH = '../';
@@ -60,7 +62,9 @@ dojo.declare('org.hark.Search', null, {
 });
 
 dojo.declare('org.hark.Results', null, {
-    constructor: function() {
+    constructor: function(args) {
+        // localized labels
+        this._labels = args.labels;
         // current results on page
         this._shownCount = 0;
         // current page
@@ -71,9 +75,17 @@ dojo.declare('org.hark.Results', null, {
         this._query = '';
         // busy dialog
         this._busy = null;
-        this.labels = dojo.i18n.getLocalization('org.hark', 'ThumbnailView');
-        this.subscribe('/org/hark/search', 'setQuery');
-        this.subscribe('/org/hark/model', 'setModel');
+        // container dom node
+        this._layoutNode = dojo.byId('layout');
+        this._resultsNode = dojo.byId('results');
+        this._resultNodes = dojo.query('div[class~="result"]', this._resultsNode);
+        // get number of rows and columns
+        this._rows = dojo.query('div[class="clear"]', this._resultsNode).length;
+        this._total = this._resultNodes.length;
+        this._cols =  this._total / this._rows;
+        // controller published events
+        dojo.subscribe('/org/hark/search', this, 'setQuery');
+        dojo.subscribe('/org/hark/model', this, 'setModel');
     },
     
     setQuery: function(text) {
@@ -92,8 +104,9 @@ dojo.declare('org.hark.Results', null, {
         if(!this._busy) {
             // show busy until done
             this._busy = org.hark.BusyOverlay.show({
-                busyNode: this.containerNode.domNode,
-                parentNode: this.domNode
+                busyNode: this._resultsNode,
+                parentNode: this._layoutNode,
+                takeFocus: false
             });
         }
 
@@ -108,9 +121,9 @@ dojo.declare('org.hark.Results', null, {
             onItem: this._onItem,
             onComplete: this._onComplete,
             onError: this._onError,
-            start: this._page * this.rowSize,
+            start: this._page * this._rows * this._cols,
             // fetch one extra to check if there's a next
-            count: this.rowSize + 1,
+            count: this._rows * this._cols + 1,
             sort : [{
                 attribute : 'label.'+dojo.locale,
                 descending : false
@@ -121,19 +134,17 @@ dojo.declare('org.hark.Results', null, {
     
     _onBegin: function(size, request) {
         // clear the table cells
-        dojo.query('td', this.tableNode).forEach('dojo.destroy(item);');
+        this._resultNodes.empty('');
         // reset the count
         this._shownCount = 0;
         // @todo: show message if no results
     },
     
     _onItem: function(item) {
-        var row = this.row0;
-        if(this._shownCount >= this.rowSize / 2.0) {
-            row = this.row1;
-        }
-        if(this._shownCount < this.rowSize) {
-            td = dojo.create('td', null, row);
+        if(this._shownCount < this._total) {
+            var row = Math.floor(this._shownCount / this._cols);
+            var col = this._shownCount % this._cols;
+            console.log(item, row, col);
             if(item) {
                 var tmpl = dojo.cache('org.hark.templates', 'ThumbnailViewItem.html');
                 var url = this._model.getValue(item, 'url');
@@ -145,30 +156,31 @@ dojo.declare('org.hark.Results', null, {
                     icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
                     icon_alt : label,
                     more_href : '#',
-                    more_label : this.labels.more_info_label
+                    more_label : this._labels.more_info_label
                 });
-                td.innerHTML = html;
-                dojo.addClass(td, 'harkThumbnailViewActiveCell');
+                var node = this._resultNodes[row * this._cols + col];
+                node.innerHTML = html;
+                //dojo.addClass(td, 'harkThumbnailViewActiveCell');
                 // listen for image click
-                var img = dojo.query('img', td)[0];
-                this.connect(img, 'onclick', function() {
+                var img = dojo.query('img', node)[0];
+                dojo.connect(node, 'onclick', function() {
                     dojo.hash('#' + org.hark.urlToSlug(url));
                 });
-                var a = dojo.query('a', td)[1];
+                var a = dojo.query('a', node)[1];
                 // listen for more info click
-                this.connect(a, 'onclick', dojo.partial(this._onMoreInfo, url));
+                dojo.connect(a, 'onclick', dojo.partial(this._onMoreInfo, url));
             }
         }
         this._shownCount += 1;
     },
     
     _onComplete: function() {
-        while(this._shownCount < this.rowSize) {
+        while(this._shownCount < this._total) {
             // fill blank cells
             this._onItem(null);
         }
-        this.nextButton.attr('disabled', this._shownCount <= this.rowSize);
-        this.prevButton.attr('disabled', this._page == 0);
+        //this.nextButton.attr('disabled', this._shownCount <= this.rowSize);
+        //this.prevButton.attr('disabled', this._page == 0);
         
         // hide busy spinner
         org.hark.BusyOverlay.hide(this._busy);
@@ -253,11 +265,19 @@ dojo.declare('org.hark.Details', null, {
 });
 
 dojo.declare('org.hark.Main', null, {
-    constructor: function() {
+    constructor: function(args) {
+        // localized labels
+        this._labels = args.labels;
         // busy dialog overlay
         this._busy = null;
         // connect token for fade in
         this._dlgFadeTok = null;
+        
+        // show localized labels
+        dojo.query('[data-label]').forEach(function(node) {
+            var name = node.getAttribute('data-label');
+            node.innerHTML = this._labels[name];
+        }, this);
         
         // listen for auth changes
         dojo.subscribe('/uow/auth', this, '_onInitDatabase');
@@ -290,6 +310,8 @@ dojo.declare('org.hark.Main', null, {
     },
     
     _onHashChange: function(slug) {
+        return;
+        // @todo:
         var display = (slug) ? 'none' : '';        
         // show/hide main layout and footer
         var layout = dijit.byId('layout');
@@ -313,5 +335,10 @@ dojo.declare('org.hark.Main', null, {
 });
 
 dojo.ready(function() {
-    var app = new org.hark.Main();        
+    var labels = dojo.i18n.getLocalization('org.hark', 'application');
+    var args = {
+        labels : labels
+    };
+    main = new org.hark.Main(args);
+    results = new org.hark.Results(args);
 });

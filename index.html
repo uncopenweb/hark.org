@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <title>Hark the Sound</title>
-    <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:bold' rel='stylesheet' type='text/css'>
+    <!-- <link href=' http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:bold' rel='stylesheet' type='text/css'> -->
     <style type="text/css">
       @import "http://o.aolcdn.com/dojo/1.5/dojo/resources/dojo.css";
       @import "http://o.aolcdn.com/dojo/1.5/dijit/themes/claro/claro.css";
       @import "css/960.css";
       @import "css/application.css";
       @import "css/icons.css";
+      @import "/libs/uow/ui/css/Icons.css";
     </style>
     <script type="text/javascript">
         var djConfig = {
@@ -28,7 +29,7 @@
   <body class="claro">
     <div class="container_12" id="layout">
     	<div class="grid_12" id="header">
-    		<h1>Hark the Sound</h1>
+    		<h1 data-label="page_title"></h1>
     	</div>
     	<div class="clear"></div>
     	
@@ -44,29 +45,29 @@
           <input type="search" results="5" placeholder="Enter search terms" id="textNode"/>
         </div>
         <div class="grid_2">
-          <button id="searchNode">Search</button>
+          <button id="searchNode" data-label="search_button_label"></button>
         </div>
         <div class="grid_2 suffix_2">
-          <button id="resetNode">Reset</button>
+          <button id="resetNode" data-label="reset_button_label"></button>
         </div>
         <div class="clear"></div>
       </div>
 
       <div id="results">
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
         <div class="clear"></div>
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
         <div class="clear"></div>
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
-        <div class="grid_3"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
+        <div class="grid_3 result"></div>
         <div class="clear"></div>
       </div>
 
