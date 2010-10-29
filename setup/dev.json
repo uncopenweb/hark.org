@@ -14,7 +14,7 @@
             },
             "media" : {
                 "icon" : "/tictactoe/info/icon.png",
-                "screenshots" : ['/tictactoe/info/screenshot.png']
+                "screenshots" : ["/local/tictactoe/info/screenshot.png"]
             }
         },
         {
@@ -30,7 +30,7 @@
             },
             "media" : {
                 "icon" : "/spaceship/info/icon.png",
-                "screenshots" : ['/spaceship/info/screenshot.png']
+                "screenshots" : ["/local/spaceship/info/screenshot.png"]
             }
         }
     ]
