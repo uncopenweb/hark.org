@@ -29,14 +29,14 @@
   <body class="claro">
     <div class="container_12" id="layout">
     	<div class="grid_12" id="header">
-    		<h1 data-label="page_title"></h1>
+    		<h1 data-label="page_title">Hark the Sound</h1>
     	</div>
     	<div class="clear"></div>
     	
-    	<div class="grid_12">
-      	<div dojoType="dijit.MenuBar" region="bottom" id="nav">
-      	  <div dojoType="uow.ui.LoginButton" id="login" displayField="first_name"></div>
-      	</div>
+    	<div class="grid_12" id="bar">
+        <div dojoType="dijit.MenuBar" region="bottom" id="menu">
+          <div dojoType="uow.ui.LoginButton" id="login" displayField="first_name"></div>
+         </div>
       </div>
       <div class="clear"></div>
 
@@ -45,10 +45,10 @@
           <input type="search" results="5" placeholder="Enter search terms" id="textNode"/>
         </div>
         <div class="grid_2">
-          <button id="searchNode" data-label="search_button_label"></button>
+          <button id="searchNode" data-label="search_button_label">Search</button>
         </div>
         <div class="grid_2 suffix_2">
-          <button id="resetNode" data-label="reset_button_label"></button>
+          <button id="resetNode" data-label="reset_button_label">Reset</button>
         </div>
         <div class="clear"></div>
       </div>
@@ -75,8 +75,8 @@
         <!-- <div dojoType="org.hark.ThumbnailView" id="appView"></div> -->
       </div>
       <div class="clear"></div>
-
     </div>
+
     <div class="container_12" id="footer">
       <div class="grid_6" id="footer_left">
         UNC Computer Science<br />
@@ -87,35 +87,7 @@
         <img src="images/unc-logo.png" />
       </div>
     </div>
-<!--    <div dojoType="org.hark.GameFrame" id="frame"></div>
+
     <div dojoType="dijit.Dialog" id="dialog" draggable="false" parseOnLoad="false"></div>
-    <div dojoType="dijit.layout.BorderContainer" id="layout" gutters="false" style="display: none;">
-      <div dojoType="dijit.layout.BorderContainer" region="top" id="header" gutters="false">
-        <div dojoType="dijit.layout.ContentPane" region="center" id="title">
-          <h1>Hark the Sound</h1>
-        </div>
-        <div dojoType="dijit.MenuBar" region="bottom" id="nav">
-          <div dojoType="org.hark.LoginButton" id="login"></div>
-        </div>
-      </div>
-      <div dojoType="dijit.layout.BorderContainer" region="center" splitter="false" gutters="false" id="viewer">
-        <div dojoType="dijit.layout.ContentPane" region="top" id="search">
-          <div dojoType="org.hark.SearchView" jsId="searchCtrl"></div>
-        </div>
-        <div dojoType="dijit.layout.ContentPane" region="center" id="apps">
-          <div dojoType="org.hark.ThumbnailView" id="appView"></div>
-        </div>
-      </div>
-    </div>
-    <div dojoType="dijit.layout.BorderContainer" id="footer" gutters="false" style="visibility: hidden;">
-      <div dojoType="dijit.layout.ContentPane" class="fixedPane" region="left">
-        UNC Computer Science<br />
-        Enabling Technology<br />
-        Copyright &copy; 2010. All rights reserved.
-      </div>
-      <div dojoType="dijit.layout.ContentPane" class="fixedPane" region="right">
-        <img src="images/unc-logo.png" />
-      </div>
-    </div>-->
   </body>
 </html>

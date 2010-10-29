@@ -32,7 +32,7 @@ org.hark.slugToUrl = function(slug) {
 dojo.declare('org.hark.Search', null, {
     constructor: function() {
         // trigger a search whenever a new model is set
-        this.subscribe('/org/hark/model', '_onClickSearch');
+        dojo.subscribe('/org/hark/model', this, '_onClickSearch');
         // connect to elements
         this._textNode = dojo.byId('textNode')
         dojo.connect(dojo.byId('searchNode'), 'onclick', this, '_onClickSearch');
@@ -146,7 +146,7 @@ dojo.declare('org.hark.Results', null, {
             var col = this._shownCount % this._cols;
             console.log(item, row, col);
             if(item) {
-                var tmpl = dojo.cache('org.hark.templates', 'ThumbnailViewItem.html');
+                var tmpl = dojo.cache('org.hark.templates', 'ResultItem.html');
                 var url = this._model.getValue(item, 'url');
                 var label = this._model.getValue(item, 'label');
                 label = label[dojo.locale] || label['en-us'];
@@ -156,7 +156,7 @@ dojo.declare('org.hark.Results', null, {
                     icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
                     icon_alt : label,
                     more_href : '#',
-                    more_label : this._labels.more_info_label
+                    play_button_label : this._labels.play_button_label
                 });
                 var node = this._resultNodes[row * this._cols + col];
                 node.innerHTML = html;
@@ -339,6 +339,7 @@ dojo.ready(function() {
     var args = {
         labels : labels
     };
-    main = new org.hark.Main(args);
+    search = new org.hark.Search(args);
     results = new org.hark.Results(args);
+    main = new org.hark.Main(args);
 });
