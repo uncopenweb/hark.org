@@ -6,7 +6,7 @@
 body.claro {
     padding: 0px;
     background-color: #6D9CC5;
-    font-size: 12pt;
+    font-size: 11pt;
     font-family: Helvetica, sans-serif;
 }
 
@@ -42,7 +42,7 @@ a:hover {
 #login {
     padding: 5px;
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 #search {
@@ -68,18 +68,63 @@ a:hover {
     width: 100%;
 }
 
-#results .result {
+.summary {
+    color: gray;
+    font-size: 0.9em;
+}
+
+.summary-top {
+    margin-bottom: 20px;
+}
+
+.summary-bottom {
+    margin-top: 20px;
+}
+
+
+.summary .position {
     text-align: center;
 }
 
-#results .result button {
-    width: 160px;
-    font-size: inherit;
+.summary .navigation-next {
+    text-align: right;
 }
 
-#results .grid_3 {
-    height: 240px;
+#results .result {
+    width: 138px;
+    border: 1px solid #ddd;
+    text-align: center;
+    height: 190px;
     margin-bottom: 20px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 1s;
+    -o-transition: all 1s;
+}
+
+#results .result .title {
+    padding-top: 5px;
+    display: inline-block;
+}
+
+#results .result img {
+    margin-top: 5px;
+    width: 128px;
+    cursor: pointer;
+}
+
+#results .result button {
+    width: 128px;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+#results .result.active:hover {
+    background-color: #fffff0;
+    border-color: black;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
+    -o-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
+    -webkit-transform: translate(-3px,-3px); 
 }
 
 #footer {

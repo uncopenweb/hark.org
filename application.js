@@ -134,7 +134,7 @@ dojo.declare('org.hark.Results', null, {
     
     _onBegin: function(size, request) {
         // clear the table cells
-        this._resultNodes.empty('');
+        this._resultNodes.empty('').removeClass('active');
         // reset the count
         this._shownCount = 0;
         // @todo: show message if no results
@@ -144,7 +144,6 @@ dojo.declare('org.hark.Results', null, {
         if(this._shownCount < this._total) {
             var row = Math.floor(this._shownCount / this._cols);
             var col = this._shownCount % this._cols;
-            console.log(item, row, col);
             if(item) {
                 var tmpl = dojo.cache('org.hark.templates', 'ResultItem.html');
                 var url = this._model.getValue(item, 'url');
@@ -160,7 +159,7 @@ dojo.declare('org.hark.Results', null, {
                 });
                 var node = this._resultNodes[row * this._cols + col];
                 node.innerHTML = html;
-                //dojo.addClass(td, 'harkThumbnailViewActiveCell');
+                dojo.addClass(node, 'active');
                 // listen for image click
                 var img = dojo.query('img', node)[0];
                 dojo.connect(node, 'onclick', function() {
