@@ -94,8 +94,12 @@ dojo.declare('org.hark.BusyOverlay', [dijit._Widget,
             } while(z == 'auto' && node && node.currentStyle);
         } else {
             do {
-                var s = document.defaultView.getComputedStyle(node, null);
-                z = parseFloat(s.getPropertyValue('z-index'));
+                try {
+                    var s = document.defaultView.getComputedStyle(node, null);
+                    z = parseFloat(s.getPropertyValue('z-index'));
+                } catch (e) {
+                    z = NaN;
+                }
                 z = (isNaN(z)) ? 'auto' : z;
                 node = node.parentNode;
             } while(z == 'auto' && node);
