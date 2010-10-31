@@ -158,8 +158,8 @@ dojo.declare('org.hark.Results', null, {
                     play_button_label : this._labels.play_button_label
                 });
                 var node = this._resultNodes[row * this._cols + col];
-                node.innerHTML = html;
                 dojo.addClass(node, 'active');
+                node.innerHTML = html;
                 // listen for image click
                 var img = dojo.query('img', node)[0];
                 dojo.connect(node, 'onclick', function() {

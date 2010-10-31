@@ -68,37 +68,62 @@ a:hover {
     width: 100%;
 }
 
-.summary {
+#results .summary {
     color: gray;
     font-size: 0.9em;
 }
 
-.summary-top {
+#results .summary-top {
     margin-bottom: 20px;
 }
 
-.summary-bottom {
-    margin-top: 20px;
-}
-
-
-.summary .position {
+#results .summary .position {
     text-align: center;
 }
 
-.summary .navigation-next {
+#results .summary .navigation-next {
     text-align: right;
 }
 
+#results .summary .separator {
+    height: 1px;
+    background-color: #ddd;
+}
+
+#results .row {
+    margin: 10px 0px;
+    padding: 10px 0px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
+    background-color: #fafafa;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(250,250,250)),
+        color-stop(1, rgb(240,240,240))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(250,250,250) 0%,
+        rgb(240,240,240) 100%
+    );
+}
+
 #results .result {
-    width: 138px;
     border: 1px solid #ddd;
+    width: 138px;
     text-align: center;
     height: 190px;
-    margin-bottom: 20px;
+    background-color: white;
     -webkit-transition: all 0.5s;
     -moz-transition: all 1s;
     -o-transition: all 1s;
+    opacity: 0.5;
+}
+
+#results .result.active {
+    opacity: 1;
 }
 
 #results .result .title {
@@ -109,6 +134,7 @@ a:hover {
 #results .result img {
     margin-top: 5px;
     width: 128px;
+    border: 1px solid #eee;
     cursor: pointer;
 }
 
@@ -120,11 +146,11 @@ a:hover {
 
 #results .result.active:hover {
     background-color: #fffff0;
-    border-color: black;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
-    -moz-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
-    -o-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
-    -webkit-transform: translate(-3px,-3px); 
+    border-color: #ccc;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 10px;
+    -o-box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 10px;
+    -webkit-transform: translate(-2px,-2px); 
 }
 
 #footer {
