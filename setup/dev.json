@@ -14,7 +14,7 @@
             },
             "media" : {
                 "icon" : "/tictactoe/info/icon.png",
-                "screenshots" : ["/local/tictactoe/info/screenshot.png"]
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
             }
         },
         {
@@ -30,7 +30,359 @@
             },
             "media" : {
                 "icon" : "/spaceship/info/icon.png",
-                "screenshots" : ["/local/spaceship/info/screenshot.png"]
+                "screenshots" : ["/spaceship/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "one",
+            "label" : {
+                "en-us" : "One"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "two",
+            "label" : {
+                "en-us" : "Two"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "three",
+            "label" : {
+                "en-us" : "Three"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "four",
+            "label" : {
+                "en-us" : "Four"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "five",
+            "label" : {
+                "en-us" : "Five"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "six",
+            "label" : {
+                "en-us" : "Six"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "seven",
+            "label" : {
+                "en-us" : "Seven"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "eight",
+            "label" : {
+                "en-us" : "Eight"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "nine",
+            "label" : {
+                "en-us" : "Nine"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "ten",
+            "label" : {
+                "en-us" : "Ten"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "eleven",
+            "label" : {
+                "en-us" : "Eleven"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "twelve",
+            "label" : {
+                "en-us" : "Twelve"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "thirteen",
+            "label" : {
+                "en-us" : "Thirteen"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "fourteen",
+            "label" : {
+                "en-us" : "Fourteen"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "fifteen",
+            "label" : {
+                "en-us" : "Fifteen"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "sixteen",
+            "label" : {
+                "en-us" : "Sixteen"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "seventeen",
+            "label" : {
+                "en-us" : "Seventeen"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "eighteen",
+            "label" : {
+                "en-us" : "Eighteen"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "nineteen",
+            "label" : {
+                "en-us" : "Nineteen"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "twenty",
+            "label" : {
+                "en-us" : "Twenty"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "twenty-one",
+            "label" : {
+                "en-us" : "Twenty-one"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
+            }
+        },
+        {
+            "url" : "twenty-two",
+            "label" : {
+                "en-us" : "Twenty-two"
+            },
+            "tags" : {
+                "en-us" : ""
+            },
+            "description" : {
+                "en-us" : ""
+            },
+            "media" : {
+                "icon" : "/tictactoe/info/icon.png",
+                "screenshots" : ["/tictactoe/info/screenshot.png"]
             }
         }
     ]
