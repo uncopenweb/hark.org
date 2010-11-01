@@ -137,7 +137,12 @@ dojo.declare('org.hark.Results', null, {
         this._resultNodes.empty('').removeClass('active');
         // reset the count
         this._shownCount = 0;
-        // @todo: show message if no results
+        // update summary counts
+        var start = request.start + 1;
+        var end = Math.min(request.start + request.count, size) - 1;
+        var text = dojo.replace(this._labels.summary_label, 
+            [start, end, size]);
+        dojo.query('.summary .position', this.resultsNode).forEach('item.innerHTML = "'+text+'"');
     },
     
     _onItem: function(item) {

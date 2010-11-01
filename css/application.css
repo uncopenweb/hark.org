@@ -119,7 +119,7 @@ a:hover {
     -webkit-transition: all 0.5s;
     -moz-transition: all 1s;
     -o-transition: all 1s;
-    opacity: 0.5;
+    opacity: 0.25;
 }
 
 #results .result.active {
