@@ -80,12 +80,14 @@ dojo.declare('org.hark.Results', null, {
         this._resultsNode = dojo.byId('results');
         this._resultNodes = dojo.query('div[class~="result"]', this._resultsNode);
         // get number of rows and columns
-        this._rows = dojo.query('div[class="clear"]', this._resultsNode).length;
-        this._total = this._resultNodes.length;
-        this._cols =  this._total / this._rows;
+        this._rows = dojo.query('div[class="row"]', this._resultsNode).length;
+        this._cols = Math.floor(this._resultNodes.length / this._rows);
         // controller published events
         dojo.subscribe('/org/hark/search', this, 'setQuery');
         dojo.subscribe('/org/hark/model', this, 'setModel');
+        // connect to next/previous links
+        dojo.query('.navigation-previous > a').onclick(this, '_onClickPrevious');
+        dojo.query('.navigation-next > a').onclick(this, '_onClickNext');
     },
     
     setQuery: function(text) {
@@ -123,7 +125,7 @@ dojo.declare('org.hark.Results', null, {
             onError: this._onError,
             start: this._page * this._rows * this._cols,
             // fetch one extra to check if there's a next
-            count: this._rows * this._cols + 1,
+            count: this._rows * this._cols,
             sort : [{
                 attribute : 'label.'+dojo.locale,
                 descending : false
@@ -133,59 +135,66 @@ dojo.declare('org.hark.Results', null, {
     },
     
     _onBegin: function(size, request) {
+        // keep track of total results
+        this._totalAvailable = size;
         // clear the table cells
         this._resultNodes.empty('').removeClass('active');
         // reset the count
         this._shownCount = 0;
         // update summary counts
         var start = request.start + 1;
-        var end = Math.min(request.start + request.count, size) - 1;
+        var end = Math.min(request.start + request.count, size);
         var text = dojo.replace(this._labels.summary_label, 
             [start, end, size]);
         dojo.query('.summary .position', this.resultsNode).forEach('item.innerHTML = "'+text+'"');
     },
     
     _onItem: function(item) {
-        if(this._shownCount < this._total) {
-            var row = Math.floor(this._shownCount / this._cols);
-            var col = this._shownCount % this._cols;
-            if(item) {
-                var tmpl = dojo.cache('org.hark.templates', 'ResultItem.html');
-                var url = this._model.getValue(item, 'url');
-                var label = this._model.getValue(item, 'label');
-                label = label[dojo.locale] || label['en-us'];
-                var html = dojo.replace(tmpl, {
-                    game_href :  '#' + org.hark.urlToSlug(url),
-                    game_label : label,
-                    icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
-                    icon_alt : label,
-                    more_href : '#',
-                    play_button_label : this._labels.play_button_label
-                });
-                var node = this._resultNodes[row * this._cols + col];
-                dojo.addClass(node, 'active');
-                node.innerHTML = html;
-                // listen for image click
-                var img = dojo.query('img', node)[0];
-                dojo.connect(node, 'onclick', function() {
-                    dojo.hash('#' + org.hark.urlToSlug(url));
-                });
-                var a = dojo.query('a', node)[1];
-                // listen for more info click
-                dojo.connect(a, 'onclick', dojo.partial(this._onMoreInfo, url));
-            }
+        var row = Math.floor(this._shownCount / this._cols);
+        var col = this._shownCount % this._cols;
+        if(item) {
+            var tmpl = dojo.cache('org.hark.templates', 'ResultItem.html');
+            var url = this._model.getValue(item, 'url');
+            var label = this._model.getValue(item, 'label');
+            label = label[dojo.locale] || label['en-us'];
+            var html = dojo.replace(tmpl, {
+                game_href :  '#' + org.hark.urlToSlug(url),
+                game_label : label,
+                icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
+                icon_alt : label,
+                more_href : '#',
+                play_button_label : this._labels.play_button_label
+            });
+            var node = this._resultNodes[row * this._cols + col];
+            dojo.addClass(node, 'active');
+            node.innerHTML = html;
+            // listen for play button clicks
+            var button = dojo.query('button', node)[0];
+            dojo.connect(button, 'onclick', function() {
+                dojo.hash('#' + org.hark.urlToSlug(url));
+            });
+            var mi = [dojo.query('a', node)[0], dojo.query('img', node)[0]];
+            // listen for more info click
+            dojo.forEach(mi, function(item) {
+                dojo.connect(item, 'onclick', dojo.hitch(this, '_onMoreInfo', url));
+            }, this);
         }
         this._shownCount += 1;
     },
     
     _onComplete: function() {
-        while(this._shownCount < this._total) {
-            // fill blank cells
-            this._onItem(null);
+        var prev = dojo.query('.navigation-previous > a');
+        var next = dojo.query('.navigation-next > a');
+        if(this._page === 0) {
+            prev.addClass('disabled');
+        } else {
+            prev.removeClass('disabled');
         }
-        //this.nextButton.attr('disabled', this._shownCount <= this.rowSize);
-        //this.prevButton.attr('disabled', this._page == 0);
-        
+        if(this._page * this._rows * this._cols + this._shownCount < this._totalAvailable) {
+            next.removeClass('disabled');
+        } else {
+            next.addClass('disabled');
+        }
         // hide busy spinner
         uow.ui.BusyOverlay.hide(this._busy);
     },
@@ -194,7 +203,24 @@ dojo.declare('org.hark.Results', null, {
         console.error('error', err);
     },
     
+    _onClickPrevious: function(event) {
+        if(!dojo.hasClass(event.target, 'disabled')) {
+            this._page -= 1;
+            this._search();
+        }
+        dojo.stopEvent(event);
+    },
+    
+    _onClickNext: function(event) {
+        if(!dojo.hasClass(event.target, 'disabled')) {
+            this._page += 1;
+            this._search();
+        }
+        dojo.stopEvent(event);
+    },
+    
     _onMoreInfo: function(url) {
+        console.log(url);
         dojo.publish('/org/hark/info', [url]);
     }
 });

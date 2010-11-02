@@ -90,6 +90,10 @@ a:hover {
     background-color: #ddd;
 }
 
+#results .summary a.disabled {
+    color: gray;
+}
+
 #results .row {
     margin: 10px 0px;
     padding: 10px 0px;
