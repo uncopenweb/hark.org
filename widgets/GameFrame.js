@@ -6,6 +6,7 @@
 dojo.provide('org.hark.GameFrame');
 dojo.require('org.hark.Preferences');
 dojo.require('org.hark.PreferencesView');
+dojo.require('uow.ui.BusyOverlay');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.Toolbar');
@@ -80,7 +81,7 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         
         // reset busy dialog
         if(this._busy) {
-            org.hark.BusyOverlay.hide(this._busy);
+            uow.ui.BusyOverlay.hide(this._busy);
             this._busy = null;
         }
     },
@@ -103,9 +104,9 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
     /* Pause the game and give the toolbar focus. */
     _onToolbarFocus: function(event) {
         if(this._busy) {
-            org.hark.BusyOverlay.hide(this._busy);
+            uow.ui.BusyOverlay.hide(this._busy);
         }
-        this._busy = org.hark.BusyOverlay.show({
+        this._busy = uow.ui.BusyOverlay.show({
             busyNode: this.frameNode,
             parentNode: this.framePane.domNode,
             takeFocus: false,
@@ -128,7 +129,7 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
             this._blurTok = null;
         }
         if(this._busy) {
-            org.hark.BusyOverlay.hide(this._busy);
+            uow.ui.BusyOverlay.hide(this._busy);
             this._busy = null;
         }
         // delay to grab focus from the busy

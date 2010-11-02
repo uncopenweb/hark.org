@@ -13,7 +13,7 @@ dojo.require('dijit.MenuBar');
 dojo.require('dijit.Dialog');
 dojo.require('dojo.i18n');
 dojo.require('uow.ui.LoginButton');
-dojo.require('org.hark.BusyOverlay');
+dojo.require('uow.ui.BusyOverlay');
 dojo.require('org.hark.DetailsView');
 dojo.require('org.hark.GameFrame');
 dojo.requireLocalization('org.hark', 'application');
@@ -103,7 +103,7 @@ dojo.declare('org.hark.Results', null, {
     _search: function() {
         if(!this._busy) {
             // show busy until done
-            this._busy = org.hark.BusyOverlay.show({
+            this._busy = uow.ui.BusyOverlay.show({
                 busyNode: this._resultsNode,
                 parentNode: this._layoutNode,
                 takeFocus: false
@@ -187,7 +187,7 @@ dojo.declare('org.hark.Results', null, {
         //this.prevButton.attr('disabled', this._page == 0);
         
         // hide busy spinner
-        org.hark.BusyOverlay.hide(this._busy);
+        uow.ui.BusyOverlay.hide(this._busy);
     },
     
     _onError: function(err) {
@@ -221,7 +221,7 @@ dojo.declare('org.hark.Details', null, {
         dlg.show();
         
         // show busy until done
-        this._busy = org.hark.BusyOverlay.show({
+        this._busy = uow.ui.BusyOverlay.show({
             busyNode: dlg.containerNode.firstChild,
             parentNode: dlg.containerNode,
             takeFocus: false
@@ -260,7 +260,7 @@ dojo.declare('org.hark.Details', null, {
         dlg.attr('title', game.label);
         dlg.attr('content', this._details);
         // hide busy overlay
-        org.hark.BusyOverlay.hide(this._busy);
+        uow.ui.BusyOverlay.hide(this._busy);
     },
     
     _onError: function(err) { 
