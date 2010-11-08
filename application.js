@@ -141,11 +141,15 @@ dojo.declare('org.hark.Results', null, {
         this._resultNodes.empty('').removeClass('active');
         // reset the count
         this._shownCount = 0;
-        // update summary counts
-        var start = request.start + 1;
-        var end = Math.min(request.start + request.count, size);
-        var text = dojo.replace(this._labels.summary_label, 
-            [start, end, size]);
+        if(size) {
+            // update summary counts
+            var start = request.start + 1;
+            var end = Math.min(request.start + request.count, size);
+            var text = dojo.replace(this._labels.summary_label, 
+                [start, end, size]);
+        } else {
+            var text = this._labels.no_results_label;
+        }
         dojo.query('.summary .position', this.resultsNode).forEach('item.innerHTML = "'+text+'"');
     },
     
