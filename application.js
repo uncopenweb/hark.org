@@ -220,17 +220,26 @@ dojo.declare('org.hark.Results', null, {
     },
     
     _onMoreInfo: function(url) {
-        console.log(url);
         dojo.publish('/org/hark/info', [url]);
     }
 });
 
 dojo.declare('org.hark.Details', null, {
-    constructor: function() {
+    constructor: function(args) {
+        // localized labels
+        this._labels = args.labels;
         // details dialog widget
         this._details = null;
+        // database instance
+        this._db = null;
+        // listen for new models
+        dojo.subscribe('/org/hark/model', this, 'setModel');
         // listen for more info requests
         dojo.subscribe('/org/hark/info', this, '_onShowDetails');
+    },
+    
+    setModel: function(db) {
+        this._db = db;
     },
     
     _onShowDetails: function(url) {
@@ -340,27 +349,27 @@ dojo.declare('org.hark.Main', null, {
     },
     
     _onHashChange: function(slug) {
-        return;
         // @todo:
         var display = (slug) ? 'none' : '';        
         // show/hide main layout and footer
-        var layout = dijit.byId('layout');
-        var footer = dijit.byId('footer');
-        dojo.style(layout.domNode, 'display', display);
-        dojo.style(footer.domNode, 'display', display);
-        if(!display) {
-            // force a resize
-            layout.resize();
-            footer.resize();
-        } else {
-            // clean up any visible details dialog
-            var dlg = dijit.byId('dialog');
-            dlg.hide();
-        }
+        var layout = dojo.byId('layout');
+        var footer = dojo.byId('footer');
+        dojo.style(layout, 'display', display);
+        dojo.style(footer, 'display', display);
+        // if(!display) {
+        //     // force a resize
+        //     layout.resize();
+        //     footer.resize();
+        // } else {
+        // clean up any visible details dialog
+        var dlg = dijit.byId('dialog');
+        dlg.hide();
+        // }
         // start/stop game
         var url = (slug) ? (ROOT_PATH + org.hark.slugToUrl(slug)) : '';
-        var frame = dijit.byId('frame');
-        frame.attr('url', url);
+        var game = dijit.byId('game');
+        console.log('url:', url);
+        game.attr('url', url);
     }
 });
 
@@ -369,6 +378,7 @@ dojo.ready(function() {
     var args = {
         labels : labels
     };
+    details = new org.hark.Details(args);
     search = new org.hark.Search(args);
     results = new org.hark.Results(args);
     main = new org.hark.Main(args);
