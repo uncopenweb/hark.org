@@ -46,6 +46,10 @@ a:hover {
     height: 28px;
 }
 
+#menu {
+    height: 26px;
+}
+
 #login {
     padding: 5px;
     display: inline-block;

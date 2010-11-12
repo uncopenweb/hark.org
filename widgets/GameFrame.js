@@ -31,6 +31,8 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this._busy = null;
         // toolbar blur timeout
         this._blurTok = null;
+        // is the game paused?
+        this._paused = false;
         this.labels = dojo.i18n.getLocalization('org.hark','GameFrame');
     },
 
@@ -118,7 +120,11 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         // update hint
         this.hintNode.innerHTML = this.labels.resume_hint;
         // signal the game to stop
-        dojo.publish('/org/hark/pause', [true]);
+        var win = this.frameNode.contentWindow;
+        if(!this._paused) {
+            win.dojo.publish('/org/hark/pause', [true]);
+            this._paused = true;
+        }
     },
     
     /* Unpause the game. */
@@ -137,7 +143,11 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         // update hint
         this.hintNode.innerHTML = this.labels.pause_hint;
         // signal the game to resume
-        dojo.publish('/org/hark/pause', [false]);
+        var win = this.frameNode.contentWindow;
+        if(this._paused) {
+            win.dojo.publish('/org/hark/pause', [false]);
+            this._paused = false;
+        }
     },
 
     /* Connect for key events and publishes from the game in the frame. */
