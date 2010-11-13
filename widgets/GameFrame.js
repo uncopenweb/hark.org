@@ -121,7 +121,7 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this.hintNode.innerHTML = this.labels.resume_hint;
         // signal the game to stop
         var win = this.frameNode.contentWindow;
-        if(!this._paused) {
+        if(!this._paused && win.dojo) {
             win.dojo.publish('/org/hark/pause', [true]);
             this._paused = true;
         }
@@ -144,7 +144,7 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this.hintNode.innerHTML = this.labels.pause_hint;
         // signal the game to resume
         var win = this.frameNode.contentWindow;
-        if(this._paused) {
+        if(this._paused && win.dojo) {
             win.dojo.publish('/org/hark/pause', [false]);
             this._paused = false;
         }

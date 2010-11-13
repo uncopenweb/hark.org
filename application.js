@@ -245,7 +245,7 @@ dojo.declare('org.hark.Details', null, {
     setModel: function(db) {
         this._db = db;
     },
-    
+        
     _onShowDetails: function(url) {
         if(!url) { return; }
         if(this._details) {
@@ -254,8 +254,7 @@ dojo.declare('org.hark.Details', null, {
 
         // show the dialog immediately with a busy placeholder
         var dlg = dijit.byId('dialog');
-        // @todo: translate
-        dlg.attr('title', 'Loading');
+        dlg.attr('title', this._labels.loading_label);
         dlg.attr('content', '<div class="harkDetailsView"></div>');
         dlg.show();
         
@@ -353,22 +352,15 @@ dojo.declare('org.hark.Main', null, {
     },
     
     _onHashChange: function(slug) {
-        // @todo:
         var display = (slug) ? 'none' : '';        
         // show/hide main layout and footer
         var layout = dojo.byId('layout');
         var footer = dojo.byId('footer');
         dojo.style(layout, 'display', display);
         dojo.style(footer, 'display', display);
-        // if(!display) {
-        //     // force a resize
-        //     layout.resize();
-        //     footer.resize();
-        // } else {
         // clean up any visible details dialog
         var dlg = dijit.byId('dialog');
         dlg.hide();
-        // }
         // start/stop game
         var url = (slug) ? (ROOT_PATH + org.hark.slugToUrl(slug)) : '';
         var game = dijit.byId('game');
