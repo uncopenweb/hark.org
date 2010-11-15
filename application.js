@@ -163,11 +163,12 @@ dojo.declare('org.hark.Results', null, {
             label = label[dojo.locale] || label['en-us'];
             var html = dojo.replace(tmpl, {
                 game_href :  '#' + org.hark.urlToSlug(url),
+                game_title : dojo.replace(this._labels.more_info_title, [label]),
                 game_label : label,
                 icon_src : ROOT_PATH + this._model.getValue(item, 'media').icon,
                 icon_alt : label,
-                more_href : '#',
-                play_button_label : this._labels.play_button_label
+                play_button_label : this._labels.play_button_label,
+                play_button_title : dojo.replace(this._labels.play_button_title, [label])
             });
             var node = this._resultNodes[row * this._cols + col];
             dojo.addClass(node, 'active');

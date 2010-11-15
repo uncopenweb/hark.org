@@ -13,8 +13,8 @@ body.claro {
     height: 100%;
     padding: 0px;
     background-color: #6D9CC5;
-    font-size: 11pt;
     font-family: Helvetica, sans-serif;
+    font-size: 12pt;
 }
 
 a {
@@ -43,17 +43,21 @@ a:hover {
 }
 
 #bar {
-    height: 28px;
+    font-size: 0.8em;
 }
 
-#menu {
-    height: 26px;
+#bar .dijitMenuItem {
+    float: right;
 }
 
 #login {
-    padding: 5px;
-    display: inline-block;
-    font-size: 0.9em;
+    padding: 6px 10px 7px;
+    margin: -1px;
+    padding-right: 50px;
+}
+
+#login .uowIcon {
+    vertical-align: text-top;
 }
 
 #search {
@@ -176,186 +180,3 @@ a:hover {
 #footer_right {
     text-align: right;
 }
-
-
-/*
-html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    font-family: Helvetica, sans-serif;
-    font-size: 0.95em !important;
-}
-
-#layout {
-    margin: 0px auto;
-    width: 800px;
-    min-height: 625px;
-    border: 1px solid black;
-    border-top: 0px solid white;
-    background-color: white;
-    -moz-box-shadow: 2px 2px 20px #000;
-    -webkit-box-shadow: 2px 2px 20px #000;
-    -o-box-shadow: 2px 2px 20px #000;
-    background-color: white;
-    z-index: 10;
-}
-
-#header {
-    height: 150px;
-}
-
-#title {
-    background-image: url("../images/ist2_9201602-alpha-beet.jpg");
-    background-position: -25px;
-    overflow: hidden;
-}
-
-#nav {
-    padding: 3px 15px;
-}
-
-#nav a {
-}
-
-#header h1 {
-    margin-top: 0em;
-    font-weight: bold;
-    font-family: 'Yanone Kaffeesatz';
-    font-size: 75px;
-    -webkit-text-fill-color: black;
-    -webkit-text-stroke-color: white;
-    -webkit-text-stroke-width: 3px;
-    -moz-text-fill-color: black;
-    -moz-text-stroke-color: white;
-    -moz-text-stroke-width: 3px;
-    -o-text-fill-color: black;
-    -o-text-stroke-color: white;
-    -o-text-stroke-width: 3px;
-    padding-left: 10px;
-    line-height: 110px;
-}
-
-#viewer {
-    padding: 20px;
-    margin: 15px;
-    -moz-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
-    -o-box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 5px inset;
-    -moz-border-radius: 50px 50px;
-    -webkit-border-radius: 50px 50px;
-    -o-border-radius: 50px 50px;
-    border: 1px solid #eee;
-    background-color: #f7f7f7;
-}
-
-#apps {
-    border: 1px solid #eee;
-    background-color: white;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -o-border-radius: 10px;
-    padding: 2px;
-    height: 350px;
-}
-
-#layout .dijitBorderContainer {
-    background-color: transparent !important;
-    border: 0px solid white !important;
-}
-
-#layout .dijitGutter {
-    background: transparent !important;
-}
-
-#layout .dijitBorderContainer-child {
-    border-width: 0px !important;
-}
-
-.dijitDialogUnderlay {
-    background-color: black !important;
-}
-
-.harkSearchView input[type="search"] {
-    width: 300px;
-    vertical-align: middle;
-    font-size: 1.5em !important;
-}
-
-.harkThumbnailViewButton {
-    overflow: hidden;
-    padding-top: 155px !important;
-}
-
-.harkThumbnailViewButton .dijitButtonDisabled {
-    opacity: 0.3;
-}
-
-.harkThumbnailViewPane {
-    overflow: hidden;
-}
-
-.harkThumbnailViewLeftIcon {
-    background-image: url('../images/left.png');
-    height: 32px;
-    width: 32px;
-}
-
-.dijitDisabled .harkThumbnailViewLeftIcon {
-    background-image: url('../images/left-disabled.png');
-}
-
-.harkThumbnailViewRighttIcon {
-    background-image: url('../images/right.png');
-    height: 32px;
-    width: 32px;
-}
-
-.dijitDisabled .harkThumbnailViewRighttIcon {
-    background-image: url('../images/right-disabled.png');
-}
-
-.harkThumbnailViewTable {
-    width: 100%;
-}
-
-.harkThumbnailViewTable td {
-    text-align: center;
-    border: 1px solid #ddd;
-    background-color: transparent;
-    width: 33%;
-    height: 160px;
-}
-
-.harkThumbnailViewTable .harkThumbnailViewActiveCell {
-    -webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -o-transition: all 1s;
-}
-
-.harkThumbnailViewTable .harkThumbnailViewActiveCell:hover {
-    background-color: #fffffa;
-    border-color: black;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
-    -moz-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
-    -o-box-shadow: rgba(0, 0, 0, 0.2) 4px 4px 10px;
-}
-
-.harkThumbnailViewTable img {
-    margin-top: 0.25em;
-    -moz-box-shadow: rgba(33, 33, 33, 0.2) 1px 1px 5px;
-    -webkit-box-shadow: rgba(33, 33, 33, 0.2) 1px 1px 5px;
-    -o-box-shadow: rgba(33, 33, 33, 0.2) 1px 1px 5px;
-    border: 1px solid #ddd;
-    cursor: pointer;
-}
-
-.harkThumbnailView h2 {
-    margin: 0em;
-}
-
-.harkThumbnailViewMore {
-    font-size: 0.8em;
-    color: gray;
-}*/
