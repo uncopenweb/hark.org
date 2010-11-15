@@ -113,10 +113,14 @@ dojo.declare('org.hark.Results', null, {
         }
 
         // build the query
-        var qname = 'label.'+dojo.locale;
-        var query = {};
-        query[qname] = '*'+this._query+'*';
-        // @todo: use $or when gb updates mongo
+        var ors = dojo.map(['label', 'description', 'tags'], function(item) {
+            var obj = {};
+            var name = item+'.'+dojo.locale;
+            var value = '*'+this._query+'*';
+            obj[name] = value;
+            return obj;
+        }, this);
+        var query = {$or : ors};
         var req = this._model.fetch({
             query: query,
             onBegin: this._onBegin,
