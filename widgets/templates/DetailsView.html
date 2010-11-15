@@ -6,7 +6,7 @@
     <div dojoType="dijit.layout.ContentPane" region="center">
       <h1 class="harkDetailsViewLabel">${game.label}</h1>
       <p class="harkDetailsViewDescription">${game.description}</p>
-      <p class="harkDetailsViewTags">${labels.tags_label} ${game.tags}</p>
+      <p class="harkDetailsViewTags" dojoAttachPoint="tags">${labels.tags_label} ${game.tags}</p>
     </div>    
   </div>
 </div>

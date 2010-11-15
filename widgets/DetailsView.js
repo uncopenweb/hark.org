@@ -22,6 +22,9 @@ dojo.declare('org.hark.DetailsView', [dijit._Widget, dijit._Templated], {
     },
 
     postCreate: function() {
+        if(!this.game.tags) {
+            dojo.style(this.tags, 'display', 'none');
+        }
     },
     
     resize: function() {
