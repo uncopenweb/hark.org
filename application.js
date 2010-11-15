@@ -92,12 +92,14 @@ dojo.declare('org.hark.Results', null, {
     
     setQuery: function(text) {
         this._query = text;
+        this._page = 0;
         if(this._model) {
             this._search();
         }
     },
     
     setModel: function(model) {
+        this._page = 0;
         this._model = model;
         this._search();
     },
