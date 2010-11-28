@@ -35,7 +35,8 @@
           
   <div dojoType="dijit.TitlePane" 
        title="${labels.advanced_pane_title}" 
-       open="false">
+       open="false"
+       dojoAttachPoint="titlePane">
     <label for="${id}_speech_volume">${labels.speech_slider_label}</label>
     <div dojoType="dijit.form.HorizontalSlider"
          dojoAttachEvent="onChange:_onSpeechVolumePref" 

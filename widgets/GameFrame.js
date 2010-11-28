@@ -55,8 +55,8 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
             }
         }, this);
         // and the title pane container
-        //this.connect(this.titlePane.containerNode, 'onfocus', '_onChildFocus');
-        //this.connect(this.titlePane.containerNode, 'onblur', '_onChildBlur');
+        this.connect(this.prefView.titlePane.containerNode, 'onfocus', '_onChildFocus');
+        this.connect(this.prefView.titlePane.containerNode, 'onblur', '_onChildBlur');
         
         // listen for tab nav in the toolbar
         this.connect(this.toolbar.domNode, 'onkeydown', '_onKeyDown');
