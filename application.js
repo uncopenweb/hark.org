@@ -22,11 +22,11 @@ dojo.requireLocalization('org.hark', 'application');
 var ROOT_PATH = '../';
 
 org.hark.urlToSlug = function(url) {
-    return url.replace(/\//g, '-').replace(/#/g, '>');
+    return url.replace(/\//g, '|').replace(/#/g, '.');
 };
 
 org.hark.slugToUrl = function(slug) {
-    return slug.replace(/\>/g, '#').replace(/-/g, '/');
+    return slug.replace(/\./g, '#').replace(/\|/g, '/');
 }
 
 dojo.declare('org.hark.Search', null, {
@@ -330,11 +330,15 @@ dojo.declare('org.hark.Main', null, {
         
         // listen for auth changes
         dojo.subscribe('/uow/auth', this, '_onInitDatabase');
+        // start with empty hash to avoid double trigger
+        var hash = dojo.hash();
+        if(!hash) {
+            dojo.hash('#');
+        }
         // listen for hash changes
         dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
         // trigger first login
         dijit.byId('login').triggerLogin();
-        var hash = dojo.hash();
         // handle initial hash
         this._onHashChange(hash);
     },
@@ -342,13 +346,16 @@ dojo.declare('org.hark.Main', null, {
     _onInitDatabase: function() {
         this._db = null;
 
-        // get the games database
-        var dbDef = uow.getDatabase({
+        // get the games database for the user locale
+        var args = {
             database : 'harkhome', 
             collection : 'games', 
-            mode : 'r'}
+            mode : 'r'
+        };
+        uow.getDatabase(args).then(
+            dojo.hitch(this, '_onDatabaseReady'),
+            dojo.hitch(this, '_onDatabaseFailed')
         );
-        dbDef.addCallback(dojo.hitch(this, '_onDatabaseReady'));        
     },
     
     _onDatabaseReady: function(database) {
@@ -356,6 +363,10 @@ dojo.declare('org.hark.Main', null, {
         this._db = database;
         // announce db availability
         dojo.publish('/org/hark/model', [this._db]);
+    },
+    
+    _onDatabaseFailed: function(err) {
+        // @todo
     },
     
     _onHashChange: function(slug) {
