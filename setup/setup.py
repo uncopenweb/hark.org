@@ -18,7 +18,7 @@ def insert(collection, item):
 def main():
     parser = optparse.OptionParser(usage='usage: %prog [options] mongohost mongoport jsonfile')
     parser.add_option("-r", "--reset", dest="reset", action='store_true', default=False,
-        help="reset Admin collections (irreversible!)")
+        help="reset game collection (irreversible!)")
     (options, args) = parser.parse_args()
     if len(args) != 3:
         parser.error('you must provide 3 arguments')
@@ -33,6 +33,7 @@ def main():
         g = db['games']
         data = json.load(file(fn))
         for item in data['items']:
+            print 'Inserting:', item['label']['en-us']
             insert(g, item)
     else:
         print 'not overwriting games'
