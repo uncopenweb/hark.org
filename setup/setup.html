@@ -23,26 +23,26 @@
         database : 'harkhome',
         collection : 'games',
         role : 'anonymous',
-        mode : 'r'
-      }).then(function() { console.log('set anonymous access') });
+        permission : 'r'
+      }).then(function() { console.log('set harkhome:games anonymous access: r') });
       uow.data.setAccess({
         database : 'harkhome',
         collection : 'games',
         role : 'identified',
-        mode : 'r'
-      }).then(function() { console.log('set identified access') });
+        permission : 'r'
+      }).then(function() { console.log('set harkhome:games identified access: r') });
       uow.data.setAccess({
         database : 'harkhome',
         collection : 'games',
         role : 'identified',
-        mode : 'r'
-      }).then(function() { console.log('set author access') });
+        permission : 'r'
+      }).then(function() { console.log('set harkhome:games author access: r') });
       uow.data.setAccess({
         database : 'harkhome',
         collection : 'games',
         role : 'identified',
-        mode : 'r'
-      }).then(function() { console.log('set admin access') });      
+        permission : 'r'
+      }).then(function() { console.log('set harkhome:games admin access: r') });      
     }
 
     function install() {
