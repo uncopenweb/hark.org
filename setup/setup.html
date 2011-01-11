@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Install games</title>
+    <script type="text/javascript">
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            baseUrl: './',
+            modulePaths: {'org.hark' : 'widgets'}
+        };
+    </script>
+    <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dojo/dojo.xd.js"></script>
+    <script type="text/javascript" src="/libs/uow.js"></script>
+    <script type="text/javascript">
+    dojo.require('uow.ui.LoginButton');
+    dojo.ready(function() {
+      dijit.byId('login').triggerLogin();
+    });
+    function setup() {
+      uow.data.setAccess({
+        database : 'harkhome',
+        collection : 'games',
+        role : 'anonymous',
+        mode : 'r'
+      }).then(function() { console.log('set anonymous access') });
+      uow.data.setAccess({
+        database : 'harkhome',
+        collection : 'games',
+        role : 'identified',
+        mode : 'r'
+      }).then(function() { console.log('set identified access') });
+      uow.data.setAccess({
+        database : 'harkhome',
+        collection : 'games',
+        role : 'identified',
+        mode : 'r'
+      }).then(function() { console.log('set author access') });
+      uow.data.setAccess({
+        database : 'harkhome',
+        collection : 'games',
+        role : 'identified',
+        mode : 'r'
+      }).then(function() { console.log('set admin access') });      
+    }
+
+    function install() {
+      var url = dojo.byId('url').value;
+      dojo.xhrGet({
+        url : url, 
+        handleAs : 'json'
+      }).then(function(games) {
+        uow.data.getDatabase({
+          database: 'harkhome',
+          collection : 'games',
+          mode : 'cru'
+        }).then(function(db) {
+          var id = games.identifier;
+          dojo.forEach(games.items, function(item) {
+            var args = {};
+            args[id] = item[id];
+            db.putOne({
+                query : args,
+                data : item,
+                save : true
+            }).then(function() {
+              console.log('added', item[id]);
+            }, function() {
+              console.warn('skipped', item[id]);
+            })
+          });
+        }, function() {
+          console.log('failed to open db');
+        })
+
+      }, function() {
+        console.log('failed to fetch json');
+      })      
+    }
+    </script>
+  </head>
+  <body>
+    <h1>hark.org site setup</h1>
+    <div dojoType="uow.ui.LoginButton" id="login"></div>
+    <p>All output logs to browser console. Make sure you have it open!</p>
+    <h2>Set db permissions</h2>
+    <p>Click to set the harkhome database collections to their proper default permissions.</p>
+    <button onclick="setup();">Setup</button>
+    <h2>Install games</h2>
+    <p>Enter the URL to a JSON file containing game metadata in dojo.data ItemFileReadStore format. Installs games into harkhome:games collection assuming you have 'cru' permission.</p>
+    <label>Game JSON file URL</label>
+    <input id="url" value=""/>
+    <button onclick="install();">Install</button>
+  </body>
+</html>
