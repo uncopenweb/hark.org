@@ -13,6 +13,7 @@
       @import "/libs/uow/ui/css/Icons.css";
       @import "/libs/uow/ui/css/BusyOverlay.css";
     </style>
+    <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css' />
     <script type="text/javascript">
         var djConfig = {
             isDebug: false,
@@ -28,13 +29,18 @@
   </head>
   <body class="claro">
     <div class="container_12" id="layout" style="display: none;">
-        <div class="grid_12" id="header">
-            <h1 data-label="page_title">Hark the Sound</h1>
-            <p>Just testing. This site is not ready for use.</p>
+      <div id="header">
+        <div class="grid_2" id="logo">
+          <img src="images/headphones.png" />
         </div>
-        <div class="clear"></div>
+        <div class="grid_10" id="title">
+          <h1 data-label="page_title">Hark the Sound</h1>
+          <h2 data-label="page_subtitle">Sound games for kids on the web</h2>
+        </div>
+      </div>
+      <div class="clear"></div>
         
-        <div class="grid_12" id="bar">
+      <div class="grid_12" id="bar">
         <div dojoType="dijit.MenuBar" region="bottom" id="menu">
           <div dojoType="uow.ui.LoginButton" id="login" displayField="first_name" class="dijitReset dijitInline"></div>
         </div>

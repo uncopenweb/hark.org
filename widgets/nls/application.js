@@ -1,5 +1,6 @@
 {
     page_title : "Hark the Sound",
+    page_subtitle : "Sound games for kids on the web",
     search_button_label : "Search",
     reset_button_label : "Reset",
     more_info_title : "Show more info about {0}",

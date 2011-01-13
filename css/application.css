@@ -38,8 +38,37 @@ a:hover {
 }
 
 #header {
-    height: 150px;
-    background-color: #ddd;
+    height: 154px;
+    margin: 0px 9px;
+    border: 1px solid #eee;
+    border-bottom: 0px solid white;
+}
+
+#title {
+    margin-right: 0em;
+    height: 154px;
+}
+
+#logo {
+    margin-left: 0em;
+    height: 154px;
+}
+
+#logo img {
+    margin-left: 10px;
+}
+
+#header h1 {
+    text-shadow: #999 1px 1px 2px;
+    font-weight: bold;
+    font-family: 'Orbitron', Helvetica, sans-serif;
+    font-size: 250%;
+    margin-top: 30px;
+}
+
+#header h2 {
+    text-shadow: #eee 1px 1px 2px;
+    font-family: 'Orbitron', Helvetica, sans-serif;
 }
 
 #bar {
@@ -142,6 +171,7 @@ a:hover {
 }
 
 #results .result .title {
+    white-space: nowrap;
     padding-top: 5px;
     display: inline-block;
 }
