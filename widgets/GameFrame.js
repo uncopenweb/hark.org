@@ -152,6 +152,11 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
 
     /* Connect for key events and publishes from the game in the frame. */
     _onFrameLoad: function(event) {
+        var cw = event.target.contentWindow;
+        if(dojo.isSafari) {
+            // safari fails to set the hash for some reason, so force it here
+            cw.location.hash = event.target.src.split('#')[1];
+        }
         if(this._connectTokens.length) {
             dojo.forEach(this._connectTokens, dojo.disconnect);
             this._connectTokens = [];
@@ -159,19 +164,16 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
             this._subTokens = [];
         }
         var t;
-        t = dojo.connect(event.target.contentWindow, 'onkeyup', this, 
-            '_onKeyUp');
+        t = dojo.connect(cw, 'onkeyup', this, '_onKeyUp');
         this._connectTokens.push(t);
-        t = dojo.connect(event.target.contentWindow, 'onkeydown', this, 
-            '_onKeyDown');
+        t = dojo.connect(cw, 'onkeydown', this, '_onKeyDown');
         this._connectTokens.push(t);
         // listen for pref requests from within the game frame and externally
         // from the preference controls
-        var win = this.frameNode.contentWindow;
-        if(win.dojo) {
+        if(cw.dojo) {
             t = dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
             this._subTokens.push(t);
-            t = win.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
+            t = cw.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
             this._subTokens.push(t);
         }
         // set focus on the iframe
