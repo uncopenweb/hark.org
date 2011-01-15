@@ -168,6 +168,8 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this._connectTokens.push(t);
         t = dojo.connect(cw, 'onkeydown', this, '_onKeyDown');
         this._connectTokens.push(t);
+        t = dojo.connect(cw, 'onkeypress', this, '_onKeyPress');
+        this._connectTokens.push(t);
         // listen for pref requests from within the game frame and externally
         // from the preference controls
         if(cw.dojo) {
@@ -186,6 +188,10 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
             // stop tab from getting us out of the game
             dojo.stopEvent(event);
         }
+        var win = this.frameNode.contentWindow;
+        if(win.dojo) {
+            win.dojo.publish('/org/hark/key/down', [event]);
+        }
     },
     
     /* Watch for magic hotkey to activate / deactivate the toolbar. */
@@ -199,6 +205,17 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
                 this.toolbar.focus();
                 dojo.stopEvent(event);
             }
+        }
+        var win = this.frameNode.contentWindow;
+        if(win.dojo) {
+            win.dojo.publish('/org/hark/key/up', [event]);
+        }
+    },
+    
+    _onKeyPress: function(event) {
+        var win = this.frameNode.contentWindow;
+        if(win.dojo) {
+            win.dojo.publish('/org/hark/key/press', [event]);
         }
     },
     
