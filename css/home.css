@@ -7,3 +7,25 @@
 @import "http://o.aolcdn.com/dojo/1.5/dijit/themes/claro/claro.css";
 @import "960.css";
 @import "common.css";
+
+#top h1 {
+    text-shadow: #777 1px 1px 3px;
+    font-weight: bold;
+    color: white;
+    font-family: 'Orbitron', Helvetica, sans-serif;
+    padding-top: 96px;
+    font-size: 250%;
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+
+#top h2 {
+    text-shadow: #777 1px 1px 3px;
+    font-weight: bold;
+    color: white;
+    font-family: 'Orbitron', Helvetica, sans-serif;
+    font-style: italic;
+    font-size: 150%;
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
