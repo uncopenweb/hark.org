@@ -1,0 +1,28 @@
+/**
+ * SiteTab styles.
+ *
+ * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
+ */
+.harkSiteTabs {
+    text-align: right;
+}
+
+.harkSiteTabs a {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    width: 96px;
+    margin-right: 10px;
+    padding: 5px 0px;
+    background-color: #235480;
+    color: white;
+    border-bottom: 1px solid transparent;
+    -webkit-border-top-left-radius: 5px;
+}
+
+.harkSiteTabs a.selected {
+    top: 1px;
+    color: black;
+    background-color: white;
+    border-bottom: 1px solid white;
+}

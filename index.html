@@ -8,7 +8,7 @@
     <script type="text/javascript">
         var djConfig = {
             isDebug: false,
-            parseOnLoad: false,
+            parseOnLoad: true,
             baseUrl: './',
             modulePaths: {'org.hark' : 'widgets'}
         };
@@ -27,11 +27,7 @@
           <h2 data-label="site_subtitle">Audio games on the web</h2>
         </div>
         <div class="clear"></div>
-        <div class="grid_12" id="top_tabs">
-          <span style="-webkit-border-top-left-radius: 5px; border-bottom: 1px solid white; margin-bottom: -1px;">Home</span>
-          <span style="background-color: #235480; color: white; -webkit-border-top-left-radius: 5px;">Games</span>
-          <span style="-webkit-border-top-left-radius: 5px; background-color: #235480; color: white;">Activities</span>
-        </div>
+        <div class="grid_12" selected="0" dojoType="org.hark.SiteTabs" style="height: 28px;"></div>
         <div class="clear"></div> 
       </div>
     </div>
@@ -45,7 +41,7 @@
         <div class="grid_4">
           <h1><span data-label="games_title">Play a Game</span> <img src="images/joystick_flat_24.png" style="vertical-align: top;"/></h1>
           <p data-label="games_text">You can browse and search our game catalog like any other website. But our game catalog is also kid-friendly. Young gamers can browse our catalog by using the arrow keys and listening to game titles.</p>
-          <p><a data-label="games_link" href="play.html">Browse the games now &rarr;</a></p>
+          <p><a data-label="games_link" href="games.html">Browse the games now &rarr;</a></p>
         </div>
         <div class="grid_4">
           <h1><span data-label="activities_title">Manage Activities</span> <img src="images/activities_flat_24.png" style="vertical-align: top;"/></h1>

@@ -11,6 +11,7 @@ dojo.require('dijit.layout.TabContainer');
 dojo.require('dijit.MenuBar');
 dojo.require('dijit.Dialog');
 dojo.require('dojo.i18n');
+dojo.require('org.hark.SiteTabs');
 // dojo.require('uow.ui.LoginButton');
 // dojo.require('uow.ui.BusyOverlay');
 // dojo.require('org.hark.DetailsView');
