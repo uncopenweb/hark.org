@@ -1,7 +1,7 @@
 /**
  * Preferences.js
  *
- * Copyright UNC Open Web Team 2010. All Rights Reserved.
+ * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
 dojo.provide('org.hark.Preferences');
 
