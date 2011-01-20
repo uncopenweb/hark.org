@@ -7,11 +7,11 @@
 @import "http://o.aolcdn.com/dojo/1.5/dijit/themes/claro/claro.css";
 @import "960.css";
 @import "common.css";
-@import "widgets.css";
-@import "icons.css";
 @import "SiteTabs.css";
+/*@import "widgets.css";
+@import "icons.css";
 @import "/libs/uow/ui/css/Icons.css";
-@import "/libs/uow/ui/css/BusyOverlay.css";
+@import "/libs/uow/ui/css/BusyOverlay.css";*/
 
 #top {
     padding-top: 10px;
@@ -26,6 +26,14 @@
     font-size: 150%;
     margin-top: 0em;
     margin-bottom: 0em;
+    padding-left: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#top h1 a {
+    color: white;
+    text-decoration: none;
 }
 
 #bar {
@@ -47,21 +55,7 @@
     text-align: center;
 }
 
-#search input[type="search"] {
-    font-size: inherit;
-    vertical-align: middle;
-    width: 100%;
-    margin-top: 3px;
-}
-
-.dj_ff #search input[type="search"] {
-    margin-top: 0px;
-}
-
-#search button {
-    font-size: inherit;
-    display: inline-block;
-    vertical-align: middle;
+#search .dijitComboBox {
     width: 100%;
 }
 

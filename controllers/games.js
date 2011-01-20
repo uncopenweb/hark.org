@@ -4,14 +4,28 @@
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
 dojo.require('dojo.hash');
-dojo.require('dojo.parser');
 dojo.require('dijit.layout.BorderContainer');
 dojo.require('dijit.layout.ContentPane');
-dojo.require('dijit.layout.TabContainer');
-dojo.require('dijit.MenuBar');
-dojo.require('dijit.Dialog');
+dojo.require('dijit.form.ComboBox')
 dojo.require('dojo.i18n');
 dojo.require('org.hark.SiteTabs');
+
+dojo.ready(function() {
+    try {
+        var labels = dojo.i18n.getLocalization('org.hark', 'pages');
+    } catch(e) {
+        // no translation, stick with default
+        return;
+    }
+    dojo.query('[data-label]').forEach(function(node) {
+        var name = node.getAttribute('data-label');
+        var text = labels[name];
+        if(text) {
+            node.innerHTML = labels[name];
+        }
+    });
+});
+
 // dojo.require('uow.ui.LoginButton');
 // dojo.require('uow.ui.BusyOverlay');
 // dojo.require('org.hark.DetailsView');
@@ -387,13 +401,3 @@ dojo.require('org.hark.SiteTabs');
 //     }
 // });
 // 
-// dojo.ready(function() {
-//     var labels = dojo.i18n.getLocalization('org.hark', 'application');
-//     var args = {
-//         labels : labels
-//     };
-//     details = new org.hark.Details(args);
-//     search = new org.hark.Search(args);
-//     results = new org.hark.Results(args);
-//     main = new org.hark.Main(args);
-// });

@@ -21,11 +21,9 @@
   <body class="claro">
     <div id="top">
       <div class="container_12" id="top_container">
-        <div class="grid_1">
-          <img src="images/logo_flat_64.png" alt="Hark the Sound headphones logo" /> 
-        </div>
-        <div class="grid_10" id="top_title">
-          <h1 data-label="site_title">Hark the Sound</h1>
+        <div class="grid_12" id="top_title">
+          <a href="index.html"><img src="images/logo_flat_64.png" alt="Hark the Sound logo" /></a>
+          <h1><a data-label="site_title" href="index.html">Hark the Sound</a></h1>
         </div>
         <div class="clear"></div> 
         <div class="grid_12" selected="1" dojoType="org.hark.SiteTabs" style="height: 28px;"></div>
@@ -36,73 +34,13 @@
     <div id="middle">
       <div class="container_12" id="middle_container">
         <div id="search">
-          <div class="grid_4 prefix_2">
-            <input type="search" results="5" placeholder="Enter search terms" id="textNode"/>
-          </div>
-          <div class="grid_2">
-            <button id="searchNode" data-label="search_button_label">Search</button>
-          </div>
-          <div class="grid_2 suffix_2">
-            <button id="resetNode" data-label="reset_button_label">Reset</button>
+          <div class="grid_6 prefix_3 suffix_3">
+            <input dojoType="dijit.form.ComboBox" />
           </div>
           <div class="clear"></div>
         </div>
       
-        <div id="results">
-          <div class="summary summary-top">
-            <div class="grid_12 separator"></div>
-            <div class="grid_1 navigation navigation-previous">
-              <a href="#" data-label="previous_button_label">Previous</a>
-            </div>
-            <div class="grid_10 position"></div>
-            <div class="grid_1 navigation navigation-next">
-              <a href="#" data-label="next_button_label">Next</a>
-            </div>
-            <div class="clear"></div>
-            <div class="grid_12 separator"></div>
-          </div>
-
-          <div class="row">
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="clear"></div>
-          </div>
-          <div class="row">
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="clear"></div>
-          </div>
-          <div class="row">
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="grid_2 result"></div>
-            <div class="clear"></div>
-          </div>
-        
-          <div class="summary summary-bottom">
-            <div class="grid_12 separator"></div>
-            <div class="grid_1 navigation navigation-previous">
-              <a href="#" data-label="previous_button_label">Previous</a>
-            </div>
-            <div class="grid_10 position"></div>
-            <div class="grid_1 navigation navigation-next">
-              <a href="#" data-label="next_button_label">Next</a>
-            </div>
-            <div class="clear"></div>
-            <div class="grid_12 separator"></div>
-          </div>
-        </div>
+        <div id="results"></div>
       </div>
     </div>
     
@@ -119,40 +57,5 @@
         <div class="clear"></div>
       </div>
     </div>
-
-
-<!--    <div class="container_12" id="layout" style="display: none;">
-      <div id="header">
-        <div class="grid_2" id="logo">
-          <img src="images/headphones.png" alt="Hark the Sound headphones logo" />
-        </div>
-        <div class="grid_10" id="title">
-          <h1 data-label="page_title">Hark the Sound</h1>
-          <h2 data-label="page_subtitle">Sound games for kids on the web</h2>
-        </div>
-      </div>
-      <div class="clear"></div>
-        
-      <div class="grid_12" id="bar">
-        <div dojoType="dijit.MenuBar" region="bottom" id="menu">
-          <div dojoType="uow.ui.LoginButton" id="login" displayField="first_name" class="dijitReset dijitInline"></div>
-        </div>
-      </div>
-      <div class="clear"></div>
-
-      
-
-    <div class="container_12" id="footer" style="display: none;">
-      <div class="grid_6" id="footer_left">
-        UNC Computer Science<br />
-        Enabling Technology<br />
-        Copyright &copy; 2010. All rights reserved.
-      </div>
-      <div class="grid_6" id="footer_right">
-        <img src="images/unc-logo.png" />
-      </div>
-    </div>-->
-    <div dojoType="org.hark.GameFrame" id="game"></div>
-    <div dojoType="dijit.Dialog" id="dialog" draggable="false" parseOnLoad="false"></div>
   </body>
 </html>
