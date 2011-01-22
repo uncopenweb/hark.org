@@ -3,20 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <title>Game Catalog @ Hark the Sound</title>
-    <link href="css/games.css" rel="stylesheet" type="text/css" />
+    <link href="pages/css/games.css" rel="stylesheet" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css' />
     <script type="text/javascript">
         var djConfig = {
             isDebug: false,
             parseOnLoad: true,
             baseUrl: './',
-            modulePaths: {'org.hark' : 'widgets'}
+            modulePaths: {'org.hark' : '.'}
         };
     </script>
     <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dojo/dojo.xd.js"></script>
     <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dijit/dijit.xd.js"></script>
     <script type="text/javascript" src="/libs/uow.js"></script>
-    <script type="text/javascript" src="controllers/games.js"></script>
+    <script type="text/javascript" src="pages/games.js"></script>
   </head>
   <body class="claro">
     <div id="top">
@@ -26,7 +26,7 @@
           <h1><a data-label="site_title" href="index.html">Hark the Sound</a></h1>
         </div>
         <div class="clear"></div> 
-        <div class="grid_12" selected="1" dojoType="org.hark.SiteTabs" style="height: 28px;"></div>
+        <div class="grid_12" selected="1" dojoType="org.hark.widgets.SiteTabs" style="height: 28px;"></div>
         <div class="clear"></div> 
       </div>
     </div>

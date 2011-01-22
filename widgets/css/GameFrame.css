@@ -1,8 +1,52 @@
 /**
- * Hark icons.
+ * GameFrame styles.
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
+.harkGameFrame {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+} 
+
+.harkGameFrame .dijitBorderContainerNoGutter {
+    width: 100%;
+    height: 100%;
+}
+
+.harkGameFrame .dijitContentPane {
+    overflow: hidden;
+    padding: 0px;
+}
+
+.harkGameFrame iframe {
+    border-width: 0px;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+.harkGameFrame .dijitToolbar {
+    font-size: 0.75em;
+    opacity: 0.25;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -o-transition: opacity 1s;
+}
+
+.harkGameFrame .dijitToolbar:hover,  
+.harkGameFrame .dijitToolbarFocused {
+    opacity: 1.0;
+}
+
+.harkGameFrame .dijitToolbar label {
+    display: inline-block;
+    vertical-align: middle;
+    font-style: italic;
+    color: #999;
+    padding-left: 3em;
+}
+
 .harkIcon {
     display: inline-block;
     vertical-align: bottom;

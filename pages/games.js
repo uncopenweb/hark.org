@@ -1,5 +1,5 @@
 /**
- * Main controller for the HTS site.
+ * Game catalog controller.
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
@@ -8,7 +8,18 @@ dojo.require('dijit.layout.BorderContainer');
 dojo.require('dijit.layout.ContentPane');
 dojo.require('dijit.form.ComboBox')
 dojo.require('dojo.i18n');
-dojo.require('org.hark.SiteTabs');
+dojo.require('org.hark.widgets.SiteTabs');
+
+// root path for all urls
+var ROOT_PATH = '../';
+
+org.hark.urlToSlug = function(url) {
+    return url.replace(/\//g, '|').replace(/#/g, '.');
+};
+
+org.hark.slugToUrl = function(slug) {
+    return slug.replace(/\./g, '#').replace(/\|/g, '/');
+}
 
 dojo.ready(function() {
     try {
@@ -32,16 +43,7 @@ dojo.ready(function() {
 // dojo.require('org.hark.GameFrame');
 // dojo.requireLocalization('org.hark', 'application');
 // 
-// // root path for all urls
-// var ROOT_PATH = '../';
-// 
-// org.hark.urlToSlug = function(url) {
-//     return url.replace(/\//g, '|').replace(/#/g, '.');
-// };
-// 
-// org.hark.slugToUrl = function(slug) {
-//     return slug.replace(/\./g, '#').replace(/\|/g, '/');
-// }
+
 // 
 // dojo.declare('org.hark.Search', null, {
 //     constructor: function() {

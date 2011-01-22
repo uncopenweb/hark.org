@@ -1,11 +1,10 @@
 /**
- * Main controller for the HTS site.
+ * Home page controller.
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
 dojo.require('dojo.i18n');
-dojo.require('org.hark.SiteTabs');
-dojo.require('dijit.form.Button');
+dojo.require('org.hark.widgets.SiteTabs');
 dojo.requireLocalization('org.hark', 'pages');
 
 dojo.ready(function() {

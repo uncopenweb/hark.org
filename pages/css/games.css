@@ -7,7 +7,7 @@
 @import "http://o.aolcdn.com/dojo/1.5/dijit/themes/claro/claro.css";
 @import "960.css";
 @import "common.css";
-@import "SiteTabs.css";
+@import "../../widgets/css/SiteTabs.css";
 /*@import "widgets.css";
 @import "icons.css";
 @import "/libs/uow/ui/css/Icons.css";
