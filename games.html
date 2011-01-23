@@ -34,13 +34,11 @@
     <div id="middle">
       <div class="container_12" id="middle_container">
         <div id="search">
-          <div class="grid_6 prefix_3 suffix_3">
-            <input dojoType="dijit.form.ComboBox" />
-          </div>
+          <div class="grid_6 prefix_3 suffix_3" dojoType="org.hark.widgets.GameSearch"></div>
           <div class="clear"></div>
         </div>
       
-        <div id="results"></div>
+        <div id="results" dojoType="org.hark.widgets.GameList"></div>
       </div>
     </div>
     
@@ -49,7 +47,7 @@
         <div class="grid_6" id="bottom_left">
           UNC Computer Science<br />
           Enabling Technology<br />
-          Copyright &copy; 2010. All rights reserved.
+          Copyright &copy; 2010, 2011. All rights reserved.
         </div>
         <div class="grid_6" id="bottom_right">
           <img src="images/unc-logo.png" />
