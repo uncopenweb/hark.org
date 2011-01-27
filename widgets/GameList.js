@@ -29,22 +29,34 @@ dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
     
     postCreate: function(args) {
         // controller published events
+        dojo.subscribe('/org/hark/lang', this, function(locale) {
+            this._locale = locale;
+        });
         dojo.subscribe('/org/hark/search', this, 'onSearch');
-        dojo.subscribe('/org/hark/model', this, 'onModel');
+        dojo.subscribe('/org/hark/db/games', this, 'onModel');
     },
     
     onSearch: function(text) {
+        this._reset();
         this._query = text;
-        this.page = 0;
         if(this._db) {
             this._search();
         }
     },
     
     onModel: function(db) {
-        this.page = 0;
+        this._reset();
         this._db = db;
         this._search();
+    },
+    
+    _reset: function() {
+        // clear the existing rows
+        dojo.empty(this.domNode);
+        // reset the count
+        this._shownCount = 0;        
+        // reset current page
+        this.page = 0;
     },
     
     _search: function() {
@@ -90,10 +102,6 @@ dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
     _onBegin: function(size, request) {
         // keep track of total results
         this._totalAvailable = size;
-        // clear the table cells
-        dojo.empty(this.domNode);
-        // reset the count
-        this._shownCount = 0;
         // if(size) {
         //     // update summary counts
         //     var start = request.start + 1;
@@ -112,16 +120,23 @@ dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
             var url = this._db.getValue(item, 'url');
             var label = this._db.getValue(item, 'label');
             label = label[dojo.locale] || label['en-us'];
+            var desc = this._db.getValue(item, 'description');
+            desc = desc[dojo.locale] || desc['en-us'];
             var html = dojo.replace(tmpl, {
                 game_href :  '#' + org.hark.urlToSlug(url),
                 game_title : dojo.replace(this._labels.more_info_title, [label]),
                 game_label : label,
+                game_description : desc,
                 icon_src : ROOT_PATH + this._db.getValue(item, 'media').icon,
                 icon_alt : label,
+                //screenshot_src : ROOT_PATH + this._db.getValue(item, 'media').screenshots[0],
                 play_button_label : this._labels.play_button_label,
                 play_button_title : dojo.replace(this._labels.play_button_title, [label])
             });
-            dojo.create('div', {innerHTML : html}, this.domNode);
+            dojo.create('div', {
+                innerHTML : html,
+                className : 'harkGameListItem'
+            }, this.domNode);
             // var node = this._resultNodes[row * this._cols + col];
             // dojo.addClass(node, 'active');
             // node.innerHTML = html;

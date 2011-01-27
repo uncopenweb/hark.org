@@ -13,6 +13,8 @@ dojo.require('org.hark.widgets.GameList');
 
 // root path for all urls
 var ROOT_PATH = '../';
+// known supported translations
+var LANGS = [];
 
 org.hark.urlToSlug = function(url) {
     return url.replace(/\//g, '|').replace(/#/g, '.');
@@ -36,22 +38,31 @@ dojo.ready(function() {
             }
         });
     }
+    
+    // determine language to use
+    var lang = 'en-us'
+    if(dojo.indexOf(dojo.locale, LANGS) != -1) {
+        // use translation
+        lang = dojo.locale;
+    }
+    dojo.publish('/org/hark/lang', [lang]);
+    
 
-    // get the games database
-    var args = {
-        database : 'harkhome', 
-        collection : 'games', 
-        mode : 'r'
-    };
-    uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);    
     function _onDatabaseReady(db) {
         // announce db availability
-        dojo.publish('/org/hark/model', [db]);
+        dojo.publish('/org/hark/db/'+db.collection, [db]);
     }
     
     function _onDatabaseFailed(err) {
+        // bad, show error and give up
         // @todo
     }
+
+    // get the games, tags collections
+    var args = {database : 'harkhome', mode : 'r', collection : 'games'};
+    uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);
+    args.collection = 'tags';
+    uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);    
 });
 
 // dojo.require('uow.ui.LoginButton');

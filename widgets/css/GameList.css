@@ -1,0 +1,35 @@
+/**
+ * GameList styles.
+ *
+ * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
+ */
+.harkGameListItem {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0px;
+}
+
+.harkGameListItem h2 {
+    margin: 0em;
+}
+
+.harkGameListItem img {
+    height: 96px;
+    width: 96px;
+    margin-right: 10px;
+    border: 1px solid #eee;
+}
+
+.harkGameListItem .body {
+    padding: 10px 0px;
+}
+
+.harkGameListItem .description {
+    height: 96px;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.harkGameListItem .footer {
+    
+
+}

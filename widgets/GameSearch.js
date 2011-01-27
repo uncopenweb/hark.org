@@ -14,17 +14,20 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
     widgetsInTemplate: true,
     templateString: dojo.cache('org.hark.widgets', 'templates/GameSearch.html'),
     postMixInProperties: function() {
-        this.labels = dojo.i18n.getLocalization('org.hark.widgets','GameSearch');
+        this._labels = dojo.i18n.getLocalization('org.hark.widgets','GameSearch');
     },
     
     postCreate: function() {
-        dojo.subscribe('/org/hark/model', this, 'onModel');
+        dojo.subscribe('/org/hark/lang', this, function(locale) {
+            this._locale = locale;
+        });
+        dojo.subscribe('/org/hark/db/tags', this, 'onModel');
     },
     
     onModel: function(db) {
         this.searchBox.attr('disabled', false);
         this.searchBox.attr('store', db);
-        this.onSearch('');
+        this.searchBox.attr('query', {lang : this._locale});
     },
         
     onSearch: function(text) {
@@ -33,5 +36,5 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
 });
 
 org.hark.widgets.GameSearch.formatLabel = function(item, store) {
-    return item.label[dojo.locale];
+    return item.name;
 };
