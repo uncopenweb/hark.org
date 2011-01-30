@@ -5,18 +5,21 @@
  */
 dojo.provide('org.hark.widgets.GameList');
 dojo.require('dijit._Widget');
+dojo.require('dijit._Templated');
 dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'GameList');
 
-dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
-    // current page
-    page : 0,
+dojo.declare('org.hark.widgets.GameList', [dijit._Widget, dijit._Templated], {
     // results per page fetch
     perPage : 10,
     // result row template
-    resultTemplate : dojo.cache('org.hark.widgets.templates', 'ResultItem.html'),
+    resultTemplate : dojo.cache('org.hark.widgets.templates', 'GameListItem.html'),
+    // widget template
+    templateString : dojo.cache('org.hark.widgets.templates', 'GameList.html'),
     postMixInProperties: function() {
         this._labels = dojo.i18n.getLocalization('org.hark.widgets','GameList');
+        this._labels.more_results_label = dojo.replace(
+            this._labels.more_results_label, [this.perPage]);
         // current results on page
         this._shownCount = 0;
         // current database
@@ -50,29 +53,24 @@ dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
         this._search();
     },
     
+    _showStatus: function(state) {
+        // hide all status
+        dojo.query('div', this._statusNode).style({display : 'none'});
+        // show status for state
+        dojo.query('div.'+state, this._statusNode).style({display : ''});
+    },
+    
     _reset: function() {
         // clear the existing rows
-        dojo.empty(this.domNode);
+        dojo.empty(this._resultsNode);
         // reset the count
         this._shownCount = 0;        
         // reset current page
-        this.page = 0;
+        this._page = 0;
     },
     
     _search: function() {
-        // if(!this._busy) {
-        //     // show busy until done
-        //     var self = this;
-        //     uow.ui.showBusy({
-        //         busyNode: this.domNode,
-        //         parentNode: dojo.body(),
-        //         takeFocus: false
-        //     }).then(function(busy) {
-        //         self._busy = busy;
-        //         // @todo: have to check if op already complete
-        //     });
-        // }
-
+        this._showStatus('loading');
         // build the query
         var ors = dojo.map(['label', 'description', 'tags'], function(item) {
             var obj = {};
@@ -88,8 +86,7 @@ dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
             onItem: this._onItem,
             onComplete: this._onComplete,
             onError: this._onError,
-            start: this.page * this.perPage,
-            // fetch one extra to check if there's a next
+            start: this._page * this.perPage,
             count: this.perPage,
             sort : [{
                 attribute : 'label.'+dojo.locale,
@@ -100,18 +97,9 @@ dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
     },
     
     _onBegin: function(size, request) {
+        console.log(size);
         // keep track of total results
         this._totalAvailable = size;
-        // if(size) {
-        //     // update summary counts
-        //     var start = request.start + 1;
-        //     var end = Math.min(request.start + request.count, size);
-        //     var text = dojo.replace(this._labels.summary_label, 
-        //         [start, end, size]);
-        // } else {
-        //     var text = this._labels.no_results_label;
-        // }
-        // dojo.query('.summary .position', this.resultsNode).forEach('item.innerHTML = "'+text+'"');
     },
     
     _onItem: function(item) {
@@ -122,53 +110,33 @@ dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
             label = label[dojo.locale] || label['en-us'];
             var desc = this._db.getValue(item, 'description');
             desc = desc[dojo.locale] || desc['en-us'];
+            var tags = this._db.getValue(item, 'tags');
+            tags = tags[dojo.locale] || tags['en-us'];
             var html = dojo.replace(tmpl, {
+                _labels : this._labels,
                 game_href :  '#' + org.hark.urlToSlug(url),
-                game_title : dojo.replace(this._labels.more_info_title, [label]),
                 game_label : label,
                 game_description : desc,
+                game_tags : tags,
                 icon_src : ROOT_PATH + this._db.getValue(item, 'media').icon,
-                icon_alt : label,
-                //screenshot_src : ROOT_PATH + this._db.getValue(item, 'media').screenshots[0],
-                play_button_label : this._labels.play_button_label,
-                play_button_title : dojo.replace(this._labels.play_button_title, [label])
+                icon_alt : label
             });
             dojo.create('div', {
                 innerHTML : html,
                 className : 'harkGameListItem'
-            }, this.domNode);
-            // var node = this._resultNodes[row * this._cols + col];
-            // dojo.addClass(node, 'active');
-            // node.innerHTML = html;
-            // // listen for play button clicks
-            // var button = dojo.query('button', node)[0];
-            // dojo.connect(button, 'onclick', function() {
-            //     dojo.hash('#' + org.hark.urlToSlug(url));
-            // });
-            // var mi = [dojo.query('a', node)[0], dojo.query('img', node)[0]];
-            // // listen for more info click
-            // dojo.forEach(mi, function(item) {
-            //     dojo.connect(item, 'onclick', dojo.hitch(this, '_onMoreInfo', url));
-            // }, this);
+            }, this._resultsNode);
         }
         this._shownCount += 1;
     },
     
     _onComplete: function() {
-        // var prev = dojo.query('.navigation-previous > a');
-        // var next = dojo.query('.navigation-next > a');
-        // if(this._page === 0) {
-        //     prev.addClass('disabled');
-        // } else {
-        //     prev.removeClass('disabled');
-        // }
-        // if(this._page * this._rows * this._cols + this._shownCount < this._totalAvailable) {
-        //     next.removeClass('disabled');
-        // } else {
-        //     next.addClass('disabled');
-        // }
-        // hide busy spinner
-        // uow.ui.hideBusy(this._busy);
+        if(this._totalAvailable === 0) {
+            this._showStatus('none');
+        } else if(this._shownCount < this._totalAvailable) {
+            this._showStatus('more');
+        } else {
+            this._showStatus('done');
+        }
     },
     
     _onError: function(err) {
@@ -176,10 +144,8 @@ dojo.declare('org.hark.widgets.GameList', [dijit._Widget], {
     },
     
     _onClickNext: function(event) {
-        if(!dojo.hasClass(event.target, 'disabled')) {
-            this._page += 1;
-            this._search();
-        }
+        this._page += 1;
+        this._search();
         dojo.stopEvent(event);
     }
 });

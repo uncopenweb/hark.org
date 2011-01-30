@@ -5,7 +5,14 @@
  */
 .harkGameListItem {
     border-bottom: 1px solid #ddd;
-    padding: 20px 0px;
+    padding: 10px 0px;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(245,245,245)),
+        color-stop(0.1, rgb(255,255,255))
+    );
 }
 
 .harkGameListItem h2 {
@@ -20,16 +27,31 @@
 }
 
 .harkGameListItem .body {
-    padding: 10px 0px;
+    padding-top: 10px;
 }
 
-.harkGameListItem .description {
+/*.harkGameListItem .description {
     height: 96px;
     vertical-align: middle;
     display: table-cell;
 }
-
+*/
 .harkGameListItem .footer {
-    
+    padding-top: 10px;
+    color: #999;
+    font-size: 0.9em;
+}
 
+.harkGameListItem .footer a {
+    color: #999;
+    text-decoration: underline;
+}
+
+.harkGameListItem .footer span {
+    padding-right: 10px;
+}
+
+.harkGameListStatus {
+    padding: 1em 0em;
+    text-align: center;
 }

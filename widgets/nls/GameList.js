@@ -1,6 +1,7 @@
 {
-    play_button_label : 'Play',
-    play_button_title : 'Play this game',
-    no_results_label : 'No results',
-    more_info_title : 'More info'
+    more_results_label : 'Show {0} more games',
+    no_results_label : 'No games found. Try another search.',
+    loading_label : 'Loading games ...',
+    tags_label : 'Tags:',
+    credits_label : 'Game credits'
 }

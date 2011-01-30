@@ -60,6 +60,9 @@
     width: 100%;
 }
 
+#results {
+}
+
 #results .summary {
     color: gray;
     font-size: 0.9em;
