@@ -21,16 +21,16 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
         dojo.subscribe('/org/hark/lang', this, function(locale) {
             this._locale = locale;
         });
-        dojo.subscribe('/org/hark/db/tags', this, 'onModel');
+        dojo.subscribe('/org/hark/db/tags', this, '_onTagsDb');
     },
     
-    onModel: function(db) {
+    _onTagsDb: function(db) {
         this.searchBox.attr('disabled', false);
         this.searchBox.attr('store', db);
         this.searchBox.attr('query', {lang : this._locale});
     },
         
-    onSearch: function(text) {
+    _onSearch: function(text) {
         dojo.publish('/org/hark/search', [text]);
     }
 });

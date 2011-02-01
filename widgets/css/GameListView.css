@@ -3,7 +3,7 @@
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
-.harkGameListItem {
+.harkGameListViewItem {
     border-bottom: 1px solid #ddd;
     padding: 10px 0px;
     background-image: -webkit-gradient(
@@ -15,43 +15,43 @@
     );
 }
 
-.harkGameListItem h2 {
+.harkGameListViewItem h2 {
     margin: 0em;
 }
 
-.harkGameListItem img {
+.harkGameListViewItem img {
     height: 96px;
     width: 96px;
     margin-right: 10px;
     border: 1px solid #eee;
 }
 
-.harkGameListItem .body {
+.harkGameListViewItem .body {
     padding-top: 10px;
 }
 
-/*.harkGameListItem .description {
+/*.harkGameListViewItem .description {
     height: 96px;
     vertical-align: middle;
     display: table-cell;
 }
 */
-.harkGameListItem .footer {
+.harkGameListViewItem .footer {
     padding-top: 10px;
     color: #999;
     font-size: 0.9em;
 }
 
-.harkGameListItem .footer a {
+.harkGameListViewItem .footer a {
     color: #999;
     text-decoration: underline;
 }
 
-.harkGameListItem .footer span {
+.harkGameListViewItem .footer span {
     padding-right: 10px;
 }
 
-.harkGameListStatus {
+.harkGameListViewStatus {
     padding: 1em 0em;
     text-align: center;
 }

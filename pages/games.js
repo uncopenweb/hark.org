@@ -9,7 +9,8 @@ dojo.require('dijit.layout.ContentPane');
 dojo.require('dojo.i18n');
 dojo.require('org.hark.widgets.SiteTabs');
 dojo.require('org.hark.widgets.GameSearch');
-dojo.require('org.hark.widgets.GameList');
+dojo.require('org.hark.widgets.GameListModel');
+dojo.require('org.hark.widgets.GameListView');
 
 // root path for all urls
 var ROOT_PATH = '../';
