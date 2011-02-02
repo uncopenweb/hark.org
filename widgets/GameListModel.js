@@ -20,13 +20,14 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
         this._query = '';
         // locale for queries
         this._locale = '';
+        // all items fetched so far
+        this._items = [];
     },
 
     postCreate: function(args) {
         dojo.subscribe('/org/hark/lang', this, function(locale) {
             this._locale = locale;
         });
-        dojo.subscribe('/org/hark/search', this, 'newSearch');
         dojo.subscribe('/org/hark/db/games', this, '_onGamesDb');
     },
     
@@ -49,6 +50,10 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
         return true;
     },
     
+    getItem: function(i) {
+        return this._items[i];
+    },
+    
     _onGamesDb: function(db) {
         this._reset();
         this._db = db;
@@ -59,6 +64,8 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
         // reset the count
         this.fetched = 0;
         this.available = 0;
+        // all items
+        this._items = [];
         // reset current page
         this._page = 0;
         dojo.publish('/org/hark/games/reset', [this]);
@@ -104,7 +111,9 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
         this.fetched += 1;
     },
     
-    _onComplete: function() {
+    _onComplete: function(items) {
+        // track all fetched items
+        this._items = this._items.concat(items);
         dojo.publish('/org/hark/games/done', [this, this._db, this.fetched]);
     },
     

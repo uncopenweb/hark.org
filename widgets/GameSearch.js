@@ -11,10 +11,13 @@ dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'GameSearch');
 
 dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
+    // game list model
+    model : null,
     widgetsInTemplate: true,
     templateString: dojo.cache('org.hark.widgets', 'templates/GameSearch.html'),
     postMixInProperties: function() {
         this._labels = dojo.i18n.getLocalization('org.hark.widgets','GameSearch');
+        this.model = dijit.byNode(this.model);
     },
     
     postCreate: function() {
@@ -31,7 +34,27 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
     },
         
     _onSearch: function(text) {
-        dojo.publish('/org/hark/search', [text]);
+        this.model.newSearch(text);
+    },
+    
+    _onFocus: function() {
+        // disable global key catch
+        try {
+            uow.ui.disconnectKeys();
+        } catch(e) {
+            return;
+        }
+        this._reconnectKeys = true;
+    },
+    
+    _onBlur: function() {
+        // enable global key catch if it was enabled
+        if(this._reconnectKeys) {
+            try {
+                uow.ui.connectKeys();
+            } catch(e) {}
+            this._reconnectKeys = false;
+        }
     }
 });
 

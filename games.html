@@ -18,7 +18,10 @@
     <script type="text/javascript" src="/libs/uow.js"></script>
     <script type="text/javascript" src="pages/games.js"></script>
   </head>
-  <body class="claro">
+  <body class="claro" tabindex="0">
+    <div id="model" dojoType="org.hark.widgets.GameListModel"></div>
+    <div dojoType="org.hark.widgets.GameListKeys" model="model"></div>
+    
     <div id="top">
       <div class="container_12" id="top_container">
         <div class="grid_12" id="top_title">
@@ -34,11 +37,10 @@
     <div id="middle">
       <div class="container_12" id="middle_container">
         <div id="search">
-          <div class="grid_6 prefix_3 suffix_3" dojoType="org.hark.widgets.GameSearch"></div>
+          <div class="grid_6 prefix_3 suffix_3" dojoType="org.hark.widgets.GameSearch" model="model"></div>
           <div class="clear"></div>
         </div>
-      
-        <div id="model" dojoType="org.hark.widgets.GameListModel"></div>
+              
         <div id="results" dojoType="org.hark.widgets.GameListView" model="model"></div>
       </div>
     </div>

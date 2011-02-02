@@ -12,8 +12,6 @@ dojo.requireLocalization('org.hark.widgets', 'GameListView');
 dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated], {
     // game list model
     model : null,
-    // selected row
-    selected : null,
     // result row template
     resultTemplate : dojo.cache('org.hark.widgets.templates', 'GameListViewItem.html'),
     // widget template
