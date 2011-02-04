@@ -17,10 +17,12 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     // widget template
     templateString : dojo.cache('org.hark.widgets.templates', 'GameListView.html'),
     postMixInProperties: function() {
+        this.model = dijit.byId(this.model);
         this._labels = dojo.i18n.getLocalization('org.hark.widgets','GameListView');
         this._labels.more_results_label = dojo.replace(
-            this._labels.more_results_label, [this.perPage]);
-        this.model = dijit.byId(this.model);
+            this._labels.more_results_label, [this.model.perPage]);
+        this._needsClear = false;
+        this._busyOverlay = null;
     },
 
     postCreate: function(args) {
@@ -32,6 +34,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         dojo.subscribe('/org/hark/model/fetch', this, '_onGamesFetch');
         dojo.subscribe('/org/hark/model/item', this, '_onGamesItem');
         dojo.subscribe('/org/hark/model/done', this, '_onGamesComplete');
+        dojo.subscribe('/org/hark/model/error', this, '_onGamesError');
     },
     
     _showStatus: function(state) {
@@ -42,15 +45,42 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     },
     
     _onGamesReset: function() {
-        // clear the existing rows
-        dojo.empty(this._resultsNode);
+        this._needsClear = true;
+        if(!this._busyOverlay) {
+            // show a busy over the existing content
+            uow.ui.showBusy({
+                busyNode: this._resultsNode,
+                parentNode: this.domNode,
+                takeFocus: false
+            }).then(dojo.hitch(this, function(bo) {
+                if(this._needsClear) {
+                    this._busyOverlay = bo;
+                } else {
+                    // hide it right away
+                    this._busyOverlay = null;
+                    uow.ui.hideBusy({overlay : bo});
+                }
+            }));
+        }
     },
-    
+
     _onGamesFetch: function() {
-        this._showStatus('loading');
+        if(!this._busyOverlay) {
+            this._showStatus('loading');
+        }
     },
-    
+
     _onGamesItem: function(model, db, item) {
+        // clear the existing rows
+        if(this._needsClear) {
+            if(this._busyOverlay) {
+                uow.ui.hideBusy({overlay : this._busyOverlay});
+                this._busyOverlay = null;
+            }
+            dojo.empty(this._resultsNode);
+            this._needsClear = false;
+        }
+
         if(item) {
             var tmpl = this.resultTemplate;
             var url = db.getValue(item, 'url');
@@ -84,6 +114,10 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         } else {
             this._showStatus('done');
         }
+    },
+    
+    _onGamesError: function() {
+        // @todo
     },
     
     _onClickNext: function(event) {

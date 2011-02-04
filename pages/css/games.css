@@ -9,10 +9,12 @@
 @import "common.css";
 @import "../../widgets/css/SiteTabs.css";
 @import "../../widgets/css/GameListView.css";
-/*@import "widgets.css";
-@import "icons.css";
+@import "/libs/uow/ui/css/BusyOverlay.css";
 @import "/libs/uow/ui/css/Icons.css";
-@import "/libs/uow/ui/css/BusyOverlay.css";*/
+
+body {
+	overflow-y: scroll;
+}
 
 #top {
     padding-top: 10px;

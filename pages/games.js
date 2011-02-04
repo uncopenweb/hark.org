@@ -27,6 +27,9 @@ org.hark.slugToUrl = function(slug) {
 }
 
 dojo.ready(function() {
+    // make sure this browser is viable
+    uow.ui.checkBrowser();
+    
     var labels;
     try {
         labels = dojo.i18n.getLocalization('org.hark.pages', 'games');
