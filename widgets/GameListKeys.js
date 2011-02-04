@@ -8,7 +8,7 @@ dojo.require('dijit._Widget');
 
 dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     // game list model
-    model : null,
+    model : '',
     postMixInProperties: function() {
         // timer to put focus back on body to re-enable keys
         // @todo
@@ -21,7 +21,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
         this._gameIndex = 0;
         // browsing mode, tags or games
         this._mode = 'tags';
-        this.model = dijit.byNode(this.model);
+        this.model = dijit.byId(this.model);
     },
     
     postCreate: function() {
@@ -51,13 +51,13 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     
     _onKeyUp: function(event) {
         if(this._mode == 'tags') {
-            this._onNavTags();
+            this._onNavTags(event);
         } else {
-            this._onNavGames();
+            this._onNavGames(event);
         }
     },
     
-    _onNavTags: function() {
+    _onNavTags: function(event) {
         switch(event.keyCode) {
             case dojo.keys.UP_ARROW:
                 // @todo: browse games for this tag, make sure fetched
@@ -83,7 +83,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
         }
     },
     
-    _onNavGames: function() {
+    _onNavGames: function(event) {
         switch(event.keyCode) {
             case dojo.keys.ESCAPE:
                 this._mode = 'tags';

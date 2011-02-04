@@ -13,6 +13,11 @@
         color-stop(0, rgb(245,245,245)),
         color-stop(0.1, rgb(255,255,255))
     );
+	background-image: -moz-linear-gradient(
+        center top,
+        rgb(245,245,245) 0%,
+        rgb(255,255,255) 10%
+    );
 }
 
 .harkGameListViewItem h2 {

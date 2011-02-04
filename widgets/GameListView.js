@@ -11,7 +11,7 @@ dojo.requireLocalization('org.hark.widgets', 'GameListView');
 
 dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated], {
     // game list model
-    model : null,
+    model : '',
     // result row template
     resultTemplate : dojo.cache('org.hark.widgets.templates', 'GameListViewItem.html'),
     // widget template
@@ -20,7 +20,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         this._labels = dojo.i18n.getLocalization('org.hark.widgets','GameListView');
         this._labels.more_results_label = dojo.replace(
             this._labels.more_results_label, [this.perPage]);
-        this.model = dijit.byNode(this.model);
+        this.model = dijit.byId(this.model);
     },
 
     postCreate: function(args) {

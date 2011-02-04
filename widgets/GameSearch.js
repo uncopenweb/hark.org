@@ -12,12 +12,12 @@ dojo.requireLocalization('org.hark.widgets', 'GameSearch');
 
 dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
     // game list model
-    model : null,
+    model : '',
     widgetsInTemplate: true,
     templateString: dojo.cache('org.hark.widgets', 'templates/GameSearch.html'),
     postMixInProperties: function() {
         this._labels = dojo.i18n.getLocalization('org.hark.widgets','GameSearch');
-        this.model = dijit.byNode(this.model);
+        this.model = dijit.byId(this.model);
     },
     
     postCreate: function() {
@@ -25,12 +25,17 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
             this._locale = locale;
         });
         dojo.subscribe('/org/hark/db/tags', this, '_onTagsDb');
+        dojo.subscribe('/org/hark/ctrl/regard-tag', this, '_onRegardTag');
     },
     
     _onTagsDb: function(db) {
         this.searchBox.attr('disabled', false);
         this.searchBox.attr('store', db);
         this.searchBox.attr('query', {lang : this._locale});
+    },
+    
+    _onRegardTag: function(ctrl, tag, index, total) {
+        this.searchBox.attr('value', tag);
     },
         
     _onSearch: function(text) {
