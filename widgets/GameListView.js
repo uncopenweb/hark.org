@@ -44,6 +44,14 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         dojo.query('div.'+state, this._statusNode).style({display : ''});
     },
     
+    _hideOverlay: function(bo) {
+        bo = bo || this._busyOverlay;
+        if(bo) {
+            uow.ui.hideBusy({overlay : bo});
+            this._busyOverlay = null;
+        }
+    },
+    
     _onGamesReset: function() {
         this._needsClear = true;
         if(!this._busyOverlay) {
@@ -56,9 +64,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
                 if(this._needsClear) {
                     this._busyOverlay = bo;
                 } else {
-                    // hide it right away
-                    this._busyOverlay = null;
-                    uow.ui.hideBusy({overlay : bo});
+                    this._hideOverlay(bo);
                 }
             }));
         }
@@ -73,10 +79,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     _onGamesItem: function(model, db, item) {
         // clear the existing rows
         if(this._needsClear) {
-            if(this._busyOverlay) {
-                uow.ui.hideBusy({overlay : this._busyOverlay});
-                this._busyOverlay = null;
-            }
+            this._hideOverlay();
             dojo.empty(this._resultsNode);
             this._needsClear = false;
         }
@@ -107,6 +110,9 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     },
     
     _onGamesComplete: function() {
+        if(this._busyOverlay) {
+            this._hideOverlay();
+        }
         if(this.model.available === 0) {
             this._showStatus('none');
         } else if(this.model.fetched < this.model.available) {
@@ -117,7 +123,18 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     },
     
     _onGamesError: function() {
-        // @todo
+        console.error('game fetch failed');
+        if(this._busyOverlay) {
+            // @todo: show message on overlay instead?
+            this._hideOverlay();
+            this._showStatus('none');
+        } else {
+            // go back to current page
+            this._page -= 1;
+            // show more link again
+            this._showStatus('more');
+            // @todo: report error too
+        }
     },
     
     _onClickNext: function(event) {
