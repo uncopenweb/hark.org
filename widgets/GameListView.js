@@ -19,8 +19,6 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     postMixInProperties: function() {
         this.model = dijit.byId(this.model);
         this._labels = dojo.i18n.getLocalization('org.hark.widgets','GameListView');
-        this._labels.more_results_label = dojo.replace(
-            this._labels.more_results_label, [this.model.perPage]);
         this._needsClear = false;
         this._busyOverlay = null;
     },
@@ -32,6 +30,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         });
         dojo.subscribe('/org/hark/model/reset', this, '_onGamesReset');
         dojo.subscribe('/org/hark/model/fetch', this, '_onGamesFetch');
+        dojo.subscribe('/org/hark/model/begin', this, '_onGamesBegin');
         dojo.subscribe('/org/hark/model/item', this, '_onGamesItem');
         dojo.subscribe('/org/hark/model/done', this, '_onGamesComplete');
         dojo.subscribe('/org/hark/model/error', this, '_onGamesError');
@@ -39,7 +38,16 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     
     _showStatus: function(state) {
         // hide all status
-        dojo.query('div', this._statusNode).style({display : 'none'});
+        var nodes = dojo.query('div', this._statusNode).style({display : 'none'});
+        // update the more link label
+        if(state == 'more') {
+            var count = Math.min(this.model.available-this.model.fetched, 
+                this.model.perPage);
+            var label = (count === 1) ? this._labels.more_results_label_s :
+                this._labels.more_results_label;
+            label = dojo.replace(label, [count, this.model.query]);
+            this._moreNode.innerHTML = label;
+        }
         // show status for state
         dojo.query('div.'+state, this._statusNode).style({display : ''});
     },
@@ -70,9 +78,19 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         }
     },
 
-    _onGamesFetch: function() {
+    _onGamesFetch: function(model) {
         if(!this._busyOverlay) {
             this._showStatus('loading');
+        }
+    },
+    
+    _onGamesBegin: function(model) {
+        // update summary row if this is a new fetch
+        if(this._needsClear) {
+            var label = (model.available === 1) ? this._labels.summary_label_s :
+                this._labels.summary_label;
+            label = dojo.replace(label, [model.available, model.query])
+            this._summaryNode.innerHTML = label;
         }
     },
 

@@ -17,7 +17,7 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
         // current database
         this._db = null;
         // current query for results
-        this._query = '';
+        this.query = '';
         // locale for queries
         this._locale = '';
         // all items fetched so far
@@ -33,7 +33,7 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     
     newSearch: function(text) {
         this._reset();
-        this._query = text;
+        this.query = text;
         if(this._db) {
             this._search();
             return true;
@@ -68,16 +68,16 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
         this._items = [];
         // reset current page
         this._page = 0;
-        dojo.publish('/org/hark/model/reset', [this]);
+        dojo.publish('/org/hark/model/reset', [this, this._db]);
     },
     
     _search: function() {
-        dojo.publish('/org/hark/model/fetch', [this, this._page, this._query]);
+        dojo.publish('/org/hark/model/fetch', [this, this._db]);
         // build the query
         var ors = dojo.map(['label', 'description', 'tags'], function(item) {
             var obj = {};
             var name = item+'.'+this._locale;
-            var value = '*'+this._query+'*';
+            var value = '*'+this.query+'*';
             obj[name] = value;
             return obj;
         }, this);
@@ -101,7 +101,7 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     _onBegin: function(size, request) {
         // keep track of total results
         this.available = size;
-        dojo.publish('/org/hark/model/begin', [this, this._db, this.available]);
+        dojo.publish('/org/hark/model/begin', [this, this._db]);
     },
     
     _onItem: function(item) {
@@ -114,7 +114,7 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     _onComplete: function(items) {
         // track all fetched items
         this._items = this._items.concat(items);
-        dojo.publish('/org/hark/model/done', [this, this._db, this.fetched]);
+        dojo.publish('/org/hark/model/done', [this, this._db]);
     },
     
     _onError: function(err) {

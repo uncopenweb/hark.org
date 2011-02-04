@@ -11,7 +11,9 @@
         left top,
         left bottom,
         color-stop(0, rgb(245,245,245)),
-        color-stop(0.1, rgb(255,255,255))
+        color-stop(0.2, rgb(255,255,255)),
+        color-stop(0.9, rgb(255,255,255)),
+        color-stop(1, rgb(245,245,245))
     );
 	background-image: -moz-linear-gradient(
         center top,
@@ -59,4 +61,10 @@
 .harkGameListViewStatus {
     padding: 1em 0em;
     text-align: center;
+}
+
+.harkGameListViewSummary {
+    color: #999;
+	font-size: 0.8em;
+	padding-bottom: 5px;
 }
