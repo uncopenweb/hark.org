@@ -28,10 +28,10 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         dojo.subscribe('/org/hark/lang', this, function(locale) {
             this._locale = locale;
         });
-        dojo.subscribe('/org/hark/games/reset', this, '_onGamesReset');
-        dojo.subscribe('/org/hark/games/fetch', this, '_onGamesFetch');
-        dojo.subscribe('/org/hark/games/item', this, '_onGamesItem');
-        dojo.subscribe('/org/hark/games/done', this, '_onGamesComplete');
+        dojo.subscribe('/org/hark/model/reset', this, '_onGamesReset');
+        dojo.subscribe('/org/hark/model/fetch', this, '_onGamesFetch');
+        dojo.subscribe('/org/hark/model/item', this, '_onGamesItem');
+        dojo.subscribe('/org/hark/model/done', this, '_onGamesComplete');
     },
     
     _showStatus: function(state) {

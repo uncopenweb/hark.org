@@ -68,11 +68,11 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
         this._items = [];
         // reset current page
         this._page = 0;
-        dojo.publish('/org/hark/games/reset', [this]);
+        dojo.publish('/org/hark/model/reset', [this]);
     },
     
     _search: function() {
-        dojo.publish('/org/hark/games/fetch', [this, this._page, this._query]);
+        dojo.publish('/org/hark/model/fetch', [this, this._page, this._query]);
         // build the query
         var ors = dojo.map(['label', 'description', 'tags'], function(item) {
             var obj = {};
@@ -101,12 +101,12 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     _onBegin: function(size, request) {
         // keep track of total results
         this.available = size;
-        dojo.publish('/org/hark/games/begin', [this, this._db, this.available]);
+        dojo.publish('/org/hark/model/begin', [this, this._db, this.available]);
     },
     
     _onItem: function(item) {
         if(item) {
-            dojo.publish('/org/hark/games/item', [this, this._db, item]);
+            dojo.publish('/org/hark/model/item', [this, this._db, item]);
         }
         this.fetched += 1;
     },
@@ -114,10 +114,10 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     _onComplete: function(items) {
         // track all fetched items
         this._items = this._items.concat(items);
-        dojo.publish('/org/hark/games/done', [this, this._db, this.fetched]);
+        dojo.publish('/org/hark/model/done', [this, this._db, this.fetched]);
     },
     
     _onError: function(err) {
-        dojo.publish('/org/hark/games/error', [this, this._db, err]);
+        dojo.publish('/org/hark/model/error', [this, this._db, err]);
     }
 });

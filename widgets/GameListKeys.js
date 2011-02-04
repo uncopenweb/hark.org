@@ -15,6 +15,10 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
         this._focusTimer = null;
         // list of tags for the locale
         this._tags = null;
+        // current tag
+        this._tagIndex = 0;
+        // current game
+        this._gameIndex = 0;
         // browsing mode, tags or games
         this._mode = 'tags';
         this.model = dijit.byNode(this.model);
@@ -36,7 +40,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 // start listening for global keys
                 try {
                     uow.ui.connectKeys();
-                } catch(e) { }                
+                } catch(e) { }
             },
             onError: function(err) {
                 console.log('tags err');
@@ -56,20 +60,47 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     _onNavTags: function() {
         switch(event.keyCode) {
             case dojo.keys.UP_ARROW:
+                // @todo: browse games for this tag, make sure fetched
+                this._mode = 'games';
+                break;
             case dojo.keys.DOWN_ARROW:
-            case dojo.keys.LEFT_ARROW:
-            case dojo.keys.RIGHT_ARROW:
+                this._regardTag();
                 dojo.stopEvent(event);
+                break;
+            case dojo.keys.LEFT_ARROW:
+                this._tagIndex -= 1;
+                if(this._tagIndex < 0) {
+                    this._tagIndex = this._tags.length - 1;
+                }
+                this._regardTag();
+                dojo.stopEvent(event);
+                break;
+            case dojo.keys.RIGHT_ARROW:
+                this._tagIndex = (this._tagIndex + 1) % this._tags.length;
+                this._regardTag();
+                dojo.stopEvent(event);
+                break;
         }
     },
     
     _onNavGames: function() {
         switch(event.keyCode) {
+            case dojo.keys.ESCAPE:
+                this._mode = 'tags';
+                this._regardTag();
+                dojo.stopEvent(event);
+                break;
             case dojo.keys.UP_ARROW:
             case dojo.keys.DOWN_ARROW:
             case dojo.keys.LEFT_ARROW:
             case dojo.keys.RIGHT_ARROW:
                 dojo.stopEvent(event);
         }     
+    },
+    
+    _regardTag: function() {
+        var tag = this._tags[this._tagIndex];
+        dojo.publish('/org/hark/ctrl/regard-tag', 
+            [this, tag, this._tagIndex, this._tags.length]);        
     }
 });
