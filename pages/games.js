@@ -12,6 +12,7 @@ dojo.require('org.hark.widgets.GameSearch');
 dojo.require('org.hark.widgets.GameListModel');
 dojo.require('org.hark.widgets.GameListView');
 dojo.require('org.hark.widgets.GameListKeys');
+dojo.require('org.hark.widgets.GameListAudio');
 
 // root path for all urls
 var ROOT_PATH = '../';
