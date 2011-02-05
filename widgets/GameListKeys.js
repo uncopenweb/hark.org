@@ -116,13 +116,21 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     
     _regardTag: function() {
         var tag = this._tags[this._tagIndex];
-        dojo.publish('/org/hark/ctrl/regard-tag', 
-            [this, tag, this._tagIndex, this._tags.length]);
+        try {
+            dojo.publish('/org/hark/ctrl/regard-tag', 
+                [this, tag, this._tagIndex, this._tags.length]);
+        } catch(e) {
+            console.error(e);
+        }
     },
-    
+
     _regardGame: function() {
         var item = this.model.getItem(this._gameIndex);
-        dojo.publish('/org/hark/ctrl/regard-game', 
-            [this, item, this._gameIndex, this.model.fetched, this.model.available]);
+        try {
+            dojo.publish('/org/hark/ctrl/regard-game', 
+                [this, item, this._gameIndex, this.model.fetched, this.model.available]);
+        } catch(e) {
+            console.error(e);
+        }
     }
 });
