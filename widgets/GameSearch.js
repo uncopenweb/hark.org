@@ -52,7 +52,7 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
         }
         this._reconnectKeys = true;
     },
-    
+
     _onBlur: function() {
         // enable global key catch if it was enabled
         if(this._reconnectKeys) {
@@ -60,6 +60,12 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
                 uow.ui.connectKeys();
             } catch(e) {}
             this._reconnectKeys = false;
+        }
+    },
+    
+    _onKeyDown: function(event) {
+        if(event.keyCode == dojo.keys.ESCAPE) {
+            dojo.body().focus();
         }
     }
 });
