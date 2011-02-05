@@ -60,8 +60,9 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     _onNavTags: function(event) {
         switch(event.keyCode) {
             case dojo.keys.UP_ARROW:
-                // @todo: browse games for this tag, make sure fetched
                 this._mode = 'games';
+                this._gameIndex = 0;
+                this._regardGame();
                 break;
             case dojo.keys.DOWN_ARROW:
                 this._regardTag();
@@ -91,16 +92,37 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 dojo.stopEvent(event);
                 break;
             case dojo.keys.UP_ARROW:
+                break;
             case dojo.keys.DOWN_ARROW:
+                break;
             case dojo.keys.LEFT_ARROW:
-            case dojo.keys.RIGHT_ARROW:
+                this._gameIndex -= 1;
+                if(this._gameIndex <= 0) {
+                    this._gameIndex = 0;
+                }
+                this._regardGame();
                 dojo.stopEvent(event);
+                break;
+            case dojo.keys.RIGHT_ARROW:
+                this._gameIndex += 1;
+                if(this._gameIndex > this.model.fetched - 1) {
+                    this._gameIndex -=1;
+                }
+                this._regardGame();
+                dojo.stopEvent(event);
+                break;
         }     
     },
     
     _regardTag: function() {
         var tag = this._tags[this._tagIndex];
         dojo.publish('/org/hark/ctrl/regard-tag', 
-            [this, tag, this._tagIndex, this._tags.length]);        
+            [this, tag, this._tagIndex, this._tags.length]);
+    },
+    
+    _regardGame: function() {
+        var item = this.model.getItem(this._gameIndex);
+        dojo.publish('/org/hark/ctrl/regard-game', 
+            [this, item, this._gameIndex, this.model.fetched, this.model.available]);
     }
 });

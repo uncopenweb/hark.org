@@ -35,9 +35,10 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
     },
     
     _onRegardTag: function(ctrl, tag, index, total) {
+        this.searchBox.domNode.scrollIntoView(false);
         this.searchBox.attr('value', tag);
     },
-        
+      
     _onSearch: function(text) {
         this.model.newSearch(text);
     },

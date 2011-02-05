@@ -106,14 +106,13 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     
     _onItem: function(item) {
         if(item) {
+            this._items.push(item);
             dojo.publish('/org/hark/model/item', [this, this._db, item]);
         }
         this.fetched += 1;
     },
     
-    _onComplete: function(items) {
-        // track all fetched items
-        this._items = this._items.concat(items);
+    _onComplete: function() {
         dojo.publish('/org/hark/model/done', [this, this._db]);
     },
     

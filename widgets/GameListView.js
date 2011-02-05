@@ -28,12 +28,14 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         dojo.subscribe('/org/hark/lang', this, function(locale) {
             this._locale = locale;
         });
-        dojo.subscribe('/org/hark/model/reset', this, '_onGamesReset');
-        dojo.subscribe('/org/hark/model/fetch', this, '_onGamesFetch');
-        dojo.subscribe('/org/hark/model/begin', this, '_onGamesBegin');
+        dojo.subscribe('/org/hark/model/reset', this, '_onResetGames');
+        dojo.subscribe('/org/hark/model/fetch', this, '_onFetchGames');
+        dojo.subscribe('/org/hark/model/begin', this, '_onBeginGames');
         dojo.subscribe('/org/hark/model/item', this, '_onGamesItem');
-        dojo.subscribe('/org/hark/model/done', this, '_onGamesComplete');
+        dojo.subscribe('/org/hark/model/done', this, '_onCompleteGames');
         dojo.subscribe('/org/hark/model/error', this, '_onGamesError');
+        dojo.subscribe('/org/hark/ctrl/regard-tag', this, '_onRegardTag');
+        dojo.subscribe('/org/hark/ctrl/regard-game', this, '_onRegardGame');
     },
     
     _showStatus: function(state) {
@@ -60,7 +62,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         }
     },
     
-    _onGamesReset: function() {
+    _onResetGames: function() {
         this._needsClear = true;
         if(!this._busyOverlay) {
             // show a busy over the existing content
@@ -78,13 +80,13 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         }
     },
 
-    _onGamesFetch: function(model) {
+    _onFetchGames: function(model) {
         if(!this._busyOverlay) {
             this._showStatus('loading');
         }
     },
     
-    _onGamesBegin: function(model) {
+    _onBeginGames: function(model) {
         // update summary row if this is a new fetch
         if(this._needsClear) {
             var label = (model.available === 1) ? this._labels.summary_label_s :
@@ -127,7 +129,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         }
     },
     
-    _onGamesComplete: function() {
+    _onCompleteGames: function() {
         if(this._busyOverlay) {
             this._hideOverlay();
         }
@@ -139,7 +141,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
             this._showStatus('done');
         }
     },
-    
+
     _onGamesError: function() {
         console.error('game fetch failed');
         if(this._busyOverlay) {
@@ -158,5 +160,18 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     _onClickNext: function(event) {
         this.model.fetchMore();
         dojo.stopEvent(event);
+    },
+    
+    _onRegardGame: function(ctrl, item, index) {
+        var nodes = dojo.query('.harkGameListViewItem', this._resultsNode);
+        nodes.removeClass('selected');        
+        var sel = nodes[index];
+        dojo.addClass(sel, 'selected');
+        sel.scrollIntoView(false);
+    },
+    
+    _onRegardTag: function(ctrl) {
+        dojo.query('.harkGameListViewItem', this._resultsNode)
+        .removeClass('selected');                
     }
 });
