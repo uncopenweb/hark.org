@@ -60,26 +60,27 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     _onNavTags: function(event) {
         switch(event.keyCode) {
             case dojo.keys.UP_ARROW:
+                dojo.stopEvent(event);
                 this._mode = 'games';
                 this._gameIndex = 0;
                 this._regardGame();
                 break;
             case dojo.keys.DOWN_ARROW:
-                this._regardTag();
                 dojo.stopEvent(event);
+                this._regardTag();
                 break;
             case dojo.keys.LEFT_ARROW:
+                dojo.stopEvent(event);
                 this._tagIndex -= 1;
                 if(this._tagIndex < 0) {
                     this._tagIndex = this._tags.length - 1;
                 }
                 this._regardTag();
-                dojo.stopEvent(event);
                 break;
             case dojo.keys.RIGHT_ARROW:
+                dojo.stopEvent(event);
                 this._tagIndex = (this._tagIndex + 1) % this._tags.length;
                 this._regardTag();
-                dojo.stopEvent(event);
                 break;
         }
     },
@@ -87,29 +88,33 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     _onNavGames: function(event) {
         switch(event.keyCode) {
             case dojo.keys.ESCAPE:
+                dojo.stopEvent(event);
                 this._mode = 'tags';
                 this._regardTag();
-                dojo.stopEvent(event);
                 break;
             case dojo.keys.UP_ARROW:
                 break;
             case dojo.keys.DOWN_ARROW:
+                dojo.stopEvent(event);
+                this._regardGame();
                 break;
             case dojo.keys.LEFT_ARROW:
+                dojo.stopEvent(event);
                 this._gameIndex -= 1;
-                if(this._gameIndex <= 0) {
+                if(this._gameIndex < 0) {
                     this._gameIndex = 0;
+                    break;
                 }
                 this._regardGame();
-                dojo.stopEvent(event);
                 break;
             case dojo.keys.RIGHT_ARROW:
+                dojo.stopEvent(event);
                 this._gameIndex += 1;
-                if(this._gameIndex > this.model.fetched - 1) {
+                if(this._gameIndex >= this.model.fetched) {
                     this._gameIndex -=1;
+                    break;
                 }
                 this._regardGame();
-                dojo.stopEvent(event);
                 break;
         }     
     },
