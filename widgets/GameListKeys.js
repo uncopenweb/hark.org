@@ -28,7 +28,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
         dojo.subscribe('/org/hark/lang', this, function(locale) {
             this._locale = locale;
         });
-        dojo.subscribe('/uow/key/down', this, '_onKeyUp');
+        dojo.subscribe('/uow/key/down', this, '_onKeyDown');
         dojo.subscribe('/org/hark/db/tags', this, '_onTagsDb');
     },
     
@@ -49,7 +49,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
         });
     },
     
-    _onKeyUp: function(event) {
+    _onKeyDown: function(event) {
         if(this._mode == 'tags') {
             this._onNavTags(event);
         } else {
