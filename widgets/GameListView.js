@@ -62,6 +62,13 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         }
     },
     
+    _doClear: function() {
+        // clear the existing rows
+        this._hideOverlay();
+        dojo.empty(this._resultsNode);
+        this._needsClear = false;
+    },
+    
     _onResetGames: function() {
         this._needsClear = true;
         if(!this._busyOverlay) {
@@ -99,9 +106,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     _onGamesItem: function(model, db, item) {
         // clear the existing rows
         if(this._needsClear) {
-            this._hideOverlay();
-            dojo.empty(this._resultsNode);
-            this._needsClear = false;
+            this._doClear();
         }
 
         if(item) {
@@ -130,6 +135,9 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
     },
     
     _onCompleteGames: function() {
+        if(this._needsClear) {
+            this._doClear();
+        }
         if(this._busyOverlay) {
             this._hideOverlay();
         }
@@ -146,7 +154,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         console.error('game fetch failed');
         if(this._busyOverlay) {
             // @todo: show message on overlay instead?
-            this._hideOverlay();
+            this._doClear();
             this._showStatus('none');
         } else {
             // go back to current page
