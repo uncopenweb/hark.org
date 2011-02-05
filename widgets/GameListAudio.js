@@ -35,23 +35,65 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         dojo.subscribe('/org/hark/ctrl/regard-tag', this, '_onRegardTag');
         dojo.subscribe('/org/hark/ctrl/regard-game', this, '_onRegardGame');
     },
+    
+    _updateRegard: function(id) {
+        if(id === this._lastRegard.id) {
+            ++this._lastRegard.count;
+        } else {
+            this._lastRegard = {
+                count : 0,
+                id : id
+            };
+        }
+        return this._lastRegard;
+    },
         
     _onRegardTag: function(ctrl, tag, index, total) {
-        console.log(this._audio);
-        var text = dojo.replace(this._labels.tag_speech, [tag]);
+        var text;
+        switch(this._updateRegard(tag).count % 3) {
+            // announce tag
+            case 0:
+                text = dojo.replace(this._labels.tag_speech, [tag]);
+                break;
+            // report result count
+            case 1:
+                if(this.model.available === 1) {
+                    text = dojo.replace(this._labels.tag_description_speech_s, 
+                        [this.model.available, tag]);
+                } else if(this.model.available > 0) {
+                    text = dojo.replace(this._labels.tag_description_speech, 
+                        [this.model.available, tag]);
+                } else {
+                    return;
+                }
+                break;
+            // report help
+            case 2:
+                text = dojo.replace(this._labels.tag_help_speech, [tag]);
+                break;
+        }
         this._audio.stop();
         this._audio.say({text : text});
-        // @todo: decide what to announce
-        this._lastRegard.id = tag;
-        this._lastRegard.count++;
     },
     
     _onRegardGame: function(ctrl, item, index, fetched) {
-        var text = item.label[this._locale];
+        var text;
+        switch(this._updateRegard(item).count % 3) {
+            // report game name
+            case 0:
+                text = item.label[this._locale];
+                break;
+            // read game description
+            case 1:
+                text = item.description[this._locale];
+                break;
+            // report help
+            case 2:
+                text = item.label[this._locale];
+                text = dojo.replace(this._labels.game_help_speech, [text]);
+                break;
+        }
         this._audio.stop();
         this._audio.say({text : text});
-        // @todo: decide what to announce
-        this._lastRegard.id = tag;
-        this._lastRegard.count++;
     }
 });
