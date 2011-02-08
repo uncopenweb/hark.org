@@ -44,12 +44,10 @@
     padding-top: 10px;
 }
 
-/*.harkGameListViewItem .description {
-    height: 96px;
-    vertical-align: middle;
-    display: table-cell;
+.harkGameListViewItem .description {
+    line-height: 1.3em;
 }
-*/
+
 .harkGameListViewItem .footer {
     padding-top: 10px;
     color: #999;
@@ -61,8 +59,8 @@
     text-decoration: underline;
 }
 
-.harkGameListViewItem .footer span {
-    padding-right: 10px;
+.harkGameListViewItem .footer .credits {
+    text-align: right;
 }
 
 .harkGameListViewStatus {

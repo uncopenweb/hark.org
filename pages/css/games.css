@@ -9,6 +9,7 @@
 @import "common.css";
 @import "../../widgets/css/SiteTabs.css";
 @import "../../widgets/css/GameListView.css";
+@import "../../widgets/css/GameCredits.css";
 @import "/libs/uow/ui/css/BusyOverlay.css";
 @import "/libs/uow/ui/css/Icons.css";
 
