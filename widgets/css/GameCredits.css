@@ -8,3 +8,14 @@
     height: 320px !important;
     overflow-y: auto;
 }
+
+.harkGameCredits h3 {
+    margin-top: 0em;
+    font-size: 1.25em;
+    border-bottom: 1px solid gray;
+    margin-bottom: 1em;
+}
+
+.harkGameCredits p {
+    margin-top: 0em;
+}

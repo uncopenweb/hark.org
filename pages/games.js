@@ -25,7 +25,24 @@ org.hark.urlToSlug = function(url) {
 
 org.hark.slugToUrl = function(slug) {
     return slug.replace(/\./g, '#').replace(/\|/g, '/');
-}
+};
+
+org.hark.connectKeys = function() {
+    // start listening for global keys
+    try {
+        uow.ui.connectKeys();
+    } catch(e) { }
+};
+
+org.hark.disconnectKeys = function() {
+    // disable global key catch
+    try {
+        uow.ui.disconnectKeys();
+    } catch(e) {
+        return;
+    }
+};
+
 
 dojo.ready(function() {
     // make sure this browser is viable

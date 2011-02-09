@@ -132,9 +132,14 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
                 innerHTML : html,
                 className : 'harkGameListViewItem'
             }, this._resultsNode);
-            dojo.query('.credits a', div).onclick(function() {
-                org.hark.widgets.GameCredits(item.attribution);
-            })
+            var nodes = dojo.query('.credits a', div);
+            if(item.attribution) {
+                nodes.onclick(function() {
+                    org.hark.widgets.GameCredits(item.attribution);
+                });
+            } else {
+                nodes.style('display', 'none');
+            }
         }
     },
     

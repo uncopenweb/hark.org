@@ -37,10 +37,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
             query : {lang : this._locale},
             onComplete: function(items) {
                 this._tags = dojo.map(items, 'return item.name');
-                // start listening for global keys
-                try {
-                    uow.ui.connectKeys();
-                } catch(e) { }
+                org.hark.connectKeys();
             },
             onError: function(err) {
                 console.log('tags err');

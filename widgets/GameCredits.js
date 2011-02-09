@@ -15,19 +15,35 @@ org.hark.widgets.GameCredits = (function() {
         baseClass: 'harkGameCredits',
         title : labels.dialog_title
     };
-    var template = '<p><a href="{url}">{name}</a> Copyright &copy; {year} {creator} under the {license}</p>';
+    var template = '<p><a href="{url}">{name}</a><br />Copyright &copy; {year} {creator} under the {license}</p>';
     var dlg = new dijit.Dialog(args);
+    dojo.connect(dlg, 'hide', function() {
+        dojo.style(dojo.body(), 'overflow', '');
+        org.hark.connectKeys();
+    });
 
     var onLoad = function(arr) {
+        var sections = {};
         var content = dojo.create('div');
-        var spans = dojo.map(arr, function(item) {
-            return dojo.replace(template, item);            
+        var spans = dojo.forEach(arr, function(item) {
+            var p = dojo.replace(template, item);
+            var t = sections[item.type];
+            if(!t) {
+                t = sections[item.type] = [];
+            }
+            t.push(p);
         });
-        content.innerHTML = spans.join('');
+        for(var key in sections) {
+            var header = '<h3>'+labels.headings[key]+'</h3>';
+            var text = sections[key].join('');
+            content.innerHTML += header + text;
+        }
         dlg.attr('content', content);
     };
 
     return function(url) {
+        dojo.style(dojo.body(), 'overflow', 'hidden');
+        org.hark.disconnectKeys();
         dlg.show();
         dojo.xhrGet({
             url : ROOT_PATH+url,

@@ -44,23 +44,11 @@ dojo.declare('org.hark.widgets.GameSearch', [dijit._Widget, dijit._Templated], {
     },
     
     _onFocus: function() {
-        // disable global key catch
-        try {
-            uow.ui.disconnectKeys();
-        } catch(e) {
-            return;
-        }
-        this._reconnectKeys = true;
+        org.hark.disconnectKeys();
     },
 
     _onBlur: function() {
-        // enable global key catch if it was enabled
-        if(this._reconnectKeys) {
-            try {
-                uow.ui.connectKeys();
-            } catch(e) {}
-            this._reconnectKeys = false;
-        }
+        org.hark.connectKeys();
     },
     
     _onKeyDown: function(event) {
