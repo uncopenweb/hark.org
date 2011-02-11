@@ -16,7 +16,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
         // list of tags for the locale
         this._tags = null;
         // current tag
-        this._tagIndex = 0;
+        this._tagIndex = -1;
         // current game
         this._gameIndex = 0;
         // browsing mode, tags or games
@@ -60,6 +60,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 dojo.stopEvent(event);
                 this._mode = 'games';
                 this._gameIndex = 0;
+                dojo.publish('/org/hark/ctrl/select-tag', [this]);
                 this._regardGame();
                 break;
             case dojo.keys.DOWN_ARROW:
@@ -71,12 +72,18 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 this._tagIndex -= 1;
                 if(this._tagIndex < 0) {
                     this._tagIndex = this._tags.length - 1;
+                    dojo.publish('/org/hark/ctrl/regard-tag/last', [this]);
                 }
                 this._regardTag();
                 break;
             case dojo.keys.RIGHT_ARROW:
                 dojo.stopEvent(event);
-                this._tagIndex = (this._tagIndex + 1) % this._tags.length;
+                this._tagIndex += 1;
+                if(this._tagIndex >= this._tags.length) {
+                    this._tagIndex = 0;
+                    dojo.publish('/org/hark/ctrl/regard-tag/first', [this]);
+                }
+                // this._tagIndex = (this._tagIndex + 1) % this._tags.length;
                 this._regardTag();
                 break;
         }
@@ -87,9 +94,13 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
             case dojo.keys.ESCAPE:
                 dojo.stopEvent(event);
                 this._mode = 'tags';
+                dojo.publish('/org/hark/ctrl/unselect-game', [this]);
                 this._regardTag();
                 break;
             case dojo.keys.UP_ARROW:
+                // @todo: change state?
+                dojo.stopEvent(event);
+                dojo.publish('/org/hark/ctrl/select-game', [this]);
                 break;
             case dojo.keys.DOWN_ARROW:
                 dojo.stopEvent(event);
@@ -100,6 +111,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 this._gameIndex -= 1;
                 if(this._gameIndex < 0) {
                     this._gameIndex = 0;
+                    dojo.publish('/org/hark/ctrl/regard-game/first', [this]);
                     break;
                 }
                 this._regardGame();
@@ -109,6 +121,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 this._gameIndex += 1;
                 if(this._gameIndex >= this.model.fetched) {
                     this._gameIndex -=1;
+                    dojo.publish('/org/hark/ctrl/regard-game/last', [this]); 
                     break;
                 }
                 this._regardGame();

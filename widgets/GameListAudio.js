@@ -34,6 +34,13 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         });
         dojo.subscribe('/org/hark/ctrl/regard-tag', this, '_onRegardTag');
         dojo.subscribe('/org/hark/ctrl/regard-game', this, '_onRegardGame');
+        dojo.subscribe('/org/hark/ctrl/select-tag', this, '_onSelectItem');
+        dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectItem');
+        dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectItem');
+        dojo.subscribe('/org/hark/ctrl/regard-game/first', this, '_onRegardFirstGame');
+        dojo.subscribe('/org/hark/ctrl/regard-game/last', this, '_onRegardLastGame');
+        dojo.subscribe('/org/hark/ctrl/regard-tag/first', this, '_onRegardWrapTag');
+        dojo.subscribe('/org/hark/ctrl/regard-tag/last', this, '_onRegardWrapTag');
     },
     
     _updateRegard: function(id) {
@@ -95,5 +102,45 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         }
         this._audio.stop();
         this._audio.say({text : text});
+    },
+    
+    _onSelectItem: function() {
+        this._audio.stop({channel : 'sound'});
+        this._audio.play({
+            channel : 'sound', 
+            url : this._labels.select_item_sound
+        });
+    },
+    
+    _onUnselectItem: function() {
+        this._audio.stop({channel : 'sound'});
+        this._audio.play({
+            channel : 'sound', 
+            url : this._labels.unselect_item_sound
+        });        
+    },
+    
+    _onRegardWrapTag: function() {
+        this._audio.stop({channel : 'sound'});
+        this._audio.play({
+            channel : 'sound', 
+            url : this._labels.wrap_list_sound
+        });        
+    },
+    
+    _onRegardFirstGame: function() {
+        this._audio.stop({channel : 'sound'});
+        this._audio.play({
+            channel : 'sound', 
+            url : this._labels.first_item_sound
+        });
+    },
+    
+    _onRegardLastGame: function() {
+        this._audio.stop({channel : 'sound'});
+        this._audio.play({
+            channel : 'sound', 
+            url : this._labels.last_item_sound
+        });     
     }
 });
