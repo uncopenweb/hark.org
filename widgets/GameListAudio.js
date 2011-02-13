@@ -81,6 +81,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
                 break;
         }
         this._audio.stop();
+        this._audio.setProperty({name: 'voice', value: 'default'});
         this._audio.say({text : text});
     },
     
@@ -102,6 +103,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
                 break;
         }
         this._audio.stop();
+        this._audio.setProperty({name: 'voice', value: 'default'});
         this._audio.say({text : text});
     },
     
@@ -131,6 +133,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
 
     _onRegardBusyGame: function() {
         this._audio.stop();
+        this._audio.setProperty({name: 'voice', value: 'default+f2'});
         this._audio.say({text : this._labels.busy_list_speech});
     },
     
