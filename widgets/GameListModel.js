@@ -8,12 +8,14 @@ dojo.require('dijit._Widget')
 
 dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     // results per page fetch
-    perPage : 10,
+    perPage : 2,
     postMixInProperties: function() {
         // number of results fetched
         this.fetched = 0;
         // total results available 
         this.available = 0;
+        // busy fetching or not
+        this.busy = false;
         // current database
         this._db = null;
         // current query for results
@@ -22,6 +24,8 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
         this._locale = '';
         // all items fetched so far
         this._items = [];
+        // outstanding fetch request
+        this._request = null;
     },
 
     postCreate: function(args) {
@@ -42,7 +46,7 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     },
     
     fetchMore: function() {
-        if(this.fetched >= this.available) {
+        if(this.fetched >= this.available || this.busy) {
             return false;
         }
         this._page += 1;
@@ -61,9 +65,16 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     },
     
     _reset: function() {
-        // reset the count
+        // reset the counts
         this.fetched = 0;
         this.available = 0;
+        // no longer busy
+        this.busy = false;
+        // clear outstanding request
+        if(this._request) {
+            this._request.abort();
+            this._request = null;
+        }
         // all items
         this._items = [];
         // reset current page
@@ -72,6 +83,9 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     },
     
     _search: function() {
+        // busy fetching
+        this.busy = true;
+        // notify about to fetch
         dojo.publish('/org/hark/model/fetch', [this, this._db]);
         // build the query
         var ors = dojo.map(['label', 'description', 'tags'], function(item) {
@@ -82,7 +96,7 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
             return obj;
         }, this);
         var query = {$or : ors};
-        var req = this._db.fetch({
+        this._request = this._db.fetch({
             query: query,
             onBegin: this._onBegin,
             onItem: this._onItem,
@@ -113,10 +127,14 @@ dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     },
     
     _onComplete: function() {
+        this.busy = false;
+        this._request = null;
         dojo.publish('/org/hark/model/done', [this, this._db]);
     },
     
     _onError: function(err) {
+        this.busy = false;
+        this._request = null;
         dojo.publish('/org/hark/model/error', [this, this._db, err]);
     }
 });

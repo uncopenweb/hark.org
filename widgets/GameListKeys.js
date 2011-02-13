@@ -10,8 +10,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     // game list model
     model : '',
     postMixInProperties: function() {
-        // timer to put focus back on body to re-enable keys
-        // @todo
+        // @todo: timer to put focus back on body to re-enable keys
         this._focusTimer = null;
         // list of tags for the locale
         this._tags = null;
@@ -119,9 +118,22 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
             case dojo.keys.RIGHT_ARROW:
                 dojo.stopEvent(event);
                 this._gameIndex += 1;
-                if(this._gameIndex >= this.model.fetched) {
+                if(this._gameIndex >= this.model.available) {
+                    // @todo: should wrap, not dead-end
+                    // end of list of available games
                     this._gameIndex -=1;
                     dojo.publish('/org/hark/ctrl/regard-game/last', [this]); 
+                    break;
+                } else if(this._gameIndex >= this.model.fetched-2 &&
+                    this._gameIndex < this.model.fetched &&
+                    this.model.fetched < this.model.available) {
+                    // nearing end of list of fetched games, fetch more
+                    // but allow nav
+                    this.model.fetchMore();
+                } else if(this._gameIndex >= this.model.fetched) {
+                    // end of fetched and busy fetching
+                    this._gameIndex -=1;
+                    dojo.publish('/org/hark/ctrl/regard-game/busy', [this]); 
                     break;
                 }
                 this._regardGame();

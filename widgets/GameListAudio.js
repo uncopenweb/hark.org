@@ -39,6 +39,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectItem');
         dojo.subscribe('/org/hark/ctrl/regard-game/first', this, '_onRegardFirstGame');
         dojo.subscribe('/org/hark/ctrl/regard-game/last', this, '_onRegardLastGame');
+        dojo.subscribe('/org/hark/ctrl/regard-game/busy', this, '_onRegardBusyGame');
         dojo.subscribe('/org/hark/ctrl/regard-tag/first', this, '_onRegardWrapTag');
         dojo.subscribe('/org/hark/ctrl/regard-tag/last', this, '_onRegardWrapTag');
     },
@@ -126,6 +127,11 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
             channel : 'sound', 
             url : this._labels.wrap_list_sound
         });        
+    },
+
+    _onRegardBusyGame: function() {
+        this._audio.stop();
+        this._audio.say({text : this._labels.busy_list_speech});
     },
     
     _onRegardFirstGame: function() {
