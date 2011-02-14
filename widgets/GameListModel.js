@@ -8,7 +8,7 @@ dojo.require('dijit._Widget')
 
 dojo.declare('org.hark.widgets.GameListModel', [dijit._Widget], {
     // results per page fetch
-    perPage : 2,
+    perPage : 10,
     postMixInProperties: function() {
         // number of results fetched
         this.fetched = 0;
