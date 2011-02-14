@@ -19,7 +19,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         uow.getAudio().then(dojo.hitch(this, function(a) {
             this._audio = a;
         }), function() {
-            // @todo
+            // @todo: fail gracefully
         });
         // last tag regard and number of times regarded
         this._lastRegard = {

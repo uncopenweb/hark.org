@@ -13,6 +13,7 @@ dojo.require('org.hark.widgets.GameListModel');
 dojo.require('org.hark.widgets.GameListView');
 dojo.require('org.hark.widgets.GameListKeys');
 dojo.require('org.hark.widgets.GameListAudio');
+dojo.require('org.hark.widgets.GameFrame');
 
 // root path for all urls
 var ROOT_PATH = '../';
@@ -29,6 +30,7 @@ org.hark.slugToUrl = function(slug) {
 
 org.hark.connectKeys = function() {
     // start listening for global keys
+    dojo.body().focus();
     try {
         uow.ui.connectKeys();
     } catch(e) { }
@@ -70,112 +72,32 @@ dojo.ready(function() {
     }
     dojo.publish('/org/hark/lang', [lang]);
     
-
-    function _onDatabaseReady(db) {
-        // announce db availability
-        dojo.publish('/org/hark/db/'+db.collection, [db]);
-    }
-    
-    function _onDatabaseFailed(err) {
-        // bad, show error and give up
-        // @todo
-    }
+    // listen for game selects and unselects
+    dojo.subscribe('/org/hark/ctrl/select-game', function() {
+        var node = dojo.byId('layout')
+        dojo.style(node, 'display', 'none');
+    });
+    dojo.subscribe('/org/hark/ctrl/unselect-game', function() {
+        var node = dojo.byId('layout')
+        dojo.style(node, 'display', '');
+    });
 
     // get the games, tags collections
+    var _onDatabaseReady = function(db) {
+        // announce db availability
+        dojo.publish('/org/hark/db/'+db.collection, [db]);
+    };
+    
+    var _onDatabaseFailed = function(err) {
+        // bad, show error and give up
+        // @todo
+    };
     var args = {database : 'harkhome', mode : 'r', collection : 'games'};
     uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);
     args.collection = 'tags';
     uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);    
 });
 
-// dojo.require('uow.ui.LoginButton');
-// dojo.require('uow.ui.BusyOverlay');
-// dojo.require('org.hark.DetailsView');
-// dojo.require('org.hark.GameFrame');
-// dojo.requireLocalization('org.hark', 'application');
-// 
-
-// 
-
-// dojo.declare('org.hark.Details', null, {
-//     constructor: function(args) {
-//         // localized labels
-//         this._labels = args.labels;
-//         // details dialog widget
-//         this._details = null;
-//         // database instance
-//         this._db = null;
-//         // listen for new models
-//         dojo.subscribe('/org/hark/model', this, 'setModel');
-//         // listen for more info requests
-//         dojo.subscribe('/org/hark/info', this, '_onShowDetails');
-//     },
-//     
-//     setModel: function(db) {
-//         this._db = db;
-//     },
-//         
-//     _onShowDetails: function(url) {
-//         if(!url) { return; }
-//         if(this._details) {
-//             this._details.destroyRecursive();
-//         }
-// 
-//         // show the dialog immediately with a busy placeholder
-//         var dlg = dijit.byId('dialog');
-//         dlg.attr('title', this._labels.loading_label);
-//         dlg.attr('content', '<div class="harkDetailsView"></div>');
-//         dlg.show();
-//         
-//         // show busy until done
-//         this._busy = uow.ui.BusyOverlay.show({
-//             busyNode: dlg.containerNode.firstChild,
-//             parentNode: dlg.containerNode,
-//             takeFocus: false
-//         });
-// 
-//         // get game data
-//         this._db.fetch({
-//             query: {url : url},
-//             onItem: this._onItem,
-//             onError: this._onError,
-//             scope: this
-//         });
-//     },
-//     
-//     _onItem: function(item) {
-//         // get item fields
-//         // @todo: cycle screenshots
-//         var url = this._db.getValue(item, 'url');
-//         var label = this._db.getValue(item, 'label');
-//         label = label[dojo.locale] || label['en-us'];
-//         var description = this._db.getValue(item, 'description');
-//         description = description[dojo.locale] || description['en-us'];
-//         var tags = this._db.getValue(item, 'tags');
-//         tags = tags[dojo.locale] || tags['en-us'];
-//         
-//         var game = {
-//             label : label,
-//             description : description,
-//             slug: org.hark.urlToSlug(url),
-//             tags : tags,
-//             screenshot : ROOT_PATH + this._db.getValue(item, 'media').screenshots[0],
-//         };
-//         // show game details
-//         this._details = new org.hark.DetailsView({game : game});
-//         var dlg = dijit.byId('dialog');
-//         dlg.attr('title', game.label);
-//         dlg.attr('content', this._details);
-//         // hide busy overlay
-//         uow.ui.BusyOverlay.hide(this._busy);
-//     },
-//     
-//     _onError: function(err) { 
-//         console.error(err);
-//     }    
-// });
-// 
-// dojo.declare('org.hark.Main', null, {
 //     constructor: function(args) {
 //         // localized labels
 //         this._labels = args.labels;

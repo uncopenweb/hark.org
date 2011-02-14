@@ -22,41 +22,44 @@
     <div id="model" dojoType="org.hark.widgets.GameListModel"></div>
     <div dojoType="org.hark.widgets.GameListKeys" model="model"></div>
     <div dojoType="org.hark.widgets.GameListAudio" model="model"></div>
+    <div dojoType="org.hark.widgets.GameFrame" model="model"></div>
     
-    <div id="top">
-      <div class="container_12" id="top_container">
-        <div class="grid_12" id="top_title">
-          <a href="index.html"><img src="images/logo_flat_64.png" alt="Hark the Sound logo" /></a>
-          <h1><a data-label="site_title" href="index.html">Hark the Sound</a></h1>
+    <div id="layout">
+      <div id="top">
+        <div class="container_12" id="top_container">
+          <div class="grid_12" id="top_title">
+            <a href="index.html"><img src="images/logo_flat_64.png" alt="Hark the Sound logo" /></a>
+            <h1><a data-label="site_title" href="index.html">Hark the Sound</a></h1>
+          </div>
+          <div class="clear"></div> 
+          <div class="grid_12" selected="1" dojoType="org.hark.widgets.SiteTabs" style="height: 28px;"></div>
+          <div class="clear"></div> 
         </div>
-        <div class="clear"></div> 
-        <div class="grid_12" selected="1" dojoType="org.hark.widgets.SiteTabs" style="height: 28px;"></div>
-        <div class="clear"></div> 
       </div>
-    </div>
 
-    <div id="middle">
-      <div class="container_12" id="middle_container">
-        <div id="search">
-          <div class="grid_6 prefix_3 suffix_3" dojoType="org.hark.widgets.GameSearch" model="model"></div>
+      <div id="middle">
+        <div class="container_12" id="middle_container">
+          <div id="search">
+            <div class="grid_6 prefix_3 suffix_3" dojoType="org.hark.widgets.GameSearch" model="model"></div>
+            <div class="clear"></div>
+          </div>
+              
+          <div id="results" dojoType="org.hark.widgets.GameListView" model="model"></div>
+        </div>
+      </div>
+    
+      <div id="bottom">
+        <div class="container_12" id="bottom_container">
+          <div class="grid_6" id="bottom_left">
+            UNC Computer Science<br />
+            Enabling Technology<br />
+            Copyright &copy; 2010, 2011. All rights reserved.
+          </div>
+          <div class="grid_6" id="bottom_right">
+            <img src="images/unc-logo.png" />
+          </div>
           <div class="clear"></div>
         </div>
-              
-        <div id="results" dojoType="org.hark.widgets.GameListView" model="model"></div>
-      </div>
-    </div>
-    
-    <div id="bottom">
-      <div class="container_12" id="bottom_container">
-        <div class="grid_6" id="bottom_left">
-          UNC Computer Science<br />
-          Enabling Technology<br />
-          Copyright &copy; 2010, 2011. All rights reserved.
-        </div>
-        <div class="grid_6" id="bottom_right">
-          <img src="images/unc-logo.png" />
-        </div>
-        <div class="clear"></div>
       </div>
     </div>
   </body>

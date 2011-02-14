@@ -93,13 +93,13 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
             case dojo.keys.ESCAPE:
                 dojo.stopEvent(event);
                 this._mode = 'tags';
-                dojo.publish('/org/hark/ctrl/unselect-game', [this]);
+                //dojo.publish('/org/hark/ctrl/unselect-game', [this]);
                 this._regardTag();
                 break;
             case dojo.keys.UP_ARROW:
-                // @todo: change state?
                 dojo.stopEvent(event);
-                dojo.publish('/org/hark/ctrl/select-game', [this]);
+                var item = this.model.getItem(this._gameIndex);
+                dojo.publish('/org/hark/ctrl/select-game', [this, item]);
                 break;
             case dojo.keys.DOWN_ARROW:
                 dojo.stopEvent(event);
@@ -109,6 +109,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 dojo.stopEvent(event);
                 this._gameIndex -= 1;
                 if(this._gameIndex < 0) {
+                    // @todo: should wrap, but how to deal with paging?
                     this._gameIndex = 0;
                     dojo.publish('/org/hark/ctrl/regard-game/first', [this]);
                     break;
@@ -119,7 +120,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 dojo.stopEvent(event);
                 this._gameIndex += 1;
                 if(this._gameIndex >= this.model.available) {
-                    // @todo: should wrap, not dead-end
+                    // @todo: should wrap, but how to deal with paging?
                     // end of list of available games
                     this._gameIndex -=1;
                     dojo.publish('/org/hark/ctrl/regard-game/last', [this]); 
