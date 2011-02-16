@@ -55,12 +55,13 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         }
         return this._lastRegard;
     },
-        
+
     _onRegardTag: function(ctrl, tag, index, total) {
         var text;
         switch(this._updateRegard(tag).count % 3) {
             // announce tag
             case 0:
+                tag = tag || 'all';
                 text = dojo.replace(this._labels.tag_speech, [tag]);
                 break;
             // report result count
