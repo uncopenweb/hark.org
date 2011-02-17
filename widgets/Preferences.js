@@ -1,13 +1,13 @@
 /**
  * Preferences.js
  *
- * Copyright UNC Open Web Team 2010. All Rights Reserved.
+ * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
-dojo.provide('org.hark.Preferences');
+dojo.provide('org.hark.widgets.Preferences');
 
 (function() {
     // defaults
-    org.hark.Preferences = {
+    org.hark.widgets.Preferences = {
         mouseEnabled: true,
         speechEnabled: true,
         volume: 1.0,
@@ -17,13 +17,13 @@ dojo.provide('org.hark.Preferences');
     };
 
     // current prefs
-    var json = localStorage['org.hark.Preferences'];
+    var json = localStorage['org.hark.widgets.Preferences'];
     if(json) {
-        dojo.mixin(org.hark.Preferences, dojo.fromJson(json));
+        dojo.mixin(org.hark.widgets.Preferences, dojo.fromJson(json));
     }
 
     // save prefs on page unload
     dojo.addOnUnload(function() {
-        localStorage['org.hark.Preferences'] = dojo.toJson(org.hark.Preferences);
+        localStorage['org.hark.widgets.Preferences'] = dojo.toJson(org.hark.widgets.Preferences);
     });
 })();

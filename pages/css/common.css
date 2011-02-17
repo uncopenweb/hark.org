@@ -1,0 +1,98 @@
+/**
+ * Common styles.
+ *
+ * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
+ */
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body.claro {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    background-color: #AAC8E2;
+    font-family: Helvetica, sans-serif;
+    font-size: 12pt;
+}
+
+a {
+    color: #6599cb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#middle {
+    background-color: white;
+}
+
+#top {
+    padding-top: 10px;
+}
+
+#top {
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(109,155,197)),
+        color-stop(0.5, rgb(109,156,197)),
+        color-stop(1, rgb(170,200,226))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(109, 155, 197) 0%,
+        rgb(109, 155, 197) 50%,
+        rgb(170, 200, 226) 100%
+    );
+}
+
+#top img {
+    vertical-align: middle;
+}
+
+#nav {
+    background-color: #AAC8E2;
+}
+
+#middle {
+    border-bottom: 1px solid #235480;
+    border-top: 1px solid #235480;
+}
+
+/*#login {
+    padding: 6px 10px 7px;
+    margin: -1px;
+    padding-right: 50px;
+}
+
+*/
+#bottom {
+    padding-top: 10px;
+    background-color: #AAC8E2;
+    color: #f0faff;
+    font-size: 0.8em;
+    height: 130px;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(109,155,197)),
+        color-stop(0.5, rgb(109,156,197)),
+        color-stop(1, rgb(170,200,226))
+    );    
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(109, 155, 197) 0%,
+        rgb(109, 155, 197) 50%,
+        rgb(170, 200, 226) 100%
+    );
+}
+
+#bottom_right {
+    text-align: right;
+}

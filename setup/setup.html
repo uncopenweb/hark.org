@@ -19,30 +19,95 @@
       dijit.byId('login').triggerLogin();
     });
     function setup() {
-      uow.data.setAccess({
-        database : 'harkhome',
+      var roles = {
+        anonymous : {
+          games : 'r',
+          tags : 'r'
+        },
+        identified : {
+          games : 'r',
+          tags : 'r'
+        },
+        author : {
+          games : 'r',
+          tags : 'r'
+        },
+        admin : {
+          games : 'r',
+          tags : 'r'
+        }
+      };
+      for(var role in roles) {
+        var cols = roles[role];
+        for(var col in cols) {
+          var perm = cols[col];
+          uow.data.setAccess({
+            database : 'harkhome',
+            collection : col,
+            role : role,
+            permission : perm
+          }).then(function(item) { 
+            console.log('set harkhome:'+item.collection+' '+item.role+' access: '+item.permission);
+          });
+        }
+      }
+    }
+    
+    function _collectTags(allTags, db, item) {
+      //var val = db.getValue(item, 'tags');
+      dojo.forEach(db.getAttributes(item.tags), function(lang) {
+        var segs = item.tags[lang].split(',');
+        dojo.forEach(segs, function(seg) {
+          seg = dojo.trim(seg);
+          if(!allTags[lang]) {
+            allTags[lang] = {};
+          }
+          allTags[lang][seg] = true;
+        });
+      });
+    }
+    
+    function updateTags() {
+      var tags = {};
+      uow.data.getDatabase({
+        database: 'harkhome',
         collection : 'games',
-        role : 'anonymous',
-        permission : 'r'
-      }).then(function() { console.log('set harkhome:games anonymous access: r') });
-      uow.data.setAccess({
-        database : 'harkhome',
-        collection : 'games',
-        role : 'identified',
-        permission : 'r'
-      }).then(function() { console.log('set harkhome:games identified access: r') });
-      uow.data.setAccess({
-        database : 'harkhome',
-        collection : 'games',
-        role : 'identified',
-        permission : 'r'
-      }).then(function() { console.log('set harkhome:games author access: r') });
-      uow.data.setAccess({
-        database : 'harkhome',
-        collection : 'games',
-        role : 'identified',
-        permission : 'r'
-      }).then(function() { console.log('set harkhome:games admin access: r') });      
+        mode : 'r'
+      }).then(function(db) {
+        db.fetch({
+          query : {url : '*'},
+          onItem: function(item) {
+            _collectTags(tags, db, item);
+          },
+          onComplete: function() {
+            uow.data.getDatabase({
+              database : 'harkhome',
+              collection : 'tags',
+              mode : 'crud'
+            }).then(function(db) {
+              for(var lang in tags) { 
+                var names = tags[lang];
+                for(var name in names) {
+                  db.putOne({
+                    query : {lang : lang, name : name},
+                    data : {lang : lang, name : name},
+                    save : true
+                  }).then(function(item) {
+                    console.log('added', item.lang, item.name);
+                  }, function() {
+                    console.log('failed tag');
+                  });
+                }
+              }
+              console.log('got tags db');
+            }, function() {
+              console.log('failed to open db');
+            })
+          }
+        });
+      }, function() {
+        console.log('failed to open db');
+      });
     }
 
     function install() {
@@ -66,6 +131,7 @@
                 save : true
             }).then(function() {
               console.log('added', item[id]);
+              updateTags();
             }, function() {
               console.warn('skipped', item[id]);
             })
@@ -92,5 +158,8 @@
     <label>Game JSON file URL</label>
     <input id="url" value=""/>
     <button onclick="install();">Install</button>
+    <h2>Rebuild tags</h2>
+    <p>Rebuilds the harkhome:tags collection from all tags in the harkhome:games collection.</p>
+    <button onclick="updateTags();">Rebuild</button>
   </body>
 </html>

@@ -1,74 +1,44 @@
 /**
  * Main site styles.
  *
- * Copyright UNC Open Web Team 2010. All Rights Reserved.
+ * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
-html {
-    width: 100%;
-    height: 100%;
+@import "http://o.aolcdn.com/dojo/1.5/dojo/resources/dojo.css";
+@import "http://o.aolcdn.com/dojo/1.5/dijit/themes/claro/claro.css";
+@import "960.css";
+@import "common.css";
+@import "../../widgets/css/SiteTabs.css";
+@import "../../widgets/css/GameListView.css";
+@import "../../widgets/css/GameCredits.css";
+@import "../../widgets/css/GameFrame.css";
+@import "/libs/uow/ui/css/BusyOverlay.css";
+@import "/libs/uow/ui/css/Icons.css";
+
+body {
+	overflow-y: scroll;
 }
 
-body.claro {
-    width: 100%;
-    height: 100%;
-    padding: 0px;
-    background-color: #6D9CC5;
-    font-family: Helvetica, sans-serif;
-    font-size: 12pt;
+#top {
+    padding-top: 10px;
 }
 
-a {
-    color: #6599cb;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-#layout {
-	margin-bottom: 20px;
-	padding: 10px 0px;
-	background-color: white;
-	-moz-box-shadow: 2px 2px 20px #000;
-    -webkit-box-shadow: 2px 2px 20px #000;
-    -o-box-shadow: 2px 2px 20px #000;
-    border: 1px solid black;
-    border-top: 0px solid white;
-}
-
-#header {
-    height: 154px;
-    margin: 0px 9px;
-    border: 1px solid #eee;
-    border-bottom: 0px solid white;
-}
-
-#title {
-    margin-right: 0em;
-    height: 154px;
-}
-
-#logo {
-    margin-left: 0em;
-    height: 154px;
-}
-
-#logo img {
-    margin-left: 10px;
-}
-
-#header h1 {
-    text-shadow: #999 1px 1px 2px;
+#top h1 {
+    text-shadow: #777 1px 1px 3px;
     font-weight: bold;
+    color: white;
     font-family: 'Orbitron', Helvetica, sans-serif;
-    font-size: 250%;
-    margin-top: 30px;
+    padding-top: 25px;
+    font-size: 150%;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    padding-left: 15px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-#header h2 {
-    text-shadow: #eee 1px 1px 2px;
-    font-family: 'Orbitron', Helvetica, sans-serif;
+#top h1 a {
+    color: white;
+    text-decoration: none;
 }
 
 #bar {
@@ -90,22 +60,11 @@ a:hover {
     text-align: center;
 }
 
-#search input[type="search"] {
-    font-size: inherit;
-    vertical-align: middle;
+#search .dijitComboBox {
     width: 100%;
-    margin-top: 3px;
 }
 
-.dj_ff #search input[type="search"] {
-    margin-top: 0px;
-}
-
-#search button {
-    font-size: inherit;
-    display: inline-block;
-    vertical-align: middle;
-    width: 100%;
+#results {
 }
 
 #results .summary {
@@ -196,13 +155,4 @@ a:hover {
     -moz-box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 10px;
     -o-box-shadow: rgba(0, 0, 0, 0.3) 4px 4px 10px;
     -webkit-transform: translate(-2px,-2px); 
-}
-
-#footer {
-    color: #edf8fe;
-    font-size: 0.8em;
-}
-
-#footer_right {
-    text-align: right;
 }

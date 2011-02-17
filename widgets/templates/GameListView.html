@@ -1,0 +1,13 @@
+<div class="harkGameListView">
+  <div class="harkGameListViewSummary grid_12" dojoAttachPoint="_summaryNode"></div>
+  <div class="clear"></div>
+  <div dojoAttachPoint="_resultsNode"></div>
+  <div class="harkGameListViewStatus grid_12" dojoAttachPoint="_statusNode">
+    <div class="more" style="display: none;"
+      ><a href="#" dojoAttachEvent="onclick:_onClickNext" dojoAttachPoint="_moreNode"></a
+    ></div>
+    <div class="none" style="display: none;">${_labels.no_results_label}</div>
+    <div class="loading" style="display: none;">${_labels.loading_label}</div>
+  </div>
+  <div class="clear"></div>
+</div>

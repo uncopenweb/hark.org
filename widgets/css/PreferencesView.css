@@ -1,0 +1,47 @@
+/**
+ * PreferencesView styles.
+ *
+ * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
+ */
+.harkPreferencesView {
+    font-size: 0.75em;
+}
+
+.harkPreferencesView label {
+    font-weight: bold;
+    text-align: left;
+    width: 10em;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 0px;
+}
+
+.harkPreferencesView .dijitSliderH {
+    width: 250px;
+    height: 25px;
+}
+
+.harkPreferencesView .dijitRuleContainerH {
+    height: 5px;
+}
+
+.harkPreferencesView .dijitRuleLabelsContainerH {
+    height: 1.5em;
+    font-size: 0.85em;
+}
+
+.harkPreferencesView .dijitTitlePane {
+    margin-top: 10px;
+    width: 275px;
+}
+
+.harkPreferencesView .dijitTitlePane .dijitTitlePaneTitle {
+    background-image: none !important;
+    background-color: transparent !important;
+    border-width: 0px !important;
+    padding: 0px;
+}
+
+.harkPreferencesView .dijitTitlePane .dijitTitlePaneContentOuter {
+    border-width: 0px !important;
+}

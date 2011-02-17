@@ -3,9 +3,9 @@
  *
  *  Copyright UNC Open Web Team 2010. All Rights Reserved.
  */ 
-dojo.provide('org.hark.GameFrame');
-dojo.require('org.hark.Preferences');
-dojo.require('org.hark.PreferencesView');
+dojo.provide('org.hark.widgets.GameFrame');
+dojo.require('org.hark.widgets.Preferences');
+dojo.require('org.hark.widgets.PreferencesView');
 dojo.require('uow.ui.BusyOverlay');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
@@ -14,15 +14,17 @@ dojo.require('dijit.form.CheckBox');
 dojo.require('dijit.form.Slider');
 dojo.require('dijit.TitlePane')
 dojo.require('dojo.i18n');
-dojo.requireLocalization('org.hark', 'GameFrame');
+dojo.requireLocalization('org.hark.widgets', 'GameFrame');
 
-dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
-    // game url
-    url: '',
+dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
+    // game list model
+        // game list model
+    model : '',
     widgetsInTemplate: true,
-    templatePath: dojo.moduleUrl('org.hark', 'templates/GameFrame.html'),
-
+    templatePath: dojo.moduleUrl('org.hark.widgets', 'templates/GameFrame.html'),
     postMixInProperties: function() {
+        this.labels = dojo.i18n.getLocalization('org.hark.widgets','GameFrame');
+        this.model = dijit.byId(this.model);
         // connect tokens for event handlers
         this._connectTokens = [];
         // subscribe tokens for pub/sub
@@ -33,11 +35,14 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
         this._blurTok = null;
         // is the game paused?
         this._paused = false;
-        this.labels = dojo.i18n.getLocalization('org.hark','GameFrame');
     },
 
     /* Configure focus and key tracking on critical nodes */ 
     postCreate: function() {
+        // listen for game selection
+        dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectGame');
+        dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
+
         // listen to focus / blur on all toolbar children
         var children = this.toolbar.getChildren();
         dojo.forEach(children, function(child) {
@@ -65,22 +70,29 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
     },
     
     /* Load a new game in the iframe. */
-    _setUrlAttr: function(url) {
-        this.url = url;
-        var display, src;
-        if(this.url) {
-            display = '';
-            src = this.url;
-        } else {
-            display = 'none';
-            src = 'about:blank';
-        }
-        dojo.style(this.domNode, 'display', display);
-        this.frameNode.src = src;
+    _onSelectGame: function(ctrl, item) {
+        org.hark.disconnectKeys();
+        
+        dojo.style(this.domNode, 'display', '');
+        this.frameNode.src = ROOT_PATH + item.url;
         
         // force a resize
         this.borderContainer.resize();
         
+        // reset busy dialog
+        if(this._busy) {
+            uow.ui.BusyOverlay.hide(this._busy);
+            this._busy = null;
+        }
+    },
+    
+    /* Hide the game frame and unload the game. */
+    _onUnselectGame: function() {
+        org.hark.connectKeys();
+        
+        dojo.style(this.domNode, 'display', 'none');
+        this.frameNode.src = 'about:blank';
+
         // reset busy dialog
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
@@ -201,17 +213,16 @@ dojo.declare('org.hark.GameFrame', [dijit._Widget, dijit._Templated], {
             }
         }
     },
-        
-    /* Quit the game and return home. */
+
+    /* Publish game quit. */
     _onClickHome: function(event) {
-        // switch hash to leave the game
-        dojo.hash('#');
+        dojo.publish('/org/hark/ctrl/unselect-game', [this]);
     },
     
     /* Publish preferences for the game. */
     _onPrefRequest: function(name) {
         var win = this.frameNode.contentWindow;
-        win.dojo.publish('/org/hark/prefs/response', [org.hark.Preferences, 
-            name]);
+        win.dojo.publish('/org/hark/prefs/response', 
+            [org.hark.widgets.Preferences, name]);
     }
 });

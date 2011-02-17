@@ -3,132 +3,80 @@
   <head>
     <meta charset="utf-8" />
     <title>Hark the Sound</title>
-    <style type="text/css">
-      @import "http://o.aolcdn.com/dojo/1.5/dojo/resources/dojo.css";
-      @import "http://o.aolcdn.com/dojo/1.5/dijit/themes/claro/claro.css";
-      @import "css/960.css";
-      @import "css/application.css";
-      @import "css/widgets.css";
-      @import "css/icons.css";
-      @import "/libs/uow/ui/css/Icons.css";
-      @import "/libs/uow/ui/css/BusyOverlay.css";
-    </style>
+    <link href="pages/css/home.css" rel="stylesheet" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css' />
     <script type="text/javascript">
         var djConfig = {
             isDebug: false,
             parseOnLoad: true,
             baseUrl: './',
-            modulePaths: {'org.hark' : 'widgets'}
+            modulePaths: {'org.hark' : '.'}
         };
     </script>
     <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dojo/dojo.xd.js"></script>
     <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dijit/dijit.xd.js"></script>
-    <script type="text/javascript" src="/libs/uow.js"></script>
-    <script type="text/javascript" src="application.js"></script>
+    <script type="text/javascript" src="pages/home.js"></script>
   </head>
   <body class="claro">
-    <div class="container_12" id="layout" style="display: none;">
-      <div id="header">
-        <div class="grid_2" id="logo">
-          <img src="images/headphones.png" />
+    <div id="top">
+      <div class="container_12" id="top_container">        
+        <div class="grid_3">
+          <img src="images/logo_flat_256.png" alt="Hark the Sound headphones logo" /> 
         </div>
-        <div class="grid_10" id="title">
-          <h1 data-label="page_title">Hark the Sound</h1>
-          <h2 data-label="page_subtitle">Sound games for kids on the web</h2>
+        <div class="grid_5" id="top_title">
+          <h1 data-label="site_title">Hark the Sound</h1>
+          <h2 data-label="site_subtitle">Audio games on the web</h2>
         </div>
+        <div class="clear"></div>
+        <div class="grid_12" selected="0" dojoType="org.hark.widgets.SiteTabs" style="height: 28px;"></div>
+        <div class="clear"></div> 
       </div>
-      <div class="clear"></div>
-        
-      <div class="grid_12" id="bar">
-        <div dojoType="dijit.MenuBar" region="bottom" id="menu">
-          <div dojoType="uow.ui.LoginButton" id="login" displayField="first_name" class="dijitReset dijitInline"></div>
-        </div>
-      </div>
-      <div class="clear"></div>
+    </div>
 
-      <div id="search">
-        <div class="grid_4 prefix_2">
-          <input type="search" results="5" placeholder="Enter search terms" id="textNode"/>
+    <div id="middle">
+      <div class="container_12" id="middle_container">
+        <div class="grid_4" id="info">
+          <h1 data-label="welcome_title">Welcome</h1>
+          <p data-label="welcome_text">Welcome to Hark the Sound, a collection of free audio games on the web. Our games have speech, sound, and graphics suitable for children with visual impairments but appealing to players of all ages and abilities.</p>
         </div>
-        <div class="grid_2">
-          <button id="searchNode" data-label="search_button_label">Search</button>
+        <div class="grid_4">
+          <h1><span data-label="games_title">Play a Game</span> <img src="images/joystick_flat_24.png" style="vertical-align: top;"/></h1>
+          <p data-label="games_text">You can browse and search our game catalog like any other website. But our game catalog is also kid-friendly. Young gamers can browse our catalog by using the arrow keys and listening to game titles.</p>
+          <p><a data-label="games_link" href="games.html">Browse the games now &rarr;</a></p>
         </div>
-        <div class="grid_2 suffix_2">
-          <button id="resetNode" data-label="reset_button_label">Reset</button>
+        <div class="grid_4">
+          <h1><span data-label="activities_title">Manage Activities</span> <img src="images/activities_flat_24.png" style="vertical-align: top;"/></h1>
+          <p data-label="activities_text">Parents and teachers can group games into <em>activities</em> for kids to explore and play. As players work through an activity, our site records their progress for later adult review.</p>
+          <p><em data-label="activities_link">Coming soon</em></p>
+        </div>
+        <div class="clear"></div>
+        
+        <div class="grid_4">
+          <h1><span data-label="creator_title">Build New Games</span> <img src="images/creator_flat_24.png" style="vertical-align: top;"/></h1>
+          <p data-label="creator_text">Some of our games have <em>builders</em> that let you create or extend games. When complete, your creations appear our catalog for all our visitors to play and improve.</p>
+          <p><em data-label="creator_link">Coming soon</em></p>
+        </div>   
+        <div class="grid_8">
+          <h1 data-label="sample_title">What's playing?</h1>
+          <p data-label="sample_text">Some random game to showcase</p>
         </div>
         <div class="clear"></div>
       </div>
-      
-      <div id="results">
-        <div class="summary summary-top">
-          <div class="grid_12 separator"></div>
-          <div class="grid_1 navigation navigation-previous">
-            <a href="#" data-label="previous_button_label">Previous</a>
-          </div>
-          <div class="grid_10 position"></div>
-          <div class="grid_1 navigation navigation-next">
-            <a href="#" data-label="next_button_label">Next</a>
-          </div>
-          <div class="clear"></div>
-          <div class="grid_12 separator"></div>
-        </div>
 
-        <div class="row">
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="clear"></div>
-        </div>
-        <div class="row">
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="clear"></div>
-        </div>
-        <div class="row">
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="grid_2 result"></div>
-          <div class="clear"></div>
-        </div>
-        
-        <div class="summary summary-bottom">
-          <div class="grid_12 separator"></div>
-          <div class="grid_1 navigation navigation-previous">
-            <a href="#" data-label="previous_button_label">Previous</a>
-          </div>
-          <div class="grid_10 position"></div>
-          <div class="grid_1 navigation navigation-next">
-            <a href="#" data-label="next_button_label">Next</a>
-          </div>
-          <div class="clear"></div>
-          <div class="grid_12 separator"></div>
-        </div>
-      </div>
-  
     </div>
-
-    <div class="container_12" id="footer" style="display: none;">
-      <div class="grid_6" id="footer_left">
-        UNC Computer Science<br />
-        Enabling Technology<br />
-        Copyright &copy; 2010. All rights reserved.
-      </div>
-      <div class="grid_6" id="footer_right">
-        <img src="images/unc-logo.png" />
+    
+    <div id="bottom">
+      <div class="container_12" id="bottom_container">
+        <div class="grid_6" id="bottom_left">
+          UNC Computer Science<br />
+          Enabling Technology<br />
+          Copyright &copy; 2010, 2011. All rights reserved.
+        </div>
+        <div class="grid_6" id="bottom_right">
+          <img src="images/unc-logo.png" />
+        </div>
+        <div class="clear"></div>
       </div>
     </div>
-    <div dojoType="org.hark.GameFrame" id="game"></div>
-    <div dojoType="dijit.Dialog" id="dialog" draggable="false" parseOnLoad="false"></div>
   </body>
 </html>
