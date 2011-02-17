@@ -93,7 +93,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
             case dojo.keys.ESCAPE:
                 dojo.stopEvent(event);
                 this._mode = 'tags';
-                //dojo.publish('/org/hark/ctrl/unselect-game', [this]);
+                dojo.publish('/org/hark/ctrl/unselect-tag', [this]);
                 this._regardTag();
                 break;
             case dojo.keys.UP_ARROW:

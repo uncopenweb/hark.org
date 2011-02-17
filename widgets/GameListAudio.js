@@ -37,6 +37,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         dojo.subscribe('/org/hark/ctrl/select-tag', this, '_onSelectItem');
         dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectItem');
         dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectItem');
+        dojo.subscribe('/org/hark/ctrl/unselect-tag', this, '_onUnselectItem');
         dojo.subscribe('/org/hark/ctrl/regard-game/first', this, '_onRegardFirstGame');
         dojo.subscribe('/org/hark/ctrl/regard-game/last', this, '_onRegardLastGame');
         dojo.subscribe('/org/hark/ctrl/regard-game/busy', this, '_onRegardBusyGame');
