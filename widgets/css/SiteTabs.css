@@ -3,27 +3,28 @@
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
-.harkSiteTabs {
-    text-align: right;
+.harkSiteTabs {    
+    font-size: 0.8em;
 }
 
 .harkSiteTabs a {
+    padding: 5px 15px;
     position: relative;
     text-align: center;
     display: inline-block;
-    width: 96px;
-    margin-right: 10px;
-    padding: 5px 0px;
-    background-color: #235480;
-    color: white;
-    border-bottom: 1px solid transparent;
-    -webkit-border-top-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
+    color: #235480;
 }
 
 .harkSiteTabs a.selected {
-    top: 1px;
     color: black;
-    background-color: white;
-    border-bottom: 1px solid white;
+    font-weight: bold;
+}
+
+.harkSiteTabs a:hover {
+    background-color: #D9E8FF;
+    text-decoration: none;
+}
+
+.harkSiteTabs a.selected:hover {
+    background-color: transparent;
 }

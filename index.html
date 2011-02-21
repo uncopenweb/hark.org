@@ -13,11 +13,18 @@
             modulePaths: {'org.hark' : '.'}
         };
     </script>
-    <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dojo/dojo.xd.js"></script>
-    <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dijit/dijit.xd.js"></script>
-    <script type="text/javascript" src="pages/home.js"></script>
+    <script src="http://o.aolcdn.com/dojo/1.5/dojo/dojo.xd.js"></script>
+    <script src="http://o.aolcdn.com/dojo/1.5/dijit/dijit.xd.js"></script>
+    <script src="pages/home.js"></script>
   </head>
   <body class="claro">
+    <div id="nav">
+      <div class="container_12" id="nav_container">        
+        <div class="grid_4" selected="0" dojoType="org.hark.widgets.SiteTabs"></div>
+        <div class="clear"></div>
+      </div>
+    </div>  
+
     <div id="top">
       <div class="container_12" id="top_container">        
         <div class="grid_3">
@@ -28,8 +35,6 @@
           <h2 data-label="site_subtitle">Audio games on the web</h2>
         </div>
         <div class="clear"></div>
-        <div class="grid_12" selected="0" dojoType="org.hark.widgets.SiteTabs" style="height: 28px;"></div>
-        <div class="clear"></div> 
       </div>
     </div>
 
@@ -37,11 +42,11 @@
       <div class="container_12" id="middle_container">
         <div class="grid_4" id="info">
           <h1 data-label="welcome_title">Welcome</h1>
-          <p data-label="welcome_text">Welcome to Hark the Sound, a collection of free audio games on the web. Our games have speech, sound, and graphics suitable for children with visual impairments but appealing to players of all ages and abilities.</p>
+          <p data-label="welcome_text">Welcome to Hark the Sound, a collection of free audio games on the web. Our games have speech, sound, and graphics for players of all ages and abilities.</p>
         </div>
         <div class="grid_4">
           <h1><span data-label="games_title">Play a Game</span> <img src="images/joystick_flat_24.png" style="vertical-align: top;"/></h1>
-          <p data-label="games_text">You can browse and search our game catalog like any other website. But our game catalog is also kid-friendly. Young gamers can browse our catalog by using the arrow keys and listening to game titles.</p>
+          <p data-label="games_text">You can browse and search our game catalog like any other website using the mouse and screen. Young gamers can also browse our catalog by using the arrow keys and listening to game titles.</p>
           <p><a data-label="games_link" href="games.html">Browse the games now &rarr;</a></p>
         </div>
         <div class="grid_4">
@@ -53,7 +58,7 @@
         
         <div class="grid_4">
           <h1><span data-label="creator_title">Build New Games</span> <img src="images/creator_flat_24.png" style="vertical-align: top;"/></h1>
-          <p data-label="creator_text">Some of our games have <em>builders</em> that let you create or extend games. When complete, your creations appear our catalog for all our visitors to play and improve.</p>
+          <p data-label="creator_text">Some of our games have <em>builders</em> that let you create or extend games. When complete, your creations appear in our catalog for all our visitors to play and improve.</p>
           <p><em data-label="creator_link">Coming soon</em></p>
         </div>   
         <div class="grid_8">

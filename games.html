@@ -13,26 +13,31 @@
             modulePaths: {'org.hark' : '.'}
         };
     </script>
-    <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dojo/dojo.xd.js"></script>
-    <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.5/dijit/dijit.xd.js"></script>
-    <script type="text/javascript" src="/libs/uow.js"></script>
-    <script type="text/javascript" src="pages/games.js"></script>
+    <script src="http://o.aolcdn.com/dojo/1.5/dojo/dojo.xd.js"></script>
+    <script src="http://o.aolcdn.com/dojo/1.5/dijit/dijit.xd.js"></script>
+    <script src="/libs/uow.js"></script>
+    <script src="pages/games.js"></script>
   </head>
   <body class="claro" tabindex="0">
     <div id="model" dojoType="org.hark.widgets.GameListModel"></div>
     <div dojoType="org.hark.widgets.GameListKeys" model="model"></div>
     <div dojoType="org.hark.widgets.GameListAudio" model="model"></div>
     <div dojoType="org.hark.widgets.GameFrame" model="model"></div>
-    
+
     <div id="layout">
+      <div id="nav">
+        <div class="container_12" id="nav_container">        
+          <div class="grid_4" selected="1" dojoType="org.hark.widgets.SiteTabs"></div>
+          <div class="clear"></div>
+        </div>
+      </div>  
+
       <div id="top">
         <div class="container_12" id="top_container">
           <div class="grid_12" id="top_title">
             <a href="index.html"><img src="images/logo_flat_64.png" alt="Hark the Sound logo" /></a>
             <h1><a data-label="site_title" href="index.html">Hark the Sound</a></h1>
           </div>
-          <div class="clear"></div> 
-          <div class="grid_12" selected="1" dojoType="org.hark.widgets.SiteTabs" style="height: 28px;"></div>
           <div class="clear"></div> 
         </div>
       </div>

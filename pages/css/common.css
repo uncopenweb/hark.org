@@ -26,12 +26,23 @@ a:hover {
     text-decoration: underline;
 }
 
-#middle {
+#nav {
+    height: 25px;
     background-color: white;
-}
-
-#top {
-    padding-top: 10px;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(255, 255, 255)),
+        color-stop(0.8, rgb(255, 255, 255)),
+        color-stop(1, rgb(215, 215, 215))
+    );
+    background-image: -moz-linear-gradient(
+        center top,
+        rgb(255, 255, 255) 0%,
+        rgb(255, 255, 255) 80%,
+        rgb(215, 215, 215) 100%
+    );
 }
 
 #top {
@@ -49,17 +60,19 @@ a:hover {
         rgb(109, 155, 197) 50%,
         rgb(170, 200, 226) 100%
     );
+    padding: 25px 0px;
+}
+
+#middle {
+    background-color: white;
 }
 
 #top img {
     vertical-align: middle;
 }
 
-#nav {
-    background-color: #AAC8E2;
-}
 
-#middle {
+#middle {    
     border-bottom: 1px solid #235480;
     border-top: 1px solid #235480;
 }
