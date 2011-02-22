@@ -1,0 +1,15 @@
+/**
+ * SiteActions styles.
+ *
+ * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
+ */
+.harkSiteActions {
+    text-align: right;
+}
+
+.harkSiteActions a {
+    padding: 5px 15px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+}

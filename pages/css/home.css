@@ -8,6 +8,7 @@
 @import "960.css";
 @import "common.css";
 @import "../../widgets/css/SiteTabs.css";
+@import "../../widgets/css/SiteActions.css";
 
 #top h1 {
     text-shadow: #777 1px 1px 3px;

@@ -27,6 +27,7 @@ a:hover {
 }
 
 #nav {
+    font-size: 0.8em;
     height: 25px;
     background-color: white;
     background-image: -webkit-gradient(

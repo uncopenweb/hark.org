@@ -5,20 +5,25 @@
  */
 dojo.require('dojo.i18n');
 dojo.require('org.hark.widgets.SiteTabs');
+dojo.require('org.hark.widgets.SiteActions');
 dojo.requireLocalization('org.hark', 'pages');
 
 dojo.ready(function() {
+    var labels;
     try {
-        var labels = dojo.i18n.getLocalization('org.hark', 'pages');
+        labels = dojo.i18n.getLocalization('org.hark', 'pages');
     } catch(e) {
         // no translation, stick with default
-        return;
     }
-    dojo.query('[data-label]').forEach(function(node) {
-        var name = node.getAttribute('data-label');
-        var text = labels[name];
-        if(text) {
-            node.innerHTML = labels[name];
-        }
-    });
+    if(labels) {
+        dojo.query('[data-label]').forEach(function(node) {
+            var name = node.getAttribute('data-label');
+            var text = labels[name];
+            if(text) {
+                node.innerHTML = labels[name];
+            }
+        });
+    }
+    // update login ui
+    dijit.byId('site_actions').triggerLogin();
 });
