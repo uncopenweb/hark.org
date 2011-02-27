@@ -12,4 +12,46 @@
     position: relative;
     text-align: center;
     display: inline-block;
+    color: #235480;
+}
+
+.harkSiteActions a:hover {
+    background-color: #D9E8FF;
+    text-decoration: none;
+}
+
+.harkSiteActionsPopup {
+    font-size: 0.8em;
+}
+
+.harkSiteActionsPopup hr {
+    background-color: #999;
+    margin: 10px 0px;
+}
+
+.harkProfilePopup h2 {
+    margin: 0px;
+    padding: 0px;
+}
+
+.harkProfilePopup span {
+    color: #999;
+}
+
+.harkDropDownButton .dijitButtonNode {
+    border-width: 0px !important;
+}
+
+.harkDropDownButton {
+    top: -3px;
+    padding: 5px 15px;
+    position: relative;
+    text-align: center;
+    display: inline-block;    
+    color: #235480;
+}
+
+.harkDropDownButton:hover {
+    background-color: #D9E8FF;
+    text-decoration: none;
 }

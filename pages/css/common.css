@@ -3,6 +3,12 @@
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
+@import "http://o.aolcdn.com/dojo/1.5/dojo/resources/dojo.css";
+@import "http://o.aolcdn.com/dojo/1.5/dijit/themes/claro/claro.css";
+@import "960.css";
+@import "../../widgets/css/SiteTabs.css";
+@import "../../widgets/css/SiteActions.css";
+
 html {
     width: 100%;
     height: 100%;

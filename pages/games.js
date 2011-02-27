@@ -8,6 +8,7 @@ dojo.require('dijit.layout.BorderContainer');
 dojo.require('dijit.layout.ContentPane');
 dojo.require('dojo.i18n');
 dojo.require('org.hark.widgets.SiteTabs');
+dojo.require('org.hark.widgets.SiteActions');
 dojo.require('org.hark.widgets.GameSearch');
 dojo.require('org.hark.widgets.GameListModel');
 dojo.require('org.hark.widgets.GameListView');
@@ -96,6 +97,9 @@ dojo.ready(function() {
     uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);
     args.collection = 'tags';
     uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);    
+    
+    // trigger login method
+    dijit.byId('site_actions').triggerLogin();
 });
 
 //     constructor: function(args) {
