@@ -15,7 +15,7 @@ org.hark.widgets.GameCredits = (function() {
         baseClass: 'harkGameCredits',
         title : labels.dialog_title
     };
-    var template = '<p><a href="{url}">{name}</a><br />Copyright &copy; {year} {creator} under the {license}</p>';
+    var template = labels.item_template;
     var dlg = new dijit.Dialog(args);
     dojo.connect(dlg, 'hide', function() {
         dojo.style(dojo.body(), 'overflow', '');
