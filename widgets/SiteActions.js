@@ -35,6 +35,8 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
         this.profileNode.attr('label', user.name);
         this.nameNode.innerHTML = user.name;
         this.emailNode.innerHTML = user.email;
+        this.roleNode.innerHTML = dojo.replace(this.labels.role_label, 
+            [user.role]);
         dojo.publish('/uow/auth', [user]);
     },
     
