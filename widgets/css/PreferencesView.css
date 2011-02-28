@@ -45,3 +45,7 @@
 .harkPreferencesView .dijitTitlePane .dijitTitlePaneContentOuter {
     border-width: 0px !important;
 }
+
+.harkPreferencesView .dijitTitlePane .dijitTitlePaneContentInner {
+    padding: 10px 0px !important;
+}

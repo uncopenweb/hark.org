@@ -8,6 +8,7 @@ dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.TooltipDialog');
 dojo.require('dijit.form.DropDownButton');
+dojo.require('org.hark.widgets.PreferencesView')
 dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'SiteActions');
 

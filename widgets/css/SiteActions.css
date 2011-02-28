@@ -3,6 +3,8 @@
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
+@import url("PreferencesView.css");
+
 .harkSiteActions {
     text-align: right;
 }
@@ -20,11 +22,11 @@
     text-decoration: none;
 }
 
-.harkSiteActionsPopup {
+.harkProfilePopup {
     font-size: 0.8em;
 }
 
-.harkSiteActionsPopup hr {
+.harkProfilePopup hr {
     background-color: #999;
     margin: 10px 0px;
 }

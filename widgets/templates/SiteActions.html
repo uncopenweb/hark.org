@@ -4,6 +4,7 @@
     <div dojoType="dijit.TooltipDialog" class="harkSiteActionsPopup harkProfilePopup">
       <h2 dojoAttachPoint="nameNode"></h2>
       <span dojoAttachPoint="emailNode"></span><br />
+      <span dojoAttachPoint="roleNode"></span><br />
       <hr />
       <a href="#" dojoAttachEvent="onclick:_onClickLogout">${labels.logout_label}</a>
     </div>
@@ -11,8 +12,7 @@
   ><div dojoType="dijit.form.DropDownButton" baseClass="harkDropDownButton">
     <span>${labels.settings_label}</span>
     <div dojoType="dijit.TooltipDialog" class="harkSiteActionsPopup harkSettingsPopup">
-      <span>todo</span>
-      <hr />
+      <div dojoType="org.hark.widgets.PreferencesView" dojoAttachPoint="prefView"></div>
     </div>
   </div
   ><a href="#">${labels.help_label}</a>

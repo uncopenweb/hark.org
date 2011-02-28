@@ -5,6 +5,9 @@
  */ 
 dojo.provide('org.hark.widgets.PreferencesView');
 dojo.require('org.hark.widgets.Preferences');
+dojo.require('dijit.form.CheckBox');
+dojo.require('dijit.form.Slider');
+dojo.require('dijit.TitlePane')
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dojo.i18n');
