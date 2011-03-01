@@ -22,17 +22,18 @@
     <div id="model" dojoType="org.hark.widgets.GameListModel"></div>
     <div dojoType="org.hark.widgets.GameListKeys" model="model"></div>
     <div dojoType="org.hark.widgets.GameListAudio" model="model"></div>
-    <div dojoType="org.hark.widgets.GameFrame" model="model"></div>
 
-    <div id="layout">
-      <div id="nav">
-        <div class="container_12" id="nav_container">        
-          <div class="grid_4" selected="1" dojoType="org.hark.widgets.SiteTabs" id="site_tabs"></div>
-          <div class="grid_8" dojoType="org.hark.widgets.SiteActions" id="site_actions"></div>
-          <div class="clear"></div>
-        </div>
-      </div>  
+    <div id="nav">
+      <div class="container_12" id="nav_container">        
+        <div class="grid_4" selected="1" dojoType="org.hark.widgets.SiteTabs" id="site_tabs"></div>
+        <div class="grid_8" dojoType="org.hark.widgets.SiteActions" id="site_actions"></div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    
+    <div dojoType="org.hark.widgets.GameFrame" id="game" model="model"></div>
 
+    <div id="catalog">
       <div id="top">
         <div class="container_12" id="top_container">
           <div class="grid_12" id="top_title">
@@ -49,11 +50,11 @@
             <div class="grid_6 prefix_3 suffix_3" dojoType="org.hark.widgets.GameSearch" model="model"></div>
             <div class="clear"></div>
           </div>
-              
+            
           <div id="results" dojoType="org.hark.widgets.GameListView" model="model"></div>
         </div>
       </div>
-    
+  
       <div id="bottom">
         <div class="container_12" id="bottom_container">
           <div class="grid_6" id="bottom_left">

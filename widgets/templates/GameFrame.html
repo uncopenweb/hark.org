@@ -1,18 +1,3 @@
 <div class="harkGameFrame" style="display: none;">
-  <div dojoType="dijit.layout.BorderContainer" gutters="false" dojoAttachPoint="borderContainer">
-    <div dojoType="dijit.Toolbar" region="top" dojoAttachPoint="toolbar" dojoAttachEvent="focus:_onToolbarFocus">
-      <div dojoType="dijit.form.Button" dojoAttachEvent="onClick:_onClickHome" iconClass="harkHomeIcon">${labels.home_button_label}</div>
-      <div dojoType="dijit.form.DropDownButton" iconClass="harkPreferencesIcon" showLabel="true">
-        <span>${labels.prefs_button_label}</span>
-        <div dojoType="dijit.TooltipDialog" title="${labels.prefs_dialog_title}" dojoAttachPoint="prefDialog">
-          <div dojoType="org.hark.widgets.PreferencesView" dojoAttachPoint="prefView"></div>
-        </div>
-      </div>
-      <div dojoType="dijit.form.Button" iconClass="harkHelpIcon">${labels.help_button_label}</div>
-      <label dojoAttachPoint="hintNode">${labels.pause_hint}</label>
-    </div>
-    <div dojoType="dijit.layout.ContentPane" region="center" dojoAttachPoint="framePane">
-      <iframe dojoAttachPoint="frameNode" dojoAttachEvent="onload:_onFrameLoad"></iframe>
-    </div>
-  </div>
+  <iframe dojoAttachPoint="frameNode" dojoAttachEvent="onload:_onFrameLoad"></iframe>
 </div>

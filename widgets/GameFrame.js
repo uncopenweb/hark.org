@@ -18,7 +18,6 @@ dojo.requireLocalization('org.hark.widgets', 'GameFrame');
 
 dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     // game list model
-        // game list model
     model : '',
     widgetsInTemplate: true,
     templatePath: dojo.moduleUrl('org.hark.widgets', 'templates/GameFrame.html'),
@@ -42,31 +41,6 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         // listen for game selection
         dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectGame');
         dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
-
-        // listen to focus / blur on all toolbar children
-        var children = this.toolbar.getChildren();
-        dojo.forEach(children, function(child) {
-            this.connect(child.focusNode, 'onfocus', '_onChildFocus');
-            this.connect(child.focusNode, 'onblur', '_onChildBlur');
-        }, this);
-        // and the pref dialog
-        this.connect(this.prefDialog.containerNode, 'onfocus', '_onChildFocus');
-        // and its descendant widgets too
-        dojo.query('[widgetId]', this.prefDialog.containerNode).forEach(function(node) {
-            var child = dijit.byNode(node);
-            if(child.focusNode) {
-                this.connect(child.focusNode, 'onfocus', '_onChildFocus');
-                this.connect(child.focusNode, 'onblur', '_onChildBlur');
-            }
-        }, this);
-        // and the title pane container
-        this.connect(this.prefView.titlePane.containerNode, 'onfocus', '_onChildFocus');
-        this.connect(this.prefView.titlePane.containerNode, 'onblur', '_onChildBlur');
-        
-        // listen for tab nav in the toolbar
-        this.connect(this.toolbar.domNode, 'onkeydown', '_onKeyDown');
-        // listen for magic keys in toolbar
-        this.connect(this.toolbar.domNode, 'onkeyup', '_onKeyUp');
     },
     
     /* Load a new game in the iframe. */
@@ -77,7 +51,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         this.frameNode.src = ROOT_PATH + item.url;
         
         // force a resize
-        this.borderContainer.resize();
+        //this.borderContainer.resize();
         
         // reset busy dialog
         if(this._busy) {
@@ -122,7 +96,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         }
         this._busy = uow.ui.BusyOverlay.show({
             busyNode: this.frameNode,
-            parentNode: this.framePane.domNode,
+            parentNode: this.domNode,
             takeFocus: false,
             animate: false,
             message : this.labels.paused_overlay_label

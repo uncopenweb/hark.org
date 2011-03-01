@@ -75,12 +75,10 @@ dojo.ready(function() {
     
     // listen for game selects and unselects
     dojo.subscribe('/org/hark/ctrl/select-game', function() {
-        var node = dojo.byId('layout')
-        dojo.style(node, 'display', 'none');
+        dojo.addClass(dojo.body(), 'playing');
     });
     dojo.subscribe('/org/hark/ctrl/unselect-game', function() {
-        var node = dojo.byId('layout')
-        dojo.style(node, 'display', '');
+        dojo.removeClass(dojo.body(), 'playing');
     });
 
     // get the games, tags collections
