@@ -1,5 +1,10 @@
 <div class="harkSiteTabs">
-  <a href="index.html">${labels.home}</a
-  ><a href="games.html">${labels.games}</a
-  ><a href="#">${labels.activities}</a>
+  <span dojoAttachPoint="idleNode"
+    ><a href="index.html">${labels.home}</a
+    ><a href="games.html">${labels.games}</a
+    ><a href="#">${labels.activities}</a
+  ></span>
+  <span dojoAttachPoint="playingNode" style="display: none;"
+    ><a href="#" dojoAttachEvent="onclick:_onClickQuit">${labels.quit}</a
+  ><span>
 </div>

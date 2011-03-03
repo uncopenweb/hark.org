@@ -3,93 +3,9 @@
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
-@import "PreferencesView.css";
-
-.harkGameFrame {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-} 
-
-.harkGameFrame .dijitBorderContainerNoGutter {
-    width: 100%;
-    height: 100%;
-}
-
-.harkGameFrame .dijitContentPane {
-    overflow: hidden;
-    padding: 0px;
-}
-
 .harkGameFrame iframe {
     border-width: 0px;
     background-color: white;
     width: 100%;
     height: 100%;
-}
-
-.harkGameFrame .dijitToolbar {
-    font-size: 0.75em;
-    opacity: 0.25;
-    -webkit-transition: opacity 1s;
-    -moz-transition: opacity 1s;
-    -o-transition: opacity 1s;
-}
-
-.harkGameFrame .dijitToolbar:hover,  
-.harkGameFrame .dijitToolbarFocused {
-    opacity: 1.0;
-}
-
-.harkGameFrame .dijitToolbar label {
-    display: inline-block;
-    vertical-align: middle;
-    font-style: italic;
-    color: #999;
-    padding-left: 3em;
-}
-
-.harkIcon {
-    display: inline-block;
-    vertical-align: bottom;
-}
-
-.harkInfoIcon {
-    width: 16px;
-    height: 16px;
-    background-image: url('../../images/information-white.png');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;    
-}
-
-.harkHelpIcon {
-    width: 16px;
-    height: 16px;
-    background-image: url('../../images/question-white.png');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;    
-}
-
-.harkBusyIcon {
-    background-image: url('../../images/spinner.gif');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    width: 48px;
-    height: 48px;
-}
-
-.harkPreferencesIcon {
-    width: 16px;
-    height: 16px;
-    background-image: url('../../images/gear.png');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;        
-}
-
-.harkHomeIcon {
-    width: 16px;
-    height: 16px;
-    background-image: url('../../images/home.png');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;        
 }

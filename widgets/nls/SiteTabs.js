@@ -1,5 +1,6 @@
 {
     home : "Home",
     games : "Games",
-    activities : "Activities"
+    activities : "Activities",
+    quit : "Quit"
 }

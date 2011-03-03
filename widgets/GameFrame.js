@@ -30,70 +30,83 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         this._subTokens = [];
         // busy overlay
         this._busy = null;
-        // toolbar blur timeout
-        this._blurTok = null;
+        // busy overlay connection
+        this._busyTok = null;
         // is the game paused?
         this._paused = false;
+        // is there a game active?
+        this._playing = true;
     },
 
-    /* Configure focus and key tracking on critical nodes */ 
+    /* Listen for controller events. */ 
     postCreate: function() {
-        // listen for game selection
         dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectGame');
         dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
+        dojo.subscribe('/org/hark/ctrl/pause-game', this, '_onPauseGame');
+        dojo.subscribe('/org/hark/ctrl/unpause-game', this, '_onUnpauseGame');
     },
     
     /* Load a new game in the iframe. */
     _onSelectGame: function(ctrl, item) {
+        this._playing = true;
+        
+        // stop other components from intercepting keys
         org.hark.disconnectKeys();
         
+        // watch for magic keys on window
+        var t = dojo.connect(window, 'onkeydown', this, '_onKeyDown');
+        this._connectTokens.push(t);
+        
+        // show the game frame and load the game
         dojo.style(this.domNode, 'display', '');
         this.frameNode.src = ROOT_PATH + item.url;
-        
-        // force a resize
-        //this.borderContainer.resize();
         
         // reset busy dialog
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
             this._busy = null;
+            dojo.disconnect(this._busyTok);
         }
     },
     
     /* Hide the game frame and unload the game. */
     _onUnselectGame: function() {
-        org.hark.connectKeys();
+        this._playing = false;
+
+        // disconnect all keys
+        if(this._connectTokens.length) {
+            dojo.forEach(this._connectTokens, dojo.disconnect);
+            this._connectTokens = [];
+            dojo.forEach(this._subTokens, dojo.unsubscribe);
+            this._subTokens = [];
+        }
         
+        // hide the game frame and unload the game
         dojo.style(this.domNode, 'display', 'none');
         this.frameNode.src = 'about:blank';
+
+        // allow other components to get keystrokes
+        org.hark.connectKeys();
 
         // reset busy dialog
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
             this._busy = null;
+            dojo.disconnect(this._busyTok);
         }
     },
     
-    /* Clear blur timer and set focus style on toolbar. */
-    _onChildFocus: function(event) {
-        if(!this._busy) {
-            this._onToolbarFocus();
-        }
-        clearTimeout(this._blurTok);
-        dojo.addClass(this.toolbar.domNode, 'dijitToolbarFocused');
+    /* Resume the game. */
+    _onFocusBusy: function() {
+        dojo.publish('/org/hark/ctrl/unpause-game', [this]);
     },
     
-    /* Set a timer to return focus to the game if toolbar doesn't grab it. */
-    _onChildBlur: function(event) {
-        // set timer to return focus to game
-        this._blurTok = setTimeout(dojo.hitch(this, '_onToolbarBlur', event), 250); 
-    },
-    
-    /* Pause the game and give the toolbar focus. */
-    _onToolbarFocus: function(event) {
+    /* Pause the game. */
+    _onPauseGame: function(event) {
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
         }
+        // @todo: use uow.ui.showBusy api
         this._busy = uow.ui.BusyOverlay.show({
             busyNode: this.frameNode,
             parentNode: this.domNode,
@@ -101,10 +114,8 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
             animate: false,
             message : this.labels.paused_overlay_label
         });
-        // @todo: should probably disconnect sooner?
-        this.connect(this._busy.domNode, 'onfocus', '_onToolbarBlur');
-        // update hint
-        this.hintNode.innerHTML = this.labels.resume_hint;
+        this._busyTok = dojo.connect(this._busy.domNode, 'onfocus', this, 
+            '_onFocusBusy');
         // signal the game to stop
         var win = this.frameNode.contentWindow;
         if(!this._paused && win.dojo) {
@@ -114,44 +125,30 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     },
     
     /* Unpause the game. */
-    _onToolbarBlur: function(event) {
-        dojo.removeClass(this.toolbar.domNode, 'dijitToolbarFocused');
-        if(this._blurTok) {
-            clearTimeout(this._blurTok);
-            this._blurTok = null;
-        }
+    _onUnpauseGame: function(event) {
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
             this._busy = null;
         }
-        // delay to grab focus from the busy
-        setTimeout(dojo.hitch(this.frameNode, 'focus'), 100);
-        // update hint
-        this.hintNode.innerHTML = this.labels.pause_hint;
         // signal the game to resume
         var win = this.frameNode.contentWindow;
         if(this._paused && win.dojo) {
             win.dojo.publish('/org/hark/pause', [false]);
             this._paused = false;
         }
+        // set focus on the iframe
+        this.frameNode.focus();
     },
 
     /* Connect for key events and publishes from the game in the frame. */
-    _onFrameLoad: function(event) {
+    _onLoadFrame: function(event) {
         var cw = event.target.contentWindow;
         if(dojo.isSafari) {
             // safari fails to set the hash for some reason, so force it here
             cw.location.hash = event.target.src.split('#')[1];
         }
-        if(this._connectTokens.length) {
-            dojo.forEach(this._connectTokens, dojo.disconnect);
-            this._connectTokens = [];
-            dojo.forEach(this._subTokens, dojo.unsubscribe);
-            this._subTokens = [];
-        }
+
         var t;
-        t = dojo.connect(cw, 'onkeyup', this, '_onKeyUp');
-        this._connectTokens.push(t);
         t = dojo.connect(cw, 'onkeydown', this, '_onKeyDown');
         this._connectTokens.push(t);
         // listen for pref requests from within the game frame and externally
@@ -166,33 +163,23 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         this.frameNode.focus();
     },
     
-    /* Eat tab events for navigation out of the toolbar or iframe. */
+    /* Watch for key events to pause/unpause or nav out of frame. */
     _onKeyDown: function(event) {
-        if(event.keyCode == dojo.keys.TAB) {
+        if(event.keyCode === dojo.keys.TAB && !this._paused) {
             // stop tab from getting us out of the game
             dojo.stopEvent(event);
-        }
-    },
-    
-    /* Watch for magic hotkey to activate / deactivate the toolbar. */
-    _onKeyUp: function(event) {
-        if(event.keyCode == dojo.keys.ESCAPE && event.shiftKey) {
-            if(this._busy) {
-                // move focus back to the game frame
-                this._onToolbarBlur();
+        } else if(event.keyCode === dojo.keys.ESCAPE && event.shiftKey) {
+            if(this._paused) {
+                this.frameNode.tabIndex = 0;
+                dojo.publish('/org/hark/ctrl/unpause-game', [this]);
             } else {
-                // move focus to toolbar
-                this.toolbar.focus();
+                this.frameNode.tabIndex = -1;
+                dojo.publish('/org/hark/ctrl/pause-game', [this]);
                 dojo.stopEvent(event);
             }
         }
     },
-
-    /* Publish game quit. */
-    _onClickHome: function(event) {
-        dojo.publish('/org/hark/ctrl/unselect-game', [this]);
-    },
-    
+        
     /* Publish preferences for the game. */
     _onPrefRequest: function(name) {
         var win = this.frameNode.contentWindow;
