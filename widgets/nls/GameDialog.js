@@ -1,5 +1,6 @@
 {
-    dialog_title : 'Game credits',
+    help_title : 'Help',
+    credits_title : 'Game credits',
     headings : {
         code : 'Code',
         sound : 'Sounds',

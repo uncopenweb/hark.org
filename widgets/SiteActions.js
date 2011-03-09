@@ -4,6 +4,7 @@
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
 dojo.provide('org.hark.widgets.SiteActions');
+dojo.require('org.hark.widgets.GameDialog');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.TooltipDialog');
@@ -13,7 +14,11 @@ dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'SiteActions');
 
 dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], {
+    // help for this page
+    helpPage : 'home.html',
+    // widget in template
     widgetsInTemplate: true,
+    // site actions bar template
     templatePath: dojo.moduleUrl('org.hark.widgets', 'templates/SiteActions.html'),
     postMixInProperties: function() {
         this.labels = dojo.i18n.getLocalization('org.hark.widgets', 'SiteActions');
@@ -59,5 +64,11 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
     
     _onClickLogout: function() {
         uow.logout();
+    },
+    
+    _onClickHelp: function() {
+        var url = dojo.moduleUrl('org.hark.pages', 'nls/'+dojo.locale+'/'+this.helpPage);
+        console.log(url.toString());
+        org.hark.widgets.GameDialog.showHelp(url.toString());
     }
 });

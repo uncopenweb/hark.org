@@ -4,7 +4,7 @@
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
 dojo.provide('org.hark.widgets.GameListView');
-dojo.require('org.hark.widgets.GameCredits');
+dojo.require('org.hark.widgets.GameDialog');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dojo.i18n');
@@ -140,7 +140,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
             }
             if(item.attribution) {
                 dojo.connect(nodes[1], 'onclick', function() {
-                    org.hark.widgets.GameCredits(item.attribution);
+                    org.hark.widgets.GameDialog.showCredits(item.attribution);
                 });
             } else {
                 nodes.style('display', 'none');
