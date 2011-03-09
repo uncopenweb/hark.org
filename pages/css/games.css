@@ -5,7 +5,6 @@
  */
 @import "common.css";
 @import "../../widgets/css/GameListView.css";
-@import "../../widgets/css/GameCredits.css";
 @import "../../widgets/css/GameFrame.css";
 @import "/libs/uow/ui/css/BusyOverlay.css";
 @import "/libs/uow/ui/css/Icons.css";
@@ -53,20 +52,6 @@ body.playing #catalog {
 #top h1 a {
     color: white;
     text-decoration: none;
-}
-
-#bar {
-    font-size: 0.8em;
-}
-
-#bar .dijitMenuItem {
-    float: right;
-}
-
-#login {
-    padding: 6px 10px 7px;
-    margin: -1px;
-    padding-right: 50px;
 }
 
 #search {

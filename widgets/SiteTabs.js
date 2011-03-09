@@ -60,10 +60,12 @@ dojo.declare('org.hark.widgets.SiteTabs', [dijit._Widget, dijit._Templated], {
         if(ctrl !== this) {
             dojo.query('a', this.playingNode)[0].focus();
         }
+        this.hintNode.innerHTML = this.labels.unpause_hint;
     },
     
     _onUnpauseGame: function() {
         this._paused = false;
+        this.hintNode.innerHTML = this.labels.pause_hint;
     },
     
     _onClickParent: function(event) {

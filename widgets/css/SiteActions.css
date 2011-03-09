@@ -3,7 +3,9 @@
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
-@import url("PreferencesView.css");
+@import "PreferencesView.css";
+@import "GameDialog.css";
+
 
 .harkSiteActions {
     text-align: right;
@@ -45,12 +47,15 @@
 }
 
 .harkDropDownButton {
-    top: -3px;
     padding: 5px 15px;
     position: relative;
     text-align: center;
     display: inline-block;    
     color: #235480;
+}
+
+.dj_webkit .harkDropDownButton {
+    top: -3px;
 }
 
 .harkDropDownButton:hover {

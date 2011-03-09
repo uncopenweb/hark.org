@@ -27,3 +27,14 @@
 .harkSiteTabs a.selected:hover {
     background-color: transparent;
 }
+
+.harkSiteTabs .hint {
+    padding-left: 2em;
+    font-size: 0.8em;
+    color: #ccc;
+    font-style: italic;
+}
+
+.harkSiteTabsBar {
+    
+}

@@ -106,13 +106,13 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
         }
-        // @todo: use uow.ui.showBusy api
         this._busy = uow.ui.BusyOverlay.show({
             busyNode: this.frameNode,
             parentNode: this.domNode,
             takeFocus: false,
             animate: false,
-            message : this.labels.paused_overlay_label
+            message : this.labels.paused_overlay_label,
+            delayShow : 0
         });
         this._busyTok = dojo.connect(this._busy.domNode, 'onfocus', this, 
             '_onFocusBusy');
