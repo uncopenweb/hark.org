@@ -64,7 +64,7 @@ org.hark.widgets.GameDialog = (function() {
             });
         },
         showHelp: function(href) {
-            this._show(labels.credits_title);
+            this._show(labels.help_title);
             dlg.attr('href', href);
         }
     };

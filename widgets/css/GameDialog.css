@@ -7,13 +7,7 @@
     width: 480px !important;
     height: 320px !important;
     overflow-y: auto;
-}
-
-.harkGameDialog h3 {
-    margin-top: 0em;
-    font-size: 1.25em;
-    border-bottom: 1px solid gray;
-    margin-bottom: 1em;
+    font-size: 0.9em;
 }
 
 .harkGameDialog p {
@@ -24,4 +18,5 @@
 .harkGameDialog h2,
 .harkGameDialog h3 {
     margin-top: 0em;
+    margin-bottom: 1em;
 }
