@@ -55,7 +55,7 @@ org.hark.widgets.GameDialog = (function() {
         showCredits : function(url) {
             this._show(labels.credits_title);
             dojo.xhrGet({
-                url : ROOT_PATH+url,
+                url : org.hark.rootPath+url,
                 handleAs: 'json',
                 load: onLoad,
                 error: function(err) {
@@ -63,9 +63,14 @@ org.hark.widgets.GameDialog = (function() {
                 }
             });
         },
-        showHelp: function(href) {
+
+        showHelp: function(urls) {
             this._show(labels.help_title);
-            dlg.attr('href', href);
+            var html = '';
+            for(var i=0, l=urls.length; i<l; i++) {
+                html += dojo.cache(new dojo._Url(urls[i]));
+            }
+            dlg.attr('content', html);
         }
     };
 })();

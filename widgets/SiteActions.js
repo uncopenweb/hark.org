@@ -15,13 +15,22 @@ dojo.requireLocalization('org.hark.widgets', 'SiteActions');
 
 dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], {
     // help for this page
-    helpPage : 'home.html',
+    helpPage : '',
     // widget in template
     widgetsInTemplate: true,
     // site actions bar template
     templatePath: dojo.moduleUrl('org.hark.widgets', 'templates/SiteActions.html'),
     postMixInProperties: function() {
         this.labels = dojo.i18n.getLocalization('org.hark.widgets', 'SiteActions');
+    },
+    
+    postCreate: function() {
+        // controller published events
+        dojo.subscribe('/org/hark/lang', this, function(locale) {
+            this._locale = locale;
+        });
+        dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectGame');
+        dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
     },
 
     triggerLogin: function() {
@@ -67,8 +76,33 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
     },
     
     _onClickHelp: function() {
-        var url = dojo.moduleUrl('org.hark.pages', 'nls/'+dojo.locale+'/'+this.helpPage);
-        console.log(url.toString());
-        org.hark.widgets.GameDialog.showHelp(url.toString());
+        var page;
+        if(this._playing) {
+            // show generic play help
+            pages = ['playing.html', 'home.html'];
+        } else if(!this.helpPage) {
+            // show site help only
+            pages = ['home.html'];
+        } else {
+            // show this page's help plus site help
+            pages = [this.helpPage, 'home.html'];
+        }
+        for(var i=0, l=pages.length; i<l; i++) {
+            var path = 'nls/'+this._locale+'/'+pages[i];
+            pages[i] = dojo.moduleUrl('org.hark.pages', path).toString();
+        }
+        if(this._playing && this._playing.help) {
+            // show game specific help
+            pages.unshift(org.hark.rootPath + this._playing.help);
+        }
+        org.hark.widgets.GameDialog.showHelp(pages);
+    },
+    
+    _onSelectGame: function(ctrl, item) {
+        this._playing = item;
+    },
+    
+    _onUnselectGame: function() {
+        this._playing = null;
     }
 });

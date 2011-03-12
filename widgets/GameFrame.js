@@ -59,7 +59,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         
         // show the game frame and load the game
         dojo.style(this.domNode, 'display', '');
-        this.frameNode.src = ROOT_PATH + item.url;
+        this.frameNode.src = org.hark.rootPath + item.url;
         
         // reset busy dialog
         if(this._busy) {

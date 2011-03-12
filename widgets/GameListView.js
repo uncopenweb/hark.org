@@ -24,7 +24,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
         this._busyOverlay = null;
     },
 
-    postCreate: function(args) {
+    postCreate: function() {
         // controller published events
         dojo.subscribe('/org/hark/lang', this, function(locale) {
             this._locale = locale;
@@ -121,11 +121,10 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
             tags = tags[dojo.locale] || tags['en-us'];
             var html = dojo.replace(tmpl, {
                 _labels : this._labels,
-                game_href :  '#' + org.hark.urlToSlug(url),
                 game_label : label,
                 game_description : desc,
                 game_tags : tags,
-                icon_src : ROOT_PATH + db.getValue(item, 'media').icon,
+                icon_src : org.hark.rootPath + db.getValue(item, 'media').icon,
                 icon_alt : label
             });
             var div = dojo.create('div', {
