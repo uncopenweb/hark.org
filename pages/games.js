@@ -8,6 +8,7 @@ dojo.require('dijit.layout.BorderContainer');
 dojo.require('dijit.layout.ContentPane');
 dojo.require('dojo.i18n');
 dojo.require('org.hark.pages.common');
+dojo.require('org.hark.widgets.PreferencesAudio');
 dojo.require('org.hark.widgets.SiteTabs');
 dojo.require('org.hark.widgets.SiteActions');
 dojo.require('org.hark.widgets.GameSearch');
