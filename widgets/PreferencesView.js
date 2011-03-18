@@ -27,7 +27,10 @@ dojo.declare('org.hark.widgets.PreferencesView', [dijit._Widget, dijit._Template
         for(var name in this._prefs) {
             var val = this._prefs[name];
             // yea, still works for bools for now
-            this[name+'Widget'].attr('value', val*100);
+            var w = this[name+'Widget'];
+            if(w) {
+                w.attr('value', val*100);
+            }
         }
     },
     
