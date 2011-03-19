@@ -40,16 +40,19 @@ a:hover {
         linear,
         left top,
         left bottom,
-        color-stop(0, rgb(255, 255, 255)),
+        color-stop(0, rgb(225, 225, 225)),
+        color-stop(0.5, rgb(255, 255, 255)),
         color-stop(0.8, rgb(255, 255, 255)),
-        color-stop(1, rgb(215, 215, 215))
+        color-stop(1, rgb(200, 200, 200))
     );
     background-image: -moz-linear-gradient(
         center top,
-        rgb(255, 255, 255) 0%,
+        rgb(225, 225, 225) 0%,
+        rgb(255, 255, 255) 50%,
         rgb(255, 255, 255) 80%,
-        rgb(215, 215, 215) 100%
+        rgb(200, 200, 200) 100%
     );
+    border-bottom: 1px solid #235480;
 }
 
 #top {
@@ -70,27 +73,16 @@ a:hover {
     padding: 25px 0px;
 }
 
-#middle {
-    background-color: white;
-}
-
 #top img {
     vertical-align: middle;
 }
 
-
 #middle {    
+    background-color: white;
     border-bottom: 1px solid #235480;
     border-top: 1px solid #235480;
 }
 
-/*#login {
-    padding: 6px 10px 7px;
-    margin: -1px;
-    padding-right: 50px;
-}
-
-*/
 #bottom {
     padding-top: 10px;
     background-color: #AAC8E2;

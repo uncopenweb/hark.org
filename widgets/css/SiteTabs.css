@@ -20,8 +20,16 @@
 }
 
 .harkSiteTabs a:hover {
-    background-color: #D9E8FF;
     text-decoration: none;
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, rgb(170, 200, 226)),
+        color-stop(0.5, rgb(217, 232, 255)),
+        color-stop(0.8, rgb(217, 232, 255)),
+        color-stop(1, rgb(170, 200, 226))
+    );
 }
 
 .harkSiteTabs a.selected:hover {

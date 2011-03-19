@@ -4,25 +4,12 @@
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
 .harkGameListViewItem {
-    border-bottom: 1px solid #ddd;
     padding: 10px 0px;
-    background-image: -webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, rgba(200,200,200,0.5)),
-        color-stop(0.1, rgba(255,255,255,0))
-    );
-	background-image: -moz-linear-gradient(
-        center top,
-        rgba(200,200,200,0.5) 0%,
-        rgba(255,255,255,0) 10%,
-        rgba(255,255,255,0) 90%,
-        rgba(200,200,200,0.5) 100%
-    );
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -o-transition: all 0.5s;
+    border-top: 1px dotted #AAC8E2;
+}
+
+.harkGameListViewItem:last-child {
+    border-bottom: 1px dotted #AAC8E2;    
 }
 
 .harkGameListViewItem.selected {
