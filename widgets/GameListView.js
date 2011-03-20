@@ -133,13 +133,15 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
             }, this._resultsNode);
             var nodes = dojo.query('a', div);
             if(item.url) {
-                dojo.connect(nodes[0], 'onclick', function() {
+                dojo.connect(nodes[0], 'onclick', function(event) {
                     dojo.publish('/org/hark/ctrl/select-game', [this, item]);
+                    dojo.stopEvent(event);
                 });
             }
             if(item.attribution) {
-                dojo.connect(nodes[1], 'onclick', function() {
+                dojo.connect(nodes[1], 'onclick', function(event) {
                     org.hark.widgets.GameDialog.showCredits(item.attribution);
+                    dojo.stopEvent(event);
                 });
             } else {
                 nodes.style('display', 'none');

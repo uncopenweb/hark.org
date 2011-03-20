@@ -50,4 +50,5 @@ org.hark.publishLang = function() {
         lang = dojo.locale;
     }
     dojo.publish('/org/hark/lang', [lang]);
+    return lang;
 };

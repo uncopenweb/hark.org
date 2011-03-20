@@ -21,18 +21,51 @@ dojo.ready(function() {
     // make sure this browser is viable
     uow.ui.checkBrowser();
     
+    // original title
+    var originalTitle = document.title;
     // do our own label interpolation for the page
     var labels = org.hark.localizePage('games');
-
     // publish the db and help localization to use
-    org.hark.publishLang('home');
+    var locale = org.hark.publishLang('home');
+    // selected game
+    var selectedUrl = '';
     
-    // listen for game selects and unselects
-    dojo.subscribe('/org/hark/ctrl/select-game', function() {
-        dojo.addClass(dojo.body(), 'playing');
+    // listen for hash changes
+    dojo.subscribe('/dojo/hashchange', function(h) {
+        var url = decodeURIComponent(h);
+
+        if(url === selectedUrl) {
+            // avoid publishing the same selection twice
+            return;
+        }
+
+        if(!h) {
+            dojo.publish('/org/hark/ctrl/unselect-game', [null]);
+        } else {
+            // @todo: lookup game details and publish game selection
+            dojo.publish('/org/hark/ctrl/select-game', [null, {url : url}]);
+        }
     });
-    dojo.subscribe('/org/hark/ctrl/unselect-game', function() {
+    // listen for game selects and unselects
+    dojo.subscribe('/org/hark/ctrl/select-game', function(ctrl, item) {
+        // store selected url
+        selectedUrl = item.url;
+        // mark body with playing style
+        dojo.addClass(dojo.body(), 'playing');
+        // @todo: need full item for this
+        //var title = item.label[locale] || item.label['en-us'];
+        //document.title = title;
+        dojo.hash(encodeURIComponent(item.url));
+    });
+    dojo.subscribe('/org/hark/ctrl/unselect-game', function(ctrl, item) {
         dojo.removeClass(dojo.body(), 'playing');
+        document.title = originalTitle;
+        selectedUrl = '';
+        if(ctrl) {
+            // adjust hash if another controller, not the hash listener in this
+            // controller, unselected the game
+            dojo.hash('');
+        }
     });
 
     // get the games, tags collections
@@ -52,4 +85,12 @@ dojo.ready(function() {
     
     // trigger login method
     dijit.byId('site_actions').triggerLogin();
+
+    // honor initial hash
+    var h = dojo.hash();
+    if(h) {
+        // @todo: fetch selected game details
+        var url = decodeURIComponent(h);
+        dojo.publish('/org/hark/ctrl/select-game', [null, {url : url}]);
+    }
 });

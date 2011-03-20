@@ -110,6 +110,8 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
     },
     
     _onSelectItem: function() {
+        // watch for immediate game select before audio is ready
+        if(!this._audio) {return;}
         this._audio.stop({channel : 'sound'});
         this._audio.play({
             channel : 'sound', 

@@ -20,7 +20,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     // game list model
     model : '',
     widgetsInTemplate: true,
-    templatePath: dojo.moduleUrl('org.hark.widgets', 'templates/GameFrame.html'),
+    templateString: '<div class="harkGameFrame" style="display: none;"></div>',
     postMixInProperties: function() {
         this.labels = dojo.i18n.getLocalization('org.hark.widgets','GameFrame');
         this.model = dijit.byId(this.model);
@@ -35,7 +35,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         // is the game paused?
         this._paused = false;
         // is there a game active?
-        this._playing = true;
+        this._playing = true;        
     },
 
     /* Listen for controller events. */ 
@@ -59,7 +59,13 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         
         // show the game frame and load the game
         dojo.style(this.domNode, 'display', '');
-        this.frameNode.src = org.hark.rootPath + item.url;
+        // create a new iframe to avoid polluting browser history
+        var iframe = this.frameNode = dojo.create('iframe', {}, this.domNode);
+        var tok = dojo.connect(this.frameNode, 'onload', this, '_onLoadFrame');
+        this._connectTokens.push(tok);
+        var src = org.hark.rootPath + item.url;
+        // async else it doesn't load
+        setTimeout(function() {iframe.src = src;}, 0);
         
         // reset busy dialog
         if(this._busy) {
@@ -80,10 +86,9 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
             dojo.forEach(this._subTokens, dojo.unsubscribe);
             this._subTokens = [];
         }
-        
+
         // hide the game frame and unload the game
         dojo.style(this.domNode, 'display', 'none');
-        this.frameNode.src = 'about:blank';
 
         // allow other components to get keystrokes
         org.hark.connectKeys();
@@ -94,6 +99,9 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
             this._busy = null;
             dojo.disconnect(this._busyTok);
         }
+
+        dojo.destroy(this.frameNode);
+        this.frameNode = null;
     },
     
     /* Resume the game. */
@@ -116,11 +124,13 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         });
         this._busyTok = dojo.connect(this._busy.domNode, 'onfocus', this, 
             '_onFocusBusy');
-        // signal the game to stop
-        var win = this.frameNode.contentWindow;
-        if(!this._paused && win.dojo) {
-            win.dojo.publish('/org/hark/pause', [true]);
-            this._paused = true;
+        if(this.frameNode) {
+            // signal the game to stop
+            var win = this.frameNode.contentWindow;
+            if(!this._paused && win && win.dojo) {
+                win.dojo.publish('/org/hark/pause', [true]);
+                this._paused = true;
+            }
         }
     },
     
