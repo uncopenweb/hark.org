@@ -114,11 +114,11 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
             var tmpl = this.resultTemplate;
             var url = db.getValue(item, 'url');
             var label = db.getValue(item, 'label');
-            label = label[dojo.locale] || label['en-us'];
+            label = label[this._locale] || label['en-us'];
             var desc = db.getValue(item, 'description');
-            desc = desc[dojo.locale] || desc['en-us'];
+            desc = desc[this._locale] || desc['en-us'];
             var tags = db.getValue(item, 'tags');
-            tags = tags[dojo.locale] || tags['en-us'];
+            tags = tags[this._locale] || tags['en-us'];
             var html = dojo.replace(tmpl, {
                 _labels : this._labels,
                 game_label : label,
