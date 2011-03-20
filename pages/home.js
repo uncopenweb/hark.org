@@ -10,6 +10,9 @@ dojo.require('org.hark.widgets.SiteActions');
 dojo.requireLocalization('org.hark', 'pages');
 
 dojo.ready(function() {
+    // make sure this browser is viable
+    uow.ui.checkBrowser();
+
     // do our own label interpolation for the page
     var labels = org.hark.localizePage();
     
