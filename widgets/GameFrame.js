@@ -147,7 +147,9 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
             this._paused = false;
         }
         // set focus on the iframe
-        this.frameNode.focus();
+        setTimeout(dojo.hitch(this, function() {
+            this.frameNode.focus();
+        }), 0);
     },
 
     /* Connect for key events and publishes from the game in the frame. */
@@ -157,7 +159,6 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
             // safari fails to set the hash for some reason, so force it here
             cw.location.hash = event.target.src.split('#')[1];
         }
-
         var t;
         t = dojo.connect(cw, 'onkeydown', this, '_onKeyDown');
         this._connectTokens.push(t);
@@ -170,7 +171,9 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
             this._subTokens.push(t);
         }
         // set focus on the iframe
-        this.frameNode.focus();
+        setTimeout(dojo.hitch(this, function() {
+            this.frameNode.focus();
+        }), 0);
     },
     
     /* Watch for key events to pause/unpause or nav out of frame. */

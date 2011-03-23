@@ -92,5 +92,8 @@ dojo.ready(function() {
         // @todo: fetch selected game details
         var url = decodeURIComponent(h);
         dojo.publish('/org/hark/ctrl/select-game', [null, {url : url}]);
+    } else {
+        // enable keys
+        org.hark.connectKeys();
     }
 });

@@ -5,6 +5,7 @@
  */
 dojo.provide('org.hark.widgets.SiteActions');
 dojo.require('org.hark.widgets.GameDialog');
+dojo.require('dojo.hash');
 dojo.require('dijit._Widget');
 dojo.require('dijit._Templated');
 dojo.require('dijit.TooltipDialog');
@@ -23,6 +24,8 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
     templatePath: dojo.moduleUrl('org.hark.widgets', 'templates/SiteActions.html'),
     postMixInProperties: function() {
         this.labels = dojo.i18n.getLocalization('org.hark.widgets', 'SiteActions');
+        // game in progress?
+        this._playing = false;
     },
     
     postCreate: function() {
@@ -32,6 +35,8 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
         });
         dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectGame');
         dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
+        dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
+        this._onHashChange(dojo.hash());
     },
 
     triggerLogin: function() {
@@ -43,6 +48,10 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
                 throw new Error('not authed')
             }            
         }).addErrback(this, '_onNoAuth');
+    },
+    
+    _onHashChange: function(hash) {
+        dojo.query('a', this.domNode).attr('href', '#'+hash);
     },
     
     _onAuth: function(user) {
@@ -61,7 +70,7 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
         dojo.publish('/uow/auth', [null]);
     },
     
-    _onClickLogin: function() {
+    _onClickLogin: function(event) {
         var def = uow.triggerLogin();
         def.addCallback(this, function(response) {
             if(response.flag == 'ok') {
@@ -76,7 +85,7 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
         uow.logout();
     },
     
-    _onClickHelp: function() {
+    _onClickHelp: function(event) {
         var page;
         if(this._playing) {
             // show generic play help
@@ -96,7 +105,7 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
             // show game specific help
             pages.unshift(org.hark.rootPath + this._playing.help);
         }
-        org.hark.widgets.GameDialog.showHelp(pages);
+        org.hark.widgets.GameDialog.showHelp(pages, this._playing);
     },
     
     _onSelectGame: function(ctrl, item) {

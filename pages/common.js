@@ -10,15 +10,21 @@ org.hark.rootPath = '../';
 // known supported translations
 org.hark.langs = [];
 
+org.hark._keySem = 0;
+
 org.hark.connectKeys = function() {
-    // start listening for global keys
-    dojo.body().focus();
-    try {
-        uow.ui.connectKeys();
-    } catch(e) { }
+    org.hark._keySem -= 1;
+    if(org.hark._keySem === 0) {
+        // start listening for global keys
+        dojo.body().focus();
+        try {
+            uow.ui.connectKeys();
+        } catch(e) { }
+    }
 };
 
 org.hark.disconnectKeys = function() {
+    org.hark._keySem += 1;
     // disable global key catch
     try {
         uow.ui.disconnectKeys();
