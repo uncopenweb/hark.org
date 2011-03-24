@@ -1,34 +1,15 @@
 /**
- * Main site styles.
+ * Game catalog styles.
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
 @import "common.css";
 @import "../../widgets/css/GameListView.css";
-@import "../../widgets/css/GameFrame.css";
 @import "/libs/uow/ui/css/BusyOverlay.css";
 @import "/libs/uow/ui/css/Icons.css";
 
 body {
 	overflow-y: scroll;
-}
-
-body.playing {
-    overflow: hidden !important;
-    padding: 0px !important;
-    margin: 0px !important;
-    min-width: 0px !important;
-}
-
-body.playing #catalog {
-    display: none;
-}
-
-#game {
-    position: absolute;
-    top: 25px;
-    bottom: 0px;
-    width: 100%;
 }
 
 #top {

@@ -5,8 +5,6 @@
  */
 dojo.require('dojo.i18n');
 dojo.require('org.hark.pages.common');
-dojo.require('org.hark.widgets.SiteTabs');
-dojo.require('org.hark.widgets.SiteActions');
 dojo.requireLocalization('org.hark', 'pages');
 
 dojo.ready(function() {

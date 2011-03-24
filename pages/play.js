@@ -1,5 +1,5 @@
 /**
- * Game catalog controller.
+ * Game play controller.
  *
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
@@ -7,11 +7,7 @@ dojo.require('dijit.layout.BorderContainer');
 dojo.require('dijit.layout.ContentPane');
 dojo.require('dojo.i18n');
 dojo.require('org.hark.pages.common');
-dojo.require('org.hark.widgets.GameSearch');
-dojo.require('org.hark.widgets.GameListModel');
-dojo.require('org.hark.widgets.GameListView');
-dojo.require('org.hark.widgets.GameListKeys');
-dojo.require('org.hark.widgets.GameListAudio');
+dojo.require('org.hark.widgets.GameFrame');
 
 dojo.ready(function() {
     // make sure this browser is viable
@@ -23,11 +19,8 @@ dojo.ready(function() {
     var locale = org.hark.publishLang('home');
     
     // listen for game selects and unselects
-    dojo.subscribe('/org/hark/ctrl/select-game', function(ctrl, item) {
-        // store selected url
-        var id = encodeURIComponent(item._id);
-        // go to play.html?g=selectedUrl
-        window.location = 'play.html?g='+id;
+    dojo.subscribe('/org/hark/ctrl/unselect-game', function(ctrl, item) {
+        // @todo: go back to game catalog with ?g=id
     });
 
     // get the games, tags collections

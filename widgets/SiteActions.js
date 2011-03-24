@@ -16,16 +16,14 @@ dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'SiteActions');
 
 dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], {
-    // help for this page
-    helpPage : '',
     // widget in template
     widgetsInTemplate: true,
     // site actions bar template
     templatePath: dojo.moduleUrl('org.hark.widgets', 'templates/SiteActions.html'),
     postMixInProperties: function() {
         this.labels = dojo.i18n.getLocalization('org.hark.widgets', 'SiteActions');
-        // game in progress?
-        this._playing = false;
+        // game in progress
+        this._game = null;
     },
     
     postCreate: function() {
@@ -34,9 +32,6 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
             this._locale = locale;
         });
         dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectGame');
-        dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
-        dojo.subscribe('/dojo/hashchange', this, '_onHashChange');
-        this._onHashChange(dojo.hash());
     },
 
     triggerLogin: function() {
@@ -49,11 +44,7 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
             }            
         }).addErrback(this, '_onNoAuth');
     },
-    
-    _onHashChange: function(hash) {
-        dojo.query('a', this.domNode).attr('href', '#'+hash);
-    },
-    
+        
     _onAuth: function(user) {
         dojo.style(this.loginNode, 'display', 'none');
         dojo.style(this.profileNode.domNode, 'display', '');
@@ -87,7 +78,7 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
     
     _onClickHelp: function(event) {
         var page;
-        if(this._playing) {
+        if(this._game) {
             // show generic play help
             pages = ['playing.html', 'home.html'];
         } else if(!this.helpPage) {
@@ -101,18 +92,14 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
             var path = 'nls/'+this._locale+'/'+pages[i];
             pages[i] = dojo.moduleUrl('org.hark.pages', path).toString();
         }
-        if(this._playing && this._playing.help) {
+        if(this._game && this._game.help) {
             // show game specific help
-            pages.unshift(org.hark.rootPath + this._playing.help);
+            pages.unshift(org.hark.rootPath + this._game.help);
         }
-        org.hark.widgets.GameDialog.showHelp(pages, this._playing);
+        org.hark.widgets.GameDialog.showHelp(pages);
     },
     
     _onSelectGame: function(ctrl, item) {
-        this._playing = item;
-    },
-    
-    _onUnselectGame: function() {
-        this._playing = null;
+        this._game = item;
     }
 });

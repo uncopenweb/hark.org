@@ -36,13 +36,6 @@
     background-color: transparent;
 }
 
-.harkSiteTabs .hint {
-    padding-left: 2em;
-    font-size: 0.8em;
-    color: #ccc;
-    font-style: italic;
-}
-
-.harkSiteTabsBar {
-    
+.dj_gecko .harkSiteTabs {
+    margin-top: 1px;
 }

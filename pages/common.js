@@ -4,6 +4,8 @@
  * Copyright UNC Open Web Team 2010, 2011. All Rights Reserved.
  */
 dojo.provide('org.hark.pages.common');
+dojo.require('org.hark.widgets.SiteTabs');
+dojo.require('org.hark.widgets.SiteActions');
 
 // root path for all urls
 org.hark.rootPath = '../';
@@ -14,7 +16,9 @@ org.hark._keySem = 0;
 
 org.hark.connectKeys = function() {
     org.hark._keySem -= 1;
-    if(org.hark._keySem === 0) {
+    console.debug('connect', org.hark._keySem);
+    if(org.hark._keySem <= 0) {
+        org.hark._keySem = 0;
         // start listening for global keys
         dojo.body().focus();
         try {
@@ -25,6 +29,7 @@ org.hark.connectKeys = function() {
 
 org.hark.disconnectKeys = function() {
     org.hark._keySem += 1;
+    console.debug('disconnectKeys', org.hark._keySem);
     // disable global key catch
     try {
         uow.ui.disconnectKeys();

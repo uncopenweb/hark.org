@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Play @ Hark the Sound</title>
+    <link href="pages/css/play.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css' />
+    <script type="text/javascript">
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: true,
+            baseUrl: './',
+            modulePaths: {'org.hark' : '.'}
+        };
+    </script>
+    <script src="http://o.aolcdn.com/dojo/1.5/dojo/dojo.xd.js"></script>
+    <script src="http://o.aolcdn.com/dojo/1.5/dijit/dijit.xd.js"></script>
+    <script src="/libs/uow.js"></script>
+    <script src="pages/play.js"></script>
+  </head>
+  <body class="claro" tabindex="0">
+    <div id="nav">
+      <div class="container_12" id="nav_container">        
+        <div class="grid_4" selected="1" dojoType="org.hark.widgets.SiteTabs" id="site_tabs"></div>
+        <div class="grid_8" dojoType="org.hark.widgets.SiteActions" id="site_actions" helpPage="games.html"></div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    
+    <div dojoType="org.hark.widgets.GameFrame" id="game" model="model"></div>
+  </body>
+</html>
