@@ -20,7 +20,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     // game list model
     model : '',
     widgetsInTemplate: true,
-    templateString: '<div class="harkGameFrame" style="display: none;"></div>',
+    templateString: '<div class="harkGameFrame"></div>',
     postMixInProperties: function() {
         this.labels = dojo.i18n.getLocalization('org.hark.widgets','GameFrame');
         this.model = dijit.byId(this.model);
@@ -67,7 +67,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         // async else it doesn't load
         setTimeout(function() {iframe.src = src;}, 0);
         
-        // reset busy dialog
+        // reset busy overlay
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
             this._busy = null;

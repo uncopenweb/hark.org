@@ -16,7 +16,6 @@ org.hark._keySem = 0;
 
 org.hark.connectKeys = function() {
     org.hark._keySem -= 1;
-    console.debug('connect', org.hark._keySem);
     if(org.hark._keySem <= 0) {
         org.hark._keySem = 0;
         // start listening for global keys
@@ -29,7 +28,6 @@ org.hark.connectKeys = function() {
 
 org.hark.disconnectKeys = function() {
     org.hark._keySem += 1;
-    console.debug('disconnectKeys', org.hark._keySem);
     // disable global key catch
     try {
         uow.ui.disconnectKeys();

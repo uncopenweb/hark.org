@@ -26,7 +26,7 @@ dojo.ready(function() {
     dojo.subscribe('/org/hark/ctrl/select-game', function(ctrl, item) {
         // store selected url
         var id = encodeURIComponent(item._id);
-        // go to play.html?g=selectedUrl
+        // go to play.html?g=gameId
         window.location = 'play.html?g='+id;
     });
 

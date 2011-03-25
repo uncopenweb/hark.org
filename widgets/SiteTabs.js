@@ -60,7 +60,8 @@ dojo.declare('org.hark.widgets.SiteTabs', [dijit._Widget, dijit._Templated], {
         }
     },
     
-    _onClickQuit: function() {
+    _onClickQuit: function(event) {
         dojo.publish('/org/hark/ctrl/unselect-game', [this]);
+        dojo.stopEvent(event);
     }
 });

@@ -16,6 +16,8 @@ dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'SiteActions');
 
 dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], {
+    // page specific help
+    helpPage: '',
     // widget in template
     widgetsInTemplate: true,
     // site actions bar template
@@ -80,7 +82,7 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
         var page;
         if(this._game) {
             // show generic play help
-            pages = ['playing.html', 'home.html'];
+            pages = ['play.html', 'home.html'];
         } else if(!this.helpPage) {
             // show site help only
             pages = ['home.html'];
@@ -96,6 +98,7 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
             // show game specific help
             pages.unshift(org.hark.rootPath + this._game.help);
         }
+        console.log(pages);
         org.hark.widgets.GameDialog.showHelp(pages);
     },
     
