@@ -10,8 +10,6 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     // game list model
     model : '',
     postMixInProperties: function() {
-        // @todo: timer to put focus back on body to re-enable keys
-        this._focusTimer = null;
         // list of tags for the locale
         this._tags = null;
         // current tag
@@ -56,6 +54,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     },
     
     _onNavTags: function(event) {
+        if(event.shiftKey) { return; }
         switch(event.keyCode) {
             case dojo.keys.UP_ARROW:
                 dojo.stopEvent(event);

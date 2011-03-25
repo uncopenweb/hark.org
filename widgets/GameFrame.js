@@ -41,7 +41,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     /* Listen for controller events. */ 
     postCreate: function() {
         dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectGame');
-        dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
+        // dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
         dojo.subscribe('/org/hark/ctrl/pause-game', this, '_onPauseGame');
         dojo.subscribe('/org/hark/ctrl/unpause-game', this, '_onUnpauseGame');
     },
@@ -51,7 +51,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         this._playing = true;
         
         // stop other components from intercepting keys
-        org.hark.disconnectKeys();
+        // org.hark.disconnectKeys();
         
         // watch for magic keys on window
         var t = dojo.connect(window, 'onkeydown', this, '_onKeyDown');
@@ -90,9 +90,6 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         // hide the game frame and unload the game
         dojo.style(this.domNode, 'display', 'none');
 
-        // allow other components to get keystrokes
-        org.hark.connectKeys();
-
         // reset busy dialog
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
@@ -108,9 +105,10 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     _onFocusBusy: function() {
         dojo.publish('/org/hark/ctrl/unpause-game', [this]);
     },
-    
+
     /* Pause the game. */
     _onPauseGame: function(event) {
+        this.frameNode.tabIndex = -1;
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
         }
@@ -136,6 +134,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     
     /* Unpause the game. */
     _onUnpauseGame: function(event) {
+        this.frameNode.tabIndex = 0;
         if(this._busy) {
             uow.ui.BusyOverlay.hide(this._busy);
             this._busy = null;
@@ -159,16 +158,26 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
             // safari fails to set the hash for some reason, so force it here
             cw.location.hash = event.target.src.split('#')[1];
         }
-        var t;
-        t = dojo.connect(cw, 'onkeydown', this, '_onKeyDown');
-        this._connectTokens.push(t);
-        // listen for pref requests from within the game frame and externally
-        // from the preference controls
+        // @todo: really want to use this page's connectKeys but the problem
+        // is that token tracking is global so this page and iframe's mix
+        // improperly
+        if(cw.uow) {
+        }
+        //var t = dojo.connect(cw, 'onkeydown', this, '_onKeyDown');
+        //this._connectTokens.push(t);
+        // listen for events within the content window
         if(cw.dojo) {
             t = dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
             this._subTokens.push(t);
             t = cw.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
             this._subTokens.push(t);
+            t = cw.dojo.subscribe('/uow/key/down', this, function(event) {
+                // let tab handler run for tab events within game frame too
+                this._onKeyDown(event);
+                // publish keys to this window for hotkey handling
+                dojo.publish('/uow/key/down', [event]);
+            });
+            this._subTokens.push(t);            
         }
         // set focus on the iframe
         setTimeout(dojo.hitch(this, function() {
@@ -176,20 +185,11 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         }), 0);
     },
     
-    /* Watch for key events to pause/unpause or nav out of frame. */
+    /* Watch for tab keys to avoid leaving game. */
     _onKeyDown: function(event) {
         if(event.keyCode === dojo.keys.TAB && !this._paused) {
             // stop tab from getting us out of the game
             dojo.stopEvent(event);
-        } else if(event.keyCode === dojo.keys.ESCAPE && event.shiftKey) {
-            if(this._paused) {
-                this.frameNode.tabIndex = 0;
-                dojo.publish('/org/hark/ctrl/unpause-game', [this]);
-            } else {
-                this.frameNode.tabIndex = -1;
-                dojo.publish('/org/hark/ctrl/pause-game', [this]);
-                dojo.stopEvent(event);
-            }
         }
     },
         

@@ -21,21 +21,22 @@ dojo.ready(function() {
     // game id
     var id = args.g;
     
+    var goToCatalog = function() {
+        // go back to game catalog with ?g=id
+        var segs = window.location.pathname.split('/');
+        segs[segs.length-1] = 'games.html';
+        window.location.pathname = segs.join('/');        
+    };
+    
     // listen for game selects and unselects
-    dojo.subscribe('/org/hark/ctrl/unselect-game', function(ctrl, item) {
-        // @todo: go back to game catalog with ?g=id
-        window.location = 'games.html';
-    });
+    dojo.subscribe('/org/hark/ctrl/unselect-game', goToCatalog);
 
     var _onDatabaseReady = function(db) {
         // find the item based on its id
         db.fetchOne({query : {_id : id}}).then(function(item) {
             // publish the item for the game frame
             dojo.publish('/org/hark/ctrl/select-game', [null, item]);
-        }, function() {
-            // no match, go back to games list
-            window.location.path = 'games.html';
-        });
+        }, goToCatalog);
     };
     
     var _onDatabaseFailed = function(err) {

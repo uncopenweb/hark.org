@@ -6,13 +6,16 @@
 dojo.provide('org.hark.pages.common');
 dojo.require('org.hark.widgets.SiteTabs');
 dojo.require('org.hark.widgets.SiteActions');
+dojo.require('org.hark.widgets.SiteKeys');
 
 // root path for all urls
 org.hark.rootPath = '../';
 // known supported translations
 org.hark.langs = [];
-
+// track connect and disconnect counts
 org.hark._keySem = 0;
+// modifier for site wide hotkeys
+
 
 org.hark.connectKeys = function() {
     org.hark._keySem -= 1;
@@ -54,7 +57,7 @@ org.hark.localizePage = function(name) {
 org.hark.publishLang = function() {
     // determine language to use
     var lang = 'en-us'
-    if(dojo.indexOf(dojo.locale, org.hark.langs) != -1) {
+    if(dojo.indexOf(dojo.locale, org.hark.langs) !== -1) {
         // use translation
         lang = dojo.locale;
     }

@@ -45,7 +45,9 @@ dojo.declare('org.hark.widgets.PreferencesAudio', [dijit._Widget], {
             if(!quiet) {
                 this._audio.stop();
                 this._audio.stop({channel : 'sound'});
-                this._audio.say({text : this._labels.speech_test});
+                var speech = dojo.replace(this._labels.speech_test, 
+                    [Math.round(this._prefs.volume * 100)]);
+                this._audio.say({text : speech});
                 this._audio.play({
                     channel : 'sound', 
                     url : this._labels.sound_test
