@@ -43,6 +43,8 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         dojo.subscribe('/org/hark/ctrl/regard-game/busy', this, '_onRegardBusyGame');
         dojo.subscribe('/org/hark/ctrl/regard-tag/first', this, '_onRegardWrapTag');
         dojo.subscribe('/org/hark/ctrl/regard-tag/last', this, '_onRegardWrapTag');
+        // reuse select indicator when keys become ready
+        dojo.subscribe('/org/hark/ctrl/keys-ready', this, '_onSelectItem');
     },
     
     _updateRegard: function(id) {

@@ -38,6 +38,7 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
                 this._tags = dojo.map(items, 'return item.name');
                 // hijack keys once tags are available
                 org.hark.connectKeys();
+                dojo.publish('/org/hark/ctrl/keys-ready', [true]);
             },
             onError: function(err) {
                 console.log('tags err');
