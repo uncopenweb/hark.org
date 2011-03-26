@@ -1,11 +1,4 @@
 <div class="harkPreferencesView">
-  <label for="${id}_mouse">${labels.mouse_check_label}</label>
-  <input type="checkbox" 
-         dojoType="dijit.form.CheckBox"
-         dojoAttachPoint="mouseEnabledWidget"
-         dojoAttachEvent="onChange:_onMousePref" 
-         id="${id}_mouse" 
-         checked /><br />
   <!-- <label for="${id}_speech">${labels.speech_check_label}</label>
   <input type="checkbox" 
          dojoType="dijit.form.CheckBox"
@@ -139,5 +132,13 @@
           count="6" 
           numericMargin="0"></ol>
     </div>
+    
+    <label for="${id}_mouse">${labels.mouse_check_label}</label>
+    <input type="checkbox" 
+           dojoType="dijit.form.CheckBox"
+           dojoAttachPoint="mouseEnabledWidget"
+           dojoAttachEvent="onChange:_onMousePref" 
+           id="${id}_mouse" 
+           checked />
   </div>
 </div>
