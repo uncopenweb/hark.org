@@ -33,7 +33,46 @@
         count="6" 
         numericMargin="0"></ol>
   </div>
-          
+
+  <label for="${id}_speech_rate">${labels.rate_slider_label}</label>
+  <div dojoType="dijit.form.HorizontalSlider"
+       dojoAttachPoint="speechRateWidget"
+       dojoAttachEvent="onChange:_onSpeechRatePref" 
+       value="200" 
+       maximum="400" 
+       minimum="80" 
+       pageIncrement="20" 
+       showButtons="false" 
+       intermediateChanges="true" 
+       slideDuration="500" 
+       id="${id}_speech_rate"> 
+    <div dojoType="dijit.form.HorizontalRule" 
+         container="bottomDecoration" 
+         count="17"></div> 
+    <ol dojoType="dijit.form.HorizontalRuleLabels" 
+        container="bottomDecoration" 
+        count="17" 
+        numericMargin="0">
+      <li>80</li>
+      <li></li>
+      <li></li>
+      <li>140</li>
+      <li></li>
+      <li></li>
+      <li>200</li>
+      <li></li>
+      <li></li>
+      <li>260</li>
+      <li></li>
+      <li></li>
+      <li>320</li>
+      <li></li>
+      <li></li>
+      <li>380</li>
+      <li></li>
+    </ol>
+  </div>
+  
   <div dojoType="dijit.TitlePane" 
        title="${labels.advanced_pane_title}" 
        open="false"

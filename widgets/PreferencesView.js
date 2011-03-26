@@ -29,7 +29,11 @@ dojo.declare('org.hark.widgets.PreferencesView', [dijit._Widget, dijit._Template
             // yea, still works for bools for now
             var w = this[name+'Widget'];
             if(w) {
-                w.attr('value', val*100);
+                if(val <= 1.0) {
+                    // percentages
+                    val *= 100;
+                }
+                w.attr('value', val);
             }
         }
     },
@@ -42,6 +46,11 @@ dojo.declare('org.hark.widgets.PreferencesView', [dijit._Widget, dijit._Template
     _onSpeechPref: function(value) {
         this._prefs.speechEnabled = value;
         dojo.publish('/org/hark/prefs/request', ['speechEnabled']);
+    },
+    
+    _onSpeechRatePref: function(value) {
+        this._prefs.speechRate = value;
+        dojo.publish('/org/hark/prefs/request', ['speechRate']);        
     },
     
     _onVolumePref: function(value) {

@@ -10,6 +10,7 @@ dojo.provide('org.hark.widgets.Preferences');
     org.hark.widgets.Preferences = {
         mouseEnabled: true,
         speechEnabled: true,
+        speechRate: 200,
         volume: 1.0,
         speechVolume: 1.0,
         soundVolume: 0.8,

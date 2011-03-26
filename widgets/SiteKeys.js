@@ -22,22 +22,24 @@ dojo.declare('org.hark.widgets.SiteKeys', [dijit._Widget], {
     _onKeyDown: function(event) {
         if(event.shiftKey) {
             if(event.keyCode === dojo.keys.ESCAPE) {
-                dojo.publish('/org/hark/ctrl/unselect-game', [this]);
                 dojo.stopEvent(event);
+                dojo.publish('/org/hark/ctrl/unselect-game', [this]);
             } else if(event.keyCode === dojo.keys.UP_ARROW) {
+                dojo.stopEvent(event);
                 this._prefs.volume = Math.min(this._prefs.volume + 0.05, 1.0);
                 dojo.publish('/org/hark/prefs/request', ['volume']);
-                dojo.stopEvent(event);
             } else if(event.keyCode === dojo.keys.DOWN_ARROW) {
+                dojo.stopEvent(event);
                 this._prefs.volume = Math.max(this._prefs.volume - 0.05, 0.05);
                 dojo.publish('/org/hark/prefs/request', ['volume']);
-                dojo.stopEvent(event);
             } else if(event.keyCode === dojo.keys.RIGHT_ARROW) {
-                // @todo: rate
                 dojo.stopEvent(event);
+                this._prefs.speechRate = Math.min(this._prefs.speechRate + 20, 400);
+                dojo.publish('/org/hark/prefs/request', ['speechRate']);
             } else if(event.keyCode === dojo.keys.LEFT_ARROW) {
-                // @todo: rate
                 dojo.stopEvent(event);
+                this._prefs.speechRate = Math.max(this._prefs.speechRate - 20, 80);
+                dojo.publish('/org/hark/prefs/request', ['speechRate']);
             }
         }
     }

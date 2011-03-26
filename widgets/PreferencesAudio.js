@@ -16,8 +16,10 @@ dojo.declare('org.hark.widgets.PreferencesAudio', [dijit._Widget], {
         uow.getAudio().then(dojo.hitch(this, function(a) {
             this._audio = a;
             // set the current preferences
+            this._onPrefChange('volume', true);
             this._onPrefChange('speechVolume', true);
             this._onPrefChange('soundVolume', true);
+            this._onPrefChange('speechRate', true);
         }), function() {
             // @todo: fail gracefully
         });
@@ -28,6 +30,7 @@ dojo.declare('org.hark.widgets.PreferencesAudio', [dijit._Widget], {
     },
     
     _onPrefChange: function(name, quiet) {
+        var speech;
         if(!this._audio) {
             return;
         } else if(name === 'volume') {
@@ -45,7 +48,7 @@ dojo.declare('org.hark.widgets.PreferencesAudio', [dijit._Widget], {
             if(!quiet) {
                 this._audio.stop();
                 this._audio.stop({channel : 'sound'});
-                var speech = dojo.replace(this._labels.speech_test, 
+                speech = dojo.replace(this._labels.volume_test, 
                     [Math.round(this._prefs.volume * 100)]);
                 this._audio.say({text : speech});
                 this._audio.play({
@@ -62,7 +65,9 @@ dojo.declare('org.hark.widgets.PreferencesAudio', [dijit._Widget], {
             if(!quiet) {
                 this._audio.stop();
                 // say example utterance
-                this._audio.say({text : this._labels.speech_test});
+                speech = dojo.replace(this._labels.volume_test, 
+                    [Math.round(this._prefs.volume * 100)]);
+                this._audio.say({text : speech});
             }
         } else if(name === 'soundVolume') {
             this._audio.setProperty({
@@ -78,6 +83,19 @@ dojo.declare('org.hark.widgets.PreferencesAudio', [dijit._Widget], {
                     channel : 'sound', 
                     url : this._labels.sound_test
                 });
+            }
+        } else if(name === 'speechRate') {
+            this._audio.setProperty({
+                name : 'rate', 
+                value : this._prefs.speechRate,
+                immediate : true
+            });
+            if(!quiet) {
+                this._audio.stop();
+                // say example utterance
+                speech = dojo.replace(this._labels.rate_test,
+                    [Math.round(this._prefs.speechRate)]);
+                this._audio.say({text : speech});
             }
         }
     }
