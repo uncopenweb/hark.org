@@ -21,6 +21,14 @@ dojo.ready(function() {
     var labels = org.hark.localizePage('games');
     // publish the db and help localization to use
     var locale = org.hark.publishLang('home');
+
+    // go to the home page
+    var goHome = function() {
+        // go back to home page
+        var segs = window.location.pathname.split('/');
+        segs[segs.length-1] = 'index.html';
+        window.location.pathname = segs.join('/');
+    };
     
     // listen for game selects and unselects
     dojo.subscribe('/org/hark/ctrl/select-game', function(ctrl, item) {
@@ -28,7 +36,9 @@ dojo.ready(function() {
         var id = encodeURIComponent(item._id);
         // go to play.html?g=gameId
         window.location = 'play.html?g='+id;
-    });
+    });    
+    // listen for game selects and unselects
+    dojo.subscribe('/org/hark/ctrl/leave-page', goHome);
 
     // get the games, tags collections
     var _onDatabaseReady = function(db) {

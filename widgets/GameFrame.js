@@ -41,7 +41,6 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     /* Listen for controller events. */ 
     postCreate: function() {
         dojo.subscribe('/org/hark/ctrl/select-game', this, '_onSelectGame');
-        // dojo.subscribe('/org/hark/ctrl/unselect-game', this, '_onUnselectGame');
         dojo.subscribe('/org/hark/ctrl/pause-game', this, '_onPauseGame');
         dojo.subscribe('/org/hark/ctrl/unpause-game', this, '_onUnpauseGame');
     },

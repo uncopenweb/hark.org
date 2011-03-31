@@ -8,6 +8,8 @@ dojo.require('org.hark.widgets.Preferences');
 dojo.require('dijit._Widget');
 
 dojo.declare('org.hark.widgets.SiteKeys', [dijit._Widget], {
+    // enable keys for nav among major pages of the site
+    enablePageNav: false,
     postMixInProperties: function() {
         this._prefs = org.hark.widgets.Preferences;
     },
@@ -18,12 +20,12 @@ dojo.declare('org.hark.widgets.SiteKeys', [dijit._Widget], {
         });
         dojo.subscribe('/uow/key/down', this, '_onKeyDown');
     },
-    
+
     _onKeyDown: function(event) {
         if(event.shiftKey) {
             if(event.keyCode === dojo.keys.ESCAPE) {
                 dojo.stopEvent(event);
-                dojo.publish('/org/hark/ctrl/unselect-game', [this]);
+                dojo.publish('/org/hark/ctrl/leave-page', [this]);
             } else if(event.keyCode === dojo.keys.UP_ARROW) {
                 dojo.stopEvent(event);
                 this._prefs.volume = Math.min(this._prefs.volume + 0.05, 1.0);
@@ -40,6 +42,12 @@ dojo.declare('org.hark.widgets.SiteKeys', [dijit._Widget], {
                 dojo.stopEvent(event);
                 this._prefs.speechRate = Math.max(this._prefs.speechRate - 20, 80);
                 dojo.publish('/org/hark/prefs/request', ['speechRate']);
+            }
+        } else if(this.enablePageNav) {
+            // @todo: only possibility for now, more later
+            if(event.keyCode === dojo.keys.ENTER) {
+                dojo.stopEvent(event);
+                dojo.publish('/org/hark/ctrl/select-page', [this, 'games']);
             }
         }
     }

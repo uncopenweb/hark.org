@@ -25,11 +25,11 @@ dojo.ready(function() {
         // go back to game catalog with ?g=id
         var segs = window.location.pathname.split('/');
         segs[segs.length-1] = 'games.html';
-        window.location.pathname = segs.join('/');        
+        window.location.pathname = segs.join('/');
     };
     
     // listen for game selects and unselects
-    dojo.subscribe('/org/hark/ctrl/unselect-game', goToCatalog);
+    dojo.subscribe('/org/hark/ctrl/leave-page', goToCatalog);
 
     var _onDatabaseReady = function(db) {
         // find the item based on its id
