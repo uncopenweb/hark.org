@@ -14,14 +14,9 @@ dojo.require('org.hark.widgets.GameListKeys');
 dojo.require('org.hark.widgets.GameListAudio');
 
 dojo.ready(function() {
-    // make sure this browser is viable
-    uow.ui.checkBrowser();
+    // do common setup
+    org.hark.init('games');
     
-    // do our own label interpolation for the page
-    var labels = org.hark.localizePage('games');
-    // publish the db and help localization to use
-    var locale = org.hark.publishLang('home');
-
     // go to the home page
     var goHome = function() {
         // go back to home page
@@ -54,7 +49,4 @@ dojo.ready(function() {
     uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);
     args.collection = 'tags';
     uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);    
-    
-    // trigger login method
-    dijit.byId('site_actions').triggerLogin();
 });

@@ -8,15 +8,5 @@ dojo.require('org.hark.pages.common');
 dojo.requireLocalization('org.hark', 'pages');
 
 dojo.ready(function() {
-    // make sure this browser is viable
-    uow.ui.checkBrowser();
-
-    // do our own label interpolation for the page
-    var labels = org.hark.localizePage();
-    
-    // publish the db and help localization to use
-    org.hark.publishLang('home');
-
-    // update login ui
-    dijit.byId('site_actions').triggerLogin();
+    org.hark.init('home');
 });

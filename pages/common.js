@@ -7,30 +7,23 @@ dojo.provide('org.hark.pages.common');
 dojo.require('org.hark.widgets.SiteTabs');
 dojo.require('org.hark.widgets.SiteActions');
 dojo.require('org.hark.widgets.SiteKeys');
+dojo.require('org.hark.widgets.SiteAudio');
 
 // root path for all urls
 org.hark.rootPath = '../';
 // known supported translations
 org.hark.langs = [];
-// track connect and disconnect counts
-org.hark._keySem = 0;
 // modifier for site wide hotkeys
 
-
 org.hark.connectKeys = function() {
-    org.hark._keySem -= 1;
-    if(org.hark._keySem <= 0) {
-        org.hark._keySem = 0;
-        // start listening for global keys
-        dojo.body().focus();
-        try {
-            uow.ui.connectKeys();
-        } catch(e) { }
-    }
+    // start listening for global keys
+    dojo.body().focus();
+    try {
+        uow.ui.connectKeys();
+    } catch(e) { }
 };
 
 org.hark.disconnectKeys = function() {
-    org.hark._keySem += 1;
     // disable global key catch
     try {
         uow.ui.disconnectKeys();
@@ -63,4 +56,19 @@ org.hark.publishLang = function() {
     }
     dojo.publish('/org/hark/lang', [lang]);
     return lang;
+};
+
+org.hark.init = function(name) {
+    // make sure this browser is viable
+    uow.ui.checkBrowser();
+    // do our own label interpolation for the page
+    var labels = org.hark.localizePage(name);
+    // publish the db and help localization to use
+    var locale = org.hark.publishLang(name);
+    // trigger login method
+    dijit.byId('site_actions').triggerLogin();
+    // connect global key handler
+    org.hark.connectKeys();
+    // publish that keys are connected
+    dojo.publish('/org/hark/ctrl/keys-ready', [null, true]);
 };

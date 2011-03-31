@@ -10,13 +10,10 @@ dojo.require('org.hark.pages.common');
 dojo.require('org.hark.widgets.GameFrame');
 
 dojo.ready(function() {
-    // make sure this browser is viable
-    uow.ui.checkBrowser();
+    // do common setup
+    org.hark.init('play');
     
-    // do our own label interpolation for the page
-    var labels = org.hark.localizePage('games');
-    // publish the db and help localization to use
-    var locale = org.hark.publishLang('home');
+    // parse url search params
     var args = dojo.queryToObject(window.location.search.substr(1));
     // game id
     var id = args.g;
@@ -45,7 +42,4 @@ dojo.ready(function() {
     };
     var args = {database : 'harkhome', mode : 'r', collection : 'games'};
     uow.getDatabase(args).then(_onDatabaseReady, _onDatabaseFailed);
-    
-    // trigger login method
-    dijit.byId('site_actions').triggerLogin();
 });
