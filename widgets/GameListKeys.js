@@ -52,7 +52,8 @@ dojo.declare('org.hark.widgets.GameListKeys', [dijit._Widget], {
     },
     
     _onNavTags: function(event) {
-        if(event.shiftKey) { return; }
+        // avoid conflict with site-wide hotkeys
+        if(event[org.hark.modifier]) { return; }
         switch(event.keyCode) {
             case dojo.keys.UP_ARROW:
                 dojo.stopEvent(event);

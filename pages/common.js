@@ -14,6 +14,7 @@ org.hark.rootPath = '../';
 // known supported translations
 org.hark.langs = [];
 // modifier for site wide hotkeys
+org.hark.modifier = 'shiftKey';
 
 org.hark.connectKeys = function() {
     // start listening for global keys

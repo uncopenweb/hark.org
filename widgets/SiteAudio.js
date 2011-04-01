@@ -27,8 +27,12 @@ dojo.declare('org.hark.widgets.SiteAudio', [dijit._Widget], {
     
     postCreate: function() {
         dojo.subscribe('/org/hark/ctrl/keys-ready', this, '_onKeysReady');
+        dojo.subscribe('/org/hark/ctrl/select-page', this, '_onSelectPage');
+        dojo.subscribe('/org/hark/ctrl/regard-page', this, '_onRegardPage');
+        dojo.subscribe('/org/hark/ctrl/regard-page/first', this, '_onRegardWrapPage');
+        dojo.subscribe('/org/hark/ctrl/regard-page/last', this, '_onRegardWrapPage');
     },
-    
+
     _onKeysReady: function() {
         this._keysReady = true;
         // watch for immediate game select before audio is ready
@@ -39,4 +43,16 @@ dojo.declare('org.hark.widgets.SiteAudio', [dijit._Widget], {
             url : this._labels.ready_sound
         });
     },
+    
+    _onSelectPage: function() {
+        console.log('select page', arguments);
+    },
+    
+    _onRegardPage: function() {
+        console.log('regard page', arguments);
+    },
+    
+    _onRegardWrapPage: function() {
+        console.log('wrap page', arguments);
+    }
 });
