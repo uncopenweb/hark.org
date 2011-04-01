@@ -49,9 +49,6 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     _onSelectGame: function(ctrl, item) {
         this._playing = true;
         
-        // stop other components from intercepting keys
-        // org.hark.disconnectKeys();
-        
         // watch for magic keys on window
         var t = dojo.connect(window, 'onkeydown', this, '_onKeyDown');
         this._connectTokens.push(t);

@@ -1,4 +1,5 @@
 {
+    idle_prompt_speech : 'Use the left and right arrow keys to browse the game catalog. Press up arrow to select a category or game.',
     tag_speech : '{0} games',
     tag_description_speech : 'There are {0} {1} games available.',
     tag_description_speech_s : 'There is {0} {1} game available.',

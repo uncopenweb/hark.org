@@ -10,6 +10,8 @@ dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'SiteAudio');
 
 dojo.declare('org.hark.widgets.SiteAudio', [dijit._Widget], {
+    // make idle prompt announcements?
+    promptIdle: false,
     postMixInProperties: function() {
         this._labels = dojo.i18n.getLocalization('org.hark.widgets', 'SiteAudio');
         // track if keys ready
@@ -37,6 +39,7 @@ dojo.declare('org.hark.widgets.SiteAudio', [dijit._Widget], {
         dojo.subscribe('/org/hark/ctrl/regard-page', this, '_onRegardPage');
         dojo.subscribe('/org/hark/ctrl/regard-page/first', this, '_onRegardWrapPage');
         dojo.subscribe('/org/hark/ctrl/regard-page/last', this, '_onRegardWrapPage');
+        dojo.subscribe('/org/hark/idle', this, '_onUserIdle');
     },
     
     _updateRegard: function(id) {
@@ -85,5 +88,13 @@ dojo.declare('org.hark.widgets.SiteAudio', [dijit._Widget], {
             channel : 'sound', 
             url : this._labels.wrap_list_sound
         });
+    },
+    
+    _onUserIdle: function() {
+        if(!this.promptIdle) {return;}
+        var text = this._labels.idle_prompt_speech;
+        this._audio.stop();
+        this._audio.setProperty({name: 'voice', value: 'default'});
+        this._audio.say({text : text});
     }
 });

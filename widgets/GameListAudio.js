@@ -9,6 +9,8 @@ dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'GameListAudio');
 
 dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
+    // make idle prompt announcements?
+    promptIdle : false,
     // game list model
     model : '',
     postMixInProperties: function() {
@@ -42,6 +44,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
         dojo.subscribe('/org/hark/ctrl/regard-game/busy', this, '_onRegardBusyGame');
         dojo.subscribe('/org/hark/ctrl/regard-tag/first', this, '_onRegardWrapTag');
         dojo.subscribe('/org/hark/ctrl/regard-tag/last', this, '_onRegardWrapTag');
+        dojo.subscribe('/org/hark/idle', this, '_onUserIdle');
     },
     
     _updateRegard: function(id) {
@@ -57,6 +60,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
     },
 
     _onRegardTag: function(ctrl, tag, index, total) {
+        if(!this._audio) {return;}
         var text;
         switch(this._updateRegard(tag).count % 3) {
             // announce tag
@@ -87,6 +91,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
     },
     
     _onRegardGame: function(ctrl, item, index, fetched) {
+        if(!this._audio) {return;}
         var text;
         switch(this._updateRegard(item).count % 3) {
             // report game name
@@ -119,6 +124,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
     },
     
     _onUnselectItem: function() {
+        if(!this._audio) {return;}
         this._audio.stop({channel : 'sound'});
         this._audio.play({
             channel : 'sound', 
@@ -127,6 +133,7 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
     },
     
     _onRegardWrapTag: function() {
+        if(!this._audio) {return;}
         this._audio.stop({channel : 'sound'});
         this._audio.play({
             channel : 'sound', 
@@ -135,12 +142,14 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
     },
 
     _onRegardBusyGame: function() {
+        if(!this._audio) {return;}
         this._audio.stop();
         this._audio.setProperty({name: 'voice', value: 'default+f2'});
         this._audio.say({text : this._labels.busy_list_speech});
     },
     
     _onRegardFirstGame: function() {
+        if(!this._audio) {return;}
         this._audio.stop({channel : 'sound'});
         this._audio.play({
             channel : 'sound', 
@@ -149,10 +158,19 @@ dojo.declare('org.hark.widgets.GameListAudio', [dijit._Widget], {
     },
     
     _onRegardLastGame: function() {
+        if(!this._audio) {return;}
         this._audio.stop({channel : 'sound'});
         this._audio.play({
             channel : 'sound', 
             url : this._labels.last_item_sound
         });     
+    },
+    
+    _onUserIdle: function() {
+        if(!this.promptIdle || !this._audio) {return;}
+        var text = this._labels.idle_prompt_speech;
+        this._audio.stop();
+        this._audio.setProperty({name: 'voice', value: 'default'});
+        this._audio.say({text : text});
     }
 });
