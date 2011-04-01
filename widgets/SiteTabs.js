@@ -28,12 +28,10 @@ dojo.declare('org.hark.widgets.SiteTabs', [dijit._Widget, dijit._Templated], {
 
         // populate links
         dojo.forEach(this.labels.pages, function(item) {
-            console.log(item);
             var a = dojo.create('a', {
                 href : item[0],
                 innerHTML : item[1]
             }, this.idleNode, 'last');
-            console.log(a);
             if(page === item[0]) {
                 // show the active page as selected
                 dojo.addClass(a, 'selected');
