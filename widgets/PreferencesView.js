@@ -19,6 +19,7 @@ dojo.declare('org.hark.widgets.PreferencesView', [dijit._Widget, dijit._Template
 
     postMixInProperties: function() {
         this.labels = dojo.i18n.getLocalization('org.hark.widgets','PreferencesView');
+        // shortcut to preferences model
         this._prefs = org.hark.widgets.Preferences;
     },
     
@@ -39,37 +40,48 @@ dojo.declare('org.hark.widgets.PreferencesView', [dijit._Widget, dijit._Template
     },
     
     _onMousePref: function(value) {
+        if(this._prefs.mouseEnabled === value) {return;}
         this._prefs.mouseEnabled = value;
         dojo.publish('/org/hark/prefs/request', ['mouseEnabled']);
     },
     
     _onSpeechPref: function(value) {
+        if(this._prefs.speechEnabled === value) {return;}
         this._prefs.speechEnabled = value;
         dojo.publish('/org/hark/prefs/request', ['speechEnabled']);
     },
     
     _onSpeechRatePref: function(value) {
+        if(this._prefs.speechRate === value) {return;}
         this._prefs.speechRate = value;
         dojo.publish('/org/hark/prefs/request', ['speechRate']);        
     },
     
     _onVolumePref: function(value) {
-        this._prefs.volume = Math.max(value/100, 0.05);
+        value = Math.max(value/100, 0.05);
+        if(this._prefs.volume === value) {return};
+        this._prefs.volume = value;
         dojo.publish('/org/hark/prefs/request', ['volume']);        
     },
     
     _onSpeechVolumePref: function(value) {
-        this._prefs.speechVolume = Math.max(value/100, 0.05);
+        value = Math.max(value/100, 0.05);
+        if(this._prefs.speechVolume === value) {return};
+        this._prefs.speechVolume = value;
         dojo.publish('/org/hark/prefs/request', ['speechVolume']);                
     },
     
     _onSoundVolumePref: function(value) {
-        this._prefs.soundVolume = Math.max(value/100, 0.05);
+        value = Math.max(value/100, 0.05);
+        if(this._prefs.soundVolume === value) {return};
+        this._prefs.soundVolume = value;
         dojo.publish('/org/hark/prefs/request', ['soundVolume']);
     },
     
     _onMusicVolumePref: function(value) {
-        this._prefs.musicVolume = Math.max(value/100, 0.05);
+        value = Math.max(value/100, 0.05);
+        if(this._prefs.musicVolume === value) {return};
+        this._prefs.musicVolume = value;
         dojo.publish('/org/hark/prefs/request', ['musicVolume']);        
     }
 });
