@@ -17,7 +17,9 @@ dojo.declare('org.hark.widgets.SiteKeys', [dijit._Widget], {
     },
 
     _onKeyDown: function(event) {
-        if(event.shiftKey) {
+        if(event.keyCode === dojo.keys.SHIFT) {
+            dojo.publish('/org/hark/ctrl/stop-audio', [this]);
+        } else if(event.shiftKey) {
             if(event.keyCode === dojo.keys.ESCAPE) {
                 dojo.stopEvent(event);
                 dojo.publish('/org/hark/ctrl/leave-page', [this]);

@@ -39,6 +39,7 @@ dojo.declare('org.hark.widgets.SiteAudio', [dijit._Widget], {
         dojo.subscribe('/org/hark/ctrl/regard-page', this, '_onRegardPage');
         dojo.subscribe('/org/hark/ctrl/regard-page/first', this, '_onRegardWrapPage');
         dojo.subscribe('/org/hark/ctrl/regard-page/last', this, '_onRegardWrapPage');
+        dojo.subscribe('/org/hark/ctrl/stop-audio', this, '_onStopAudio');
         dojo.subscribe('/org/hark/idle', this, '_onUserIdle');
     },
     
@@ -96,5 +97,10 @@ dojo.declare('org.hark.widgets.SiteAudio', [dijit._Widget], {
         this._audio.stop();
         this._audio.setProperty({name: 'voice', value: 'default'});
         this._audio.say({text : text});
+    },
+    
+    _onStopAudio: function() {
+        this._audio.stop();
+        this._audio.stop({channel : sound});
     }
 });
