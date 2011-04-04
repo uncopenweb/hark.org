@@ -101,6 +101,6 @@ dojo.declare('org.hark.widgets.SiteAudio', [dijit._Widget], {
     
     _onStopAudio: function() {
         this._audio.stop();
-        this._audio.stop({channel : sound});
+        this._audio.stop({channel : 'sound'});
     }
 });
