@@ -3,6 +3,7 @@
  *
  *  Copyright UNC Open Web Team 2010. All Rights Reserved.
  */ 
+/*global dojo dijit uow window org*/
 dojo.provide('org.hark.widgets.GameFrame');
 dojo.require('org.hark.widgets.Preferences');
 dojo.require('org.hark.widgets.PreferencesView');
@@ -12,7 +13,7 @@ dojo.require('dijit._Templated');
 dojo.require('dijit.Toolbar');
 dojo.require('dijit.form.CheckBox');
 dojo.require('dijit.form.Slider');
-dojo.require('dijit.TitlePane')
+dojo.require('dijit.TitlePane');
 dojo.require('dojo.i18n');
 dojo.requireLocalization('org.hark.widgets', 'GameFrame');
 
@@ -28,6 +29,8 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         this._connectTokens = [];
         // subscribe tokens for pub/sub
         this._subTokens = [];
+        // context for inner frame key watcher
+        this._keysContext = null;
         // busy overlay
         this._busy = null;
         // busy overlay connection
@@ -49,19 +52,18 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     _onSelectGame: function(ctrl, item) {
         this._playing = true;
         
-        // watch for magic keys on window
+        // prevent tabbing out of the game
         var t = dojo.connect(window, 'onkeydown', this, '_onKeyDown');
         this._connectTokens.push(t);
         
-        // show the game frame and load the game
-        dojo.style(this.domNode, 'display', '');
         // create a new iframe to avoid polluting browser history
         var iframe = this.frameNode = dojo.create('iframe', {}, this.domNode);
+        // watch for frame load
         var tok = dojo.connect(this.frameNode, 'onload', this, '_onLoadFrame');
         this._connectTokens.push(tok);
+        // set the iframe src async else it doesn't always load
         var src = org.hark.rootPath + item.url;
-        // async else it doesn't load
-        setTimeout(function() {iframe.src = src;}, 0);
+        setTimeout(function() {iframe.src = src;}, 100);
         
         // reset busy overlay
         if(this._busy) {
@@ -75,16 +77,13 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
     _onUnselectGame: function() {
         this._playing = false;
 
-        // disconnect all keys
-        if(this._connectTokens.length) {
-            dojo.forEach(this._connectTokens, dojo.disconnect);
-            this._connectTokens = [];
-            dojo.forEach(this._subTokens, dojo.unsubscribe);
-            this._subTokens = [];
-        }
-
-        // hide the game frame and unload the game
-        dojo.style(this.domNode, 'display', 'none');
+        // disconnect and unsubscribe
+        dojo.forEach(this._connectTokens, dojo.disconnect);
+        this._connectTokens = [];
+        dojo.forEach(this._subTokens, dojo.unsubscribe);
+        this._subTokens = [];
+        uow.ui.disconnectKeys(this._keysContext);
+        this._keysContext = null;
 
         // reset busy dialog
         if(this._busy) {
@@ -95,6 +94,13 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
 
         dojo.destroy(this.frameNode);
         this.frameNode = null;
+    },
+    
+    /* Given keyboard input focus to the game. */
+    _focusFrame: function() {
+        setTimeout(dojo.hitch(this, function() {
+            this.frameNode.focus();
+        }), 100);
     },
     
     /* Resume the game. */
@@ -142,43 +148,45 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
             this._paused = false;
         }
         // set focus on the iframe
-        setTimeout(dojo.hitch(this, function() {
-            this.frameNode.focus();
-        }), 0);
+        this._focusFrame();
     },
 
     /* Connect for key events and publishes from the game in the frame. */
     _onLoadFrame: function(event) {
         var cw = event.target.contentWindow;
+        var t;
         if(dojo.isSafari) {
             // safari fails to set the hash for some reason, so force it here
             cw.location.hash = event.target.src.split('#')[1];
         }
-        // @todo: really want to use this page's connectKeys but the problem
-        // is that token tracking is global so this page and iframe's mix
-        // improperly
-        if(cw.uow) {
-        }
-        //var t = dojo.connect(cw, 'onkeydown', this, '_onKeyDown');
-        //this._connectTokens.push(t);
+        
+        // listen for keys on the content window
+        this._keysContext = {window : cw};
+        uow.ui.connectKeys(this._keysContext);
+
         // listen for events within the content window
         if(cw.dojo) {
+            // listen for preference requests inside and outside the frame
             t = dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
             this._subTokens.push(t);
-            t = cw.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
+            // don't track this subscribe because it's the internal frame
+            cw.dojo.subscribe('/org/hark/prefs/request', this, '_onPrefRequest');
+            // let tab handler run for tab events within game frame too to 
+            // prevent tabbing out of the game
+            // @todo: maybe too strict?
+            t = dojo.subscribe('/uow/key/down', this, '_onKeyDown');
             this._subTokens.push(t);
-            t = cw.dojo.subscribe('/uow/key/down', this, function(event) {
-                // let tab handler run for tab events within game frame too
-                this._onKeyDown(event);
-                // publish keys to this window for hotkey handling
-                dojo.publish('/uow/key/down', [event]);
-            });
-            this._subTokens.push(t);            
         }
+        if(cw.uow) {
+            // ignore modified keys in the frame
+            // @todo: maybe too strict?
+            var ignore = {};
+            ignore[org.hark.modifier] = true;
+            cw.uow.ui.ignoreKeys([ignore]);
+        }
+
         // set focus on the iframe
-        setTimeout(dojo.hitch(this, function() {
-            this.frameNode.focus();
-        }), 0);
+        this._focusFrame();
     },
     
     /* Watch for tab keys to avoid leaving game. */
