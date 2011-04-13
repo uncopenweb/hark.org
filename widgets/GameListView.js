@@ -144,7 +144,7 @@ dojo.declare('org.hark.widgets.GameListView', [dijit._Widget, dijit._Templated],
                     dojo.stopEvent(event);
                 });
             } else {
-                nodes.style('display', 'none');
+                dojo.style(nodes[1], 'display', 'none');
             }
         }
     },
