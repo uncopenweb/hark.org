@@ -1,0 +1,50 @@
+[
+    {
+        "name" : "Hark the Sound logo",
+        "license" : "Public domain",
+        "creator" : "hrum",
+        "year" : "2008",
+        "url" : "http://www.openclipart.org/detail/18615",
+        "type" : "image"
+    },
+    {
+        "name" : "Tango Base Icon Theme",
+        "license" : "Public Domain",
+        "creator" : "Tango Desktop Project",
+        "year" : "2009",
+        "url" : "http://tango.freedesktop.org/Tango_Desktop_Project",
+        "type" : "image"
+    },
+    {
+        "name" : "Hark the Sound color palette",
+        "license" : "terms of the Color Scheme Designer license",
+        "creator" : "Petr Stanicek",
+        "year" : "2002, 2010",
+        "url" : "http://colorschemedesigner.com/#3z21TfoGnw0w0",
+        "type" : "image"
+    },
+    {
+        "name" : "sf3-sfx-menu-validate.wav",
+        "license" : "Creative Commons Sampling Plus 1.0 License",
+        "creator" : "broumbroum",
+        "year" : "2008",
+        "url" : "http://www.freesound.org/samplesViewSingle.php?id=50565",
+        "type" : "sound"
+    },
+    {
+        "name" : "Hark the Sound site",
+        "license" : "New BSD License",
+        "creator" : "UNC Open Web Group",
+        "year" : "2010, 2011",
+        "url" : "https://github.com/uncopenweb",
+        "type" : "code"
+    },
+    {
+        "name" : "UNC Open Web Framework",
+        "license" : "New BSD License",
+        "creator" : "UNC Open Web Group",
+        "year" : "2010, 2011",
+        "url" : "https://github.com/uncopenweb/",
+        "type" : "code"
+    }
+]

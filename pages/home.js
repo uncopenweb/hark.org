@@ -10,10 +10,10 @@ dojo.requireLocalization('org.hark', 'pages');
 dojo.ready(function() {
     // do common setup
     org.hark.init('home');
-    
+
     // listen for game selects and unselects
     dojo.subscribe('/org/hark/ctrl/select-page', function(ctrl, page) {
         // go to page
         window.location = page;
-    });
+    });    
 });

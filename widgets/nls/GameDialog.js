@@ -7,5 +7,6 @@
         music : 'Music',
         image : 'Images'
     },
-    item_template : '<p><a href="{url}">{name}</a><br />Copyright &copy; {year} {creator} under the {license}</p>'
+    copyright_item_template : '<p><a href="{url}">{name}</a><br />Copyright &copy; {year} {creator} under the {license}</p>',
+    public_item_template : '<p><a href="{url}">{name}</a><br />Placed in the {license} by {creator} in {year}</p>'
 }

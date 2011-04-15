@@ -105,6 +105,11 @@ a:hover {
     );
 }
 
+#bottom a {
+    color: white;
+    text-decoration: underline;
+}
+
 #bottom_right {
     text-align: right;
 }

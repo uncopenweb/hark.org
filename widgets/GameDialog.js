@@ -14,7 +14,6 @@ org.hark.widgets.GameDialog = (function() {
     var args = {
         baseClass: 'harkGameDialog'
     };
-    var template = labels.item_template;
     var dlg = new dijit.Dialog(args);
     dojo.connect(dlg, 'hide', function() {
         dojo.style(dojo.body(), 'overflow', '');
@@ -26,7 +25,13 @@ org.hark.widgets.GameDialog = (function() {
     var onLoad = function(arr) {
         var sections = {};
         var content = dojo.create('div');
+        var template;
         var spans = dojo.forEach(arr, function(item) {
+            if(item.license.toLowerCase() === 'public domain') {
+                template = labels.public_item_template;
+            } else {
+                template = labels.copyright_item_template;
+            }
             var p = dojo.replace(template, item);
             var t = sections[item.type];
             if(!t) {
@@ -52,10 +57,10 @@ org.hark.widgets.GameDialog = (function() {
             dlg.show();            
         },
         
-        showCredits : function(url) {
+        showCredits : function(url, siteNotGame) {
             this._show(labels.credits_title);
             dojo.xhrGet({
-                url : org.hark.rootPath+url,
+                url : siteNotGame ? url : org.hark.rootPath+url,
                 handleAs: 'json',
                 load: onLoad,
                 error: function(err) {

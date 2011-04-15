@@ -9,6 +9,7 @@ dojo.require('org.hark.widgets.SiteTabs');
 dojo.require('org.hark.widgets.SiteActions');
 dojo.require('org.hark.widgets.SiteKeys');
 dojo.require('org.hark.widgets.SiteAudio');
+dojo.require('org.hark.widgets.GameDialog');
 
 // root path for all urls
 org.hark.rootPath = '../';
@@ -124,4 +125,9 @@ org.hark.init = function(name) {
     dojo.publish('/org/hark/ctrl/keys-ready', [null, true]);
     // monitor the page for idle time and prompt if needed
     org.hark.monitorIdle();
+    // listen for game credits click
+    dojo.query('#bottom a').onclick(function(event) {
+        dojo.stopEvent(event);
+        org.hark.widgets.GameDialog.showCredits('info/attribution.json', true);
+    });
 };
