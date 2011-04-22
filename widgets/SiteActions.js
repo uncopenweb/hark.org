@@ -98,7 +98,6 @@ dojo.declare('org.hark.widgets.SiteActions', [dijit._Widget, dijit._Templated], 
             // show game specific help
             pages.unshift(org.hark.rootPath + this._game.help);
         }
-        console.log(pages);
         org.hark.widgets.GameDialog.showHelp(pages);
     },
     

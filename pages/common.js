@@ -109,25 +109,31 @@ org.hark.monitorIdle = function() {
 
 org.hark.init = function(name) {
     // make sure this browser is viable
-    uow.ui.checkBrowser();
-    // do our own label interpolation for the page
-    var labels = org.hark.localizePage(name);
-    // publish the db and help localization to use
-    var locale = org.hark.publishLang(name);
-    // trigger login method
-    var actions = dijit.byId('site_actions');
-    if(actions) {
-        actions.triggerLogin();
-    }
-    // connect global key handler
-    org.hark.connectKeys();
-    // publish that keys are connected
-    dojo.publish('/org/hark/ctrl/keys-ready', [null, true]);
-    // monitor the page for idle time and prompt if needed
-    org.hark.monitorIdle();
-    // listen for game credits click
-    dojo.query('#bottom a').onclick(function(event) {
-        dojo.stopEvent(event);
-        org.hark.widgets.GameDialog.showCredits('info/attribution.json', true);
+    var def = uow.ui.checkBrowser();
+    def.then(function(ok) {
+        if(ok) {
+            // parse if OK
+            dojo.parser.parse();  
+            // do our own label interpolation for the page
+            var labels = org.hark.localizePage(name);
+            // publish the db and help localization to use
+            var locale = org.hark.publishLang(name);
+            // trigger login method
+            var actions = dijit.byId('site_actions');
+            if(actions) {
+                actions.triggerLogin();
+            }
+            // connect global key handler
+            org.hark.connectKeys();
+            // publish that keys are connected
+            dojo.publish('/org/hark/ctrl/keys-ready', [null, true]);
+            // monitor the page for idle time and prompt if needed
+            org.hark.monitorIdle();
+            // listen for game credits click
+            dojo.query('#bottom a').onclick(function(event) {
+                dojo.stopEvent(event);
+                org.hark.widgets.GameDialog.showCredits('info/attribution.json', true);
+            });
+        }
     });
 };

@@ -66,3 +66,7 @@
 .dj_webkit .harkDropDownButton {
     top: -3px;
 }
+
+.dj_ie .harkDropDownButton {
+    top: -3px;
+}

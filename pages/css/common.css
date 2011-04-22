@@ -8,6 +8,7 @@
 @import "960.css";
 @import "../../widgets/css/SiteTabs.css";
 @import "../../widgets/css/SiteActions.css";
+@import "/libs/uow/ui/css/BrowserDialog.css";
 
 html {
     width: 100%;
