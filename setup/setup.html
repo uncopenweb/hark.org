@@ -94,8 +94,8 @@
                     save : true
                   }).then(function(item) {
                     console.log('added', item.lang, item.name);
-                  }, function() {
-                    console.log('failed tag');
+                  }, function(error) {
+                    console.log('failed tag:', error);
                   });
                 }
               }
