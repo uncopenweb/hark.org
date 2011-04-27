@@ -111,6 +111,8 @@ org.hark.init = function(name) {
     // make sure this browser is viable
     var def = uow.ui.checkBrowser();
     def.then(function(ok) {
+        var nextDef = new dojo.Deferred();
+        // do nothing else if browser check fails
         if(ok) {
             // parse if OK
             dojo.parser.parse();  
@@ -134,6 +136,11 @@ org.hark.init = function(name) {
                 dojo.stopEvent(event);
                 org.hark.widgets.GameDialog.showCredits('info/attribution.json', true);
             });
+            nextDef.callback();
+        } else {
+            nextDef.errback(new Error('incompatible browser'));
         }
+        return nextDef;
     });
+    return def;
 };
