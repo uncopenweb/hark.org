@@ -3,6 +3,7 @@ hark.org website
 ================
 
 :Author: Peter Parente
+:Contributors: Duncan Lewis, Paul Bouchon, Gary Bishop
 :Description: Website listing sound games.
 
 License

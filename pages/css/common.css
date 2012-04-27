@@ -82,6 +82,7 @@ a:hover {
     background-color: white;
     border-bottom: 1px solid #235480;
     border-top: 1px solid #235480;
+    min-height:462px;
 }
 
 #bottom {
