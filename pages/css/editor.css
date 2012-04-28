@@ -107,7 +107,7 @@ button.clean-gray:active {
 .editorSave{
     float:none !important;
     display:block;
-    margin-left:auto !important;
+    margin-left:0px !important;
     margin-bottom:18px !important;
     display:none;
 }

@@ -26,11 +26,15 @@ dojo.declare('org.hark.widgets.GameEditor', [dijit._Widget, dijit._Templated], {
     gen: null,
     // Is this an EDIT or a CREATE?
     clean: false,
+    // Are there errors in the form?
+    valid: true,
     
     postCreate: function(){
         //If this is a NEW game, go straight to getting 
         //approriate schema. Otherwise, start from the type
         this.getGameSchema();
+        //Build error dialog
+        this._buildErrorDialog();
     },
     
     //Get the corresponding
@@ -206,14 +210,112 @@ dojo.declare('org.hark.widgets.GameEditor', [dijit._Widget, dijit._Templated], {
     
     //Validates a form before sending it to the DB
     validate: function(){
-        if(this.clean)
-            this.saveGame();
-        else
-            this.saveModifiedGame();
+        //Validate
+        if(this.gameKind == ("Naming" || "Math"))
+            this._validateNamingGame();
+        else if(this.gameKind == "Category")
+            this._validateCategoryGame();
+        
+        
+        if(this.valid){
+            if(this.clean)
+                this.saveGame();
+            else
+                this.saveModifiedGame();
+        }
+    },
+
+    //Shows error dialog
+    throwError: function(str){
+        dijit.byId('tDialog').set('content', str);
+        dijit.byId('tDialog').show();
+        this.valid = false;
     },
     
-    //Asserts that a field exists on data from form
-    assert: function(obj){
-        return obj.length>0;
+    //Validates a Naming / Math game
+    _validateNamingGame: function(){
+        var data = this.gen.get("value");
+        if(data.Name.length==0){
+            this.throwError("Please enter a Name for this game.");
+        }else if(data.Things.length<2){
+            this.throwError("Please enter at least two Items.");
+        }else if(data.Choices_per_round>data.Things.length){
+            this.throwError("Choices per round cannot be greater than the number of Items.");
+        }else if(data.Question.length==0){
+            this.throwError("Please enter at least one Instruction.");
+        }else{
+            for(var i in data.Question){
+                if(data.Question[i].length==0)
+                    this.throwError("Please do not leave an Instruction blank. Either delete it, or write something.");
+            }
+            for(var j in data.Things){
+                if(!data.Things[j].Name || data.Things[j].Name.length==0){
+                    this.throwError("Please enter a Name for each Item.");
+                }else if(data.Things[j].Prompt.length==0){
+                    this.throwError("Please enter at least one Prompt for each Item.");
+                }else{
+                    for(var k in data.Things[j].Prompt){
+                        if(data.Things[j].Prompt[k].length==0)
+                            this.throwError("Please do not leave a Prompt blank for an Item. Either delete it, or write something.");
+                    }
+                }
+            }
+        }
+    },
+    
+    //Validates a Category game
+    _validateCategoryGame: function(){
+        var data = this.gen.get("value");
+        if(data.Name.length==0){
+            this.throwError("Please enter a Name for this game.");
+        }else if(data.Categories.length<2){
+            this.throwError("Please enter at least two Categories.");
+        }else{
+            for(var i in data.Categories){
+                if(!data.Categories[i].Name.length || data.Categories[i].Name.length==0){
+                    this.throwError("Please enter a Name for each Category.");
+                }else if(data.Categories[i].Exclusion_Question.length==0){
+                    this.throwError("Please enter at least one Exclusion Question for each Cateogry.");
+                }else if(data.Categories[i].Inclusion_Question.length==0){
+                    this.throwError("Please enter at least one Inclusion Question for each Category.");
+                }else if(data.Categories[i].Things.length==0){
+                    this.throwError("Please enter at least one Item in each Category.");
+                }else{
+                    for(var h in data.Categories[i].Things){
+                        if(!data.Categories[i].Things[h].Name || data.Categories[i].Things[h].Name.length==0)
+                            this.throwError("Please enter a Name for each Item in each Category.");
+                    }
+                    for(var j in data.Categories[i].Exclusion_Question){
+                        if(data.Categories[i].Exclusion_Question[j].length==0)
+                            this.throwError("Please do not leave an Exclusion Question blank for a Category. Either delete it, or write something.");
+                    }
+                    for(var k in data.Categories[i].Inclusion_Question){
+                        if(data.Categories[i].Inclusion_Question[k].length==0)
+                            this.throwError("Please do not leave an Inclusion Question blank for a Category. Either delete it, or write something.");
+                    }
+                }
+            }
+        }
+    },
+    
+    //Build the error dialog
+    _buildErrorDialog: function(){
+        secondDlg = new dijit.Dialog({
+            title: "Error",
+            style: "width: 300px;font:14px arial;background:white;",
+            id: 'tDialog'
+        });
+        var h = dojo.create('div',{'style':'margin-left:auto;margin-right:auto;width:80px;margin-bottom:5px'},secondDlg.domNode,'last');
+        var ok = new dijit.form.ToggleButton({
+            label: '<span style="font-family:Arial;font-size:10px;">Ok</span>',
+            showLabel: true,
+            id: 'okButton'
+        });
+        dojo.connect(ok, "onClick", this, function(){
+            dijit.byId("tDialog").hide();
+            this.valid = true;
+        });
+        dojo.place(ok.domNode, h, 'last');
+        return secondDlg
     }
 });
