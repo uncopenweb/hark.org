@@ -40,7 +40,7 @@ dojo.declare('org.hark.widgets.GameExplorer', [dijit._Widget, dijit._Templated],
             mode : 'r'
         }).then(dojo.hitch(this, function(db) {
             db.fetch({
-                query : {_owner :  "duncan.lewis11@gmail.com"},
+                query : {_owner :  this.user},
                 onItem: dojo.hitch(this,function(item) {
                     this.createEntry(db, item);
                     this.items = true;
