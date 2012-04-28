@@ -211,7 +211,7 @@ dojo.declare('org.hark.widgets.GameEditor', [dijit._Widget, dijit._Templated], {
     //Validates a form before sending it to the DB
     validate: function(){
         //Validate
-        if(this.gameKind == ("Naming" || "Math"))
+        if(this.gameKind=="Naming" || this.gameKind=="Math")
             this._validateNamingGame();
         else if(this.gameKind == "Category")
             this._validateCategoryGame();
@@ -300,22 +300,24 @@ dojo.declare('org.hark.widgets.GameEditor', [dijit._Widget, dijit._Templated], {
     
     //Build the error dialog
     _buildErrorDialog: function(){
-        secondDlg = new dijit.Dialog({
-            title: "Error",
-            style: "width: 300px;font:14px arial;background:white;",
-            id: 'tDialog'
-        });
-        var h = dojo.create('div',{'style':'margin-left:auto;margin-right:auto;width:80px;margin-bottom:5px'},secondDlg.domNode,'last');
-        var ok = new dijit.form.ToggleButton({
-            label: '<span style="font-family:Arial;font-size:10px;">Ok</span>',
-            showLabel: true,
-            id: 'okButton'
-        });
-        dojo.connect(ok, "onClick", this, function(){
-            dijit.byId("tDialog").hide();
-            this.valid = true;
-        });
-        dojo.place(ok.domNode, h, 'last');
-        return secondDlg
+        if(!dijit.byId("tDialog")){
+            secondDlg = new dijit.Dialog({
+                title: "Error",
+                style: "width: 300px;font:14px arial;background:white;",
+                id: 'tDialog'
+            });
+            var h = dojo.create('div',{'style':'margin-left:auto;margin-right:auto;width:80px;margin-bottom:5px'},secondDlg.domNode,'last');
+            var ok = new dijit.form.ToggleButton({
+                label: '<span style="font-family:Arial;font-size:10px;">Ok</span>',
+                showLabel: true,
+                id: 'okButton'
+            });
+            dojo.connect(ok, "onClick", this, function(){
+                dijit.byId("tDialog").hide();
+                this.valid = true;
+            });
+            dojo.place(ok.domNode, h, 'last');
+            return secondDlg;
+        }
     }
 });
