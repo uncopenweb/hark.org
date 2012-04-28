@@ -81,9 +81,10 @@ dojo.declare('org.hark.widgets.GameExplorer', [dijit._Widget, dijit._Templated],
         var delFn = dojo.hitch(this,function(e){ this.deleteGame(e, item.dataId, item.kind); });
         var editFn = dojo.hitch(this,function(){ this.editGame(item.dataId, item.kind); });
         dojo.connect(nodes[0],'onclick',this,delFn);
-        if(!item.kind || item.kind.length<1)
+        if(!item.kind || item.kind.length<1){
             dojo.attr(nodes[1], "disabled", "disabled");
-        else
+            dojo.removeAttr(nodes[1], "active");
+        }else
             dojo.connect(nodes[1],'onclick',this,editFn);
     },
     

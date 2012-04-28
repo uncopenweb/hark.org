@@ -82,7 +82,7 @@ button.clean-gray{
     width: 70px; 
 }
 
-button.clean-gray:hover[disabled="notDisabled"] {
+button.clean-gray:hover[active="active"] {
     background-color: #dddddd;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #bbbbbb));
     background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
@@ -96,7 +96,7 @@ button.clean-gray:hover[disabled="notDisabled"] {
     text-shadow: 0 1px 0 #ddd; 
 }
 
-button.clean-gray:active[disabled="notDisabled"] {
+button.clean-gray:active[active="active"] {
     border: 1px solid #aaa;
     border-bottom: 1px solid #888;
     -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
