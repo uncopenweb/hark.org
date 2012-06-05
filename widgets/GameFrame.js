@@ -63,6 +63,7 @@ dojo.declare('org.hark.widgets.GameFrame', [dijit._Widget, dijit._Templated], {
         this._connectTokens.push(tok);
         // set the iframe src async else it doesn't always load
         var src = org.hark.rootPath + item.url;
+        console.log(src);
         setTimeout(function() {iframe.src = src;}, 100);
         
         // reset busy overlay

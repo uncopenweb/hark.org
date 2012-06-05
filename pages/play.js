@@ -30,6 +30,7 @@ dojo.ready(function() {
         dojo.subscribe('/org/hark/ctrl/leave-page', goToCatalog);
 
         var _onDatabaseReady = function(db) {
+            console.log("ID = "+id);
             // find the item based on its id
             db.fetchOne({query : {_id : id}}).then(function(item) {
                 // publish the item for the game frame

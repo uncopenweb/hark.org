@@ -1,7 +1,8 @@
 {
     pages : [
         ["index.html", "Home"],
-        ["games.html", "Games"]
+        ["games.html", "Games"],
+        ["editor.html", "Editor"]
     ],
     quit : "Quit",
     pause_hint : "Click or Shift-Escape to pause",

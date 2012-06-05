@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Game Editor @ Hark the Sound</title>
+    <link href="pages/css/games.css" rel="stylesheet" type="text/css" />
+    <link href="pages/css/editor.css" rel="stylesheet" type="text/css" />
+    <link href="DojoFormGenerator/FormGenerator.css" rel="stylesheet" type="text/css"/>
+    <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/resources/dojo.css" rel="stylesheet" type="text/css"/>
+    <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/grid/resources/Grid.css" rel="stylesheet" type="text/css"/>
+    <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/grid/resources/claroGrid.css" rel="stylesheet" type="text/css"/>
+    <link href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/form/resources/FileInput.css" rel="stylesheet" type="text/css"/>
+    <link href='http://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css' />
+    <script type="text/javascript">
+        var djConfig = {
+            isDebug: false,
+            parseOnLoad: false,
+            baseUrl: './',
+            modulePaths: {
+                'org.hark' : '.',
+                'unc' : "./DojoFormGenerator"
+            }
+        };
+    </script>
+    <script src="http://o.aolcdn.com/dojo/1.6/dojo/dojo.xd.js"></script>
+    <script src="http://o.aolcdn.com/dojo/1.6/dijit/dijit.xd.js"></script>
+    <script src="/libs/uow.js"></script>
+    <script src="pages/form.js"></script>    
+  </head>
+  <body class="claro" tabindex="0">
+    <div id="nav">
+      <div class="container_12" id="nav_container">        
+        <div class="grid_4" dojoType="org.hark.widgets.SiteTabs" id="site_tabs"></div>
+        <div class="grid_8" dojoType="org.hark.widgets.SiteActions" id="site_actions" helpPage="games.html"></div>
+        <div class="clear"></div>
+      </div>
+    </div>
+    
+    <div id="catalog">
+      <div id="top">
+        <div class="container_12" id="top_container">
+          <div class="grid_12" id="top_title">
+            <a href="index.html"><img src="images/logo_flat_64.png" alt="Hark the Sound logo" /></a>
+            <h1><a data-label="site_title" href="index.html">Hark the Sound</a></h1>
+          </div>
+          <div class="clear"></div> 
+        </div>
+      </div>
+
+      <div id="middle">
+        <div class="container_12" id="middle_container">
+            <div id="editDiv">
+                <div class="myGamesTitle">Game Editor</div>
+            </div>
+            <div id="schemaDiv">
+                <div class="myGamesTitle">Game Editor</div>
+                <div class="editNum">1. What type of game do you want to create?</div>
+                <button id="create" class="clean-gray" active="active" style="float:none;">create</button>
+            </div>
+        </div>
+      </div>
+  
+      <div id="bottom">
+        <div class="container_12" id="bottom_container">
+          <div class="grid_6" id="bottom_left">
+            UNC Computer Science<br />
+            Enabling Technology<br />
+            Copyright &copy; 2010, 2011. All Rights Reserved.<br />
+            View the <a href="#">site credits</a> for details.
+          </div>
+          <div class="grid_6" id="bottom_right">
+            <img src="images/unc-logo.png" />
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-6128682-2']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+  </body>
+</html>
