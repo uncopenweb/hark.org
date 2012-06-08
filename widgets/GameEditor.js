@@ -186,10 +186,11 @@ dojo.declare('org.hark.widgets.GameEditor', [dijit._Widget, dijit._Templated], {
     
     //Go back to editorSplash page
     goToSplash: function(label){
-        var segs = window.location.pathname.split('/');
+        console.log("got it");
+        var segs = window.location.href.split('/');
         segs[segs.length-1] = "editor.html";
         var n = segs.join('/');
-        window.location = window.location.origin+n;
+        window.location.href = window.location.href;
     },
     
     //Clean the json returned by the DB
