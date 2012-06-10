@@ -190,7 +190,7 @@ dojo.declare('org.hark.widgets.GameEditor', [dijit._Widget, dijit._Templated], {
         var segs = window.location.href.split('/');
         segs[segs.length-1] = "editor.html";
         var n = segs.join('/');
-        window.location.href = window.location.href;
+        window.location.href = n;
     },
     
     //Clean the json returned by the DB
